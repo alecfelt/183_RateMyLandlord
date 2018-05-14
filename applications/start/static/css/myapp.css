@@ -1,0 +1,104 @@
+/* line 1, ../sass/_main.scss */
+.colorful {
+  color: #bb8833;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to {
+  opacity: 0;
+}
+
+.slide-fade-enter-active {
+  transition: all .3s ease;
+}
+.slide-fade-leave-active {
+  transition: all .8s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
+}
+
+.login_button {
+  margin: 24pt 4pt 24pt 4pt;
+}
+
+.login_content {
+  width: 100%;
+  padding: 32pt 0;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.login_form {
+  width: 70%;
+}
+
+.main_content {
+  width: 100%;
+  padding: 32pt 0;
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.app_content {
+  width: 70%;
+}
+
+#new_memo {
+  margin: 16pt 0;
+  padding: 16pt 16pt 0 16pt;
+  -webkit-box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+  box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+}
+
+#memo_title_input div input{
+  padding: 4pt 0;
+  font-size: 110%;
+}
+
+#memo_body_input div input{
+  padding: 4pt 0;
+}
+
+.new_memo_buttons {
+  width: 100%;
+  padding: 16pt 0 0 0;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.memo {
+  margin: 16pt 0;
+  padding: 16pt;
+  -webkit-box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+  -moz-box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+  box-shadow: 8px 16px 60px 0px rgba(0,0,0,0.12);
+}
+
+.memo_title{
+  font-size: 150%;
+  font-weight: bold;
+}
+
+.button_list{
+  width: 100%;
+  padding: 16pt 0 0 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button_list button{
+  padding: 8pt;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -1,0 +1,139 @@
+{{extend 'layout.html'}}
+
+{{block head}}
+<script src="{{=URL('static', 'js/vue.js')}}"></script>
+<script>
+  var memo_list_url = "{{=URL('api', 'get_memos')}}";
+  var add_memo_url = "{{=URL('api', 'add_memo', user_signature=True)}}";
+  var del_memo_url = "{{=URL('api', 'del_memo', user_signature=True)}}";
+  var edit_memo_url = "{{=URL('api', 'edit_memo', user_signature=True)}}"
+  var toggle_publicity_url = "{{=URL('api', 'toggle_publicity', user_signature=True)}}"
+  var get_email_url = "{{=URL('api', 'get_my_email', user_signature=True)}}"
+</script>
+{{end}}
+
+<div class="main_content">
+  <div class="app_content">
+    <div id="vue-div" v-cloak>
+      <transition name="fade">
+      <div v-if="logged_in">
+        <p v-if="!are_privates && !is_creating">Please use the add new memo button to create your first memo!</p>
+        <p v-if="!are_privates && is_creating">Great! Now fill out this form with your first memo and hit the "Post This Memo" button to post it. Or you can cancel below.</p>
+        <button v-if="!is_creating"
+                v-on:click="form_toggle()"
+                id="add_new_memo_btn"
+                class="btn btn-default">
+          <i class="fa fa-plus"></i> Add New Memo
+        </button>
+        <button v-if="is_creating" class="btn btn-default"  id="add_new_memo_btn" v-on:click="form_toggle()">
+          <i class="fa fa-times fa-lg"></i> Cancel
+        </button>
+
+        <div v-if="is_creating" id="new_memo">
+          <p class="memo_title">New Memo</p>
+          <form action="#" v-on:submit.prevent="add_memo" class="form-horizontal">
+            <div class="form-group" id="memo_title_input">
+              <div>
+                <input placeholder="Memo Title" v-model="form_title" name="title" type="text" />
+              </div>
+            </div>
+            <div class="form-group" id="memo_body_input">
+              <div>
+                <input placeholder="Memo Content" v-model="form_body" name="body" type="text" />
+              </div>
+            </div>
+            <div class="new_memo_buttons">
+              <div class="form-group" id="submit_memo">
+                <div>
+                  <input class="btn btn-primary btn-default" id="add_memo_btn" type="submit" value="Post This Memo" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <h3 v-if="are_privates">Your Memos</h3>
+        <div class="memo_list">
+          <div v-for="memo in memo_list">
+            <div v-if="current_user === memo.user_email" class="memo">
+              <p v-if="!memo.is_being_edited" class="memo_title">${memo.title}</p>
+              <p v-if="!memo.is_being_edited">${memo.body}</p>
+              <div v-if="memo.is_being_edited" class="memo_editor">
+                <form action="#" v-on:submit.prevent="edit_memo(memo.id, memo.editor_body, memo.editor_title)" class="form-horizontal">
+                  <div class="form-group" id="memo_title_input">
+                    <div>
+                      <input placeholder="Memo Title" v-model="memo.editor_title" name="title" type="text" />
+                    </div>
+                  </div>
+                  <div class="form-group" id="memo_body_input">
+                    <div>
+                      <input placeholder="Memo Content" v-model="memo.editor_body" name="body" type="text" />
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div v-if="memo.is_being_edited" class="editor button_list">
+                <button class="btn btn-default" v-on:click="edit_memo(memo.id, memo.editor_body, memo.editor_title)" href="">
+                  <i class="fa fa-save fa-lg"></i>
+                </button>
+                <button v-on:click="cancel_edit_memo_btn(memo.id)" class="btn btn-default" href="">
+                  <i class="fa fa-times fa-lg"></i>
+                </button>
+              </div>
+              <div v-if="!memo.is_being_edited" class="static button_list">
+                <button v-if="memo.is_public" v-on:click="toggle_publicity(memo.id, false)" class="btn btn-default" href="">
+                  <i class="fa fa-users"></i>
+                </button>
+                <button v-if="!memo.is_public" v-on:click="toggle_publicity(memo.id, true)" class="btn btn-default" href="">
+                  <i class="fa fa-user"></i>
+                </button>
+                <button v-on:click="edit_memo_btn(memo.id)" class="btn btn-default" href="">
+                  <i class="fa fa-edit fa-lg"></i>
+                </button>
+
+                <!-- Button to Delete  -->
+                <button v-on:click="delete_memo(memo.id)"
+                        class="btn btn-default">
+                  <i class="fa fa-trash fa-lg"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <h3 v-if="are_publics">Public Memos</h3>
+      <div class="memo_list">
+        <div v-for="memo in memo_list">
+          <div v-if="(current_user !== memo.user_email) && memo.is_public === true" class="memo">
+            <p class="memo_title">${memo.title}</p>
+            <p>${memo.body}</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    </transition>
+    <div v-if="!logged_in">
+      <h1 class="main_title">Welcome!</h1>
+      <p class="explanation">This site will allow you to create and post memos. You'll have the ability to live edit your memos as well. Please log in to fully utilize this site.</p>
+      <div class="login_button">
+        <a href="{{=URL('default', 'user')}}" class="btn btn-default">Login</a>
+      </div>
+
+      <div v-if="are_publics">
+        <h3>Public Memos</h3>
+        <div class="memo_list">
+          <div v-for="memo in memo_list">
+            <div v-if="memo.is_public === true" class="memo">
+              <p class="memo_title">${memo.title}</p>
+              <p>${memo.body}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</div>
+
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>
