@@ -43,6 +43,24 @@ h1, h2, h3, h4, h5, h6{
   width: 70%;
 }
 
+.center_button_list {
+  margin: 24pt 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.center_button_list a{
+  padding: 24pt 48pt;
+  font-size: 100%;
+  text-transform: uppercase;
+  font-family: 'Montserrat', sans-serif;
+}
+
+
+
 .main_content {
   width: 100%;
   padding: 32pt 0;
