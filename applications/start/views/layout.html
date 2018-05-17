@@ -9,17 +9,19 @@
     <link href="{{=URL('static','css/calendar.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/web2py.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/myapp.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/layout.css')}}" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Raleway" rel="stylesheet">
     {{include "web2py_ajax.html"}}
   </head>
-  <body class="black">
+  <body>
     {{if response.flash:}}
     <div class="w2p_flash">
       {{=response.flash}}
     </div>
     {{pass}}
-    <header class="black padded">
-      <div class="container middle max900">
+    <header class="navbar">
+      <div class="nav">
         <div class="fill middle">
           <label class="ham padded fa fa-bars" for="menu"></label>
           <div class="burger accordion">
@@ -34,26 +36,16 @@
         </div>
       </div>
     </header>
-    <main class="white">
+    <main>
       {{include}}
     </main>
-    <footer class="black">
-      <div class="silver center padded social">
-        <a class="fa fa-facebook" href="https://www.facebook.com/sharer/sharer.php?u={url}"></a>
-        <a class="fa fa-twitter" href="https://twitter.com/home?status={url}"></a>
-        <a class="fa fa-google" href="https://plus.google.com/share?url={url}"></a>
-      </div>
-      <div class="container padded max900">
-        <div class="fill">
-          Copyright @ 2016
-        </div>
+    <footer>
+      <div class="footer">
+        <p>&copy; 2018</p>
       </div>
     </footer>
   </body>
   <script src="{{=URL('static','js/marked.min.js')}}"></script>
   <script src="{{=URL('static','js/vue.min.js')}}"></script>
   {{block bottomjs}}{{end}}
-  <script>
-    jQuery('.social a').each(function(){var t=jQuery(this); t.attr('href',t.attr('href').replace('{url}',encodeURIComponent(window.location.href)));});
-  </script>
 </html>
