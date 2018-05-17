@@ -1,3 +1,7 @@
+h1, h2, h3, h4, h5, h6{
+  font-family: 'Open Sans', sans-serif;
+}
+
 /* line 1, ../sass/_main.scss */
 .colorful {
   color: #bb8833;
