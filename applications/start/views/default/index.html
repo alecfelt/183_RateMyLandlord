@@ -25,7 +25,7 @@
                 class="btn">
           <i class="fa fa-plus"></i> Add New Memo
         </button>
-        <button v-if="is_creating" class="btn "  id="add_new_memo_btn" v-on:click="form_toggle()">
+        <button v-if="is_creating" class="btn"  id="add_new_memo_btn" v-on:click="form_toggle()">
           <i class="fa fa-times fa-lg"></i> Cancel
         </button>
 
@@ -114,23 +114,26 @@
     </div>
     </transition>
     <div v-if="!logged_in">
+
       <h1 class="main_title">Welcome!</h1>
-      <p class="explanation">This site will allow you to create and post memos. You'll have the ability to live edit your memos as well. Please log in to fully utilize this site.</p>
+      <p class="explanation">This site will allow you to post and react to reviews of local landlords. You can view all public reviews without an account, but in order to edit your reviews and interact with the community, you will need to create one and log in.</p>
       <div class="login_button">
-        <a href="{{=URL('default', 'user')}}" class="btn">Login</a>
+        <a href="{{=URL('default', 'user')}}" class="btn rounded">Login / Sign Up</a>
       </div>
 
-      <div v-if="are_publics">
-        <h3>Public Memos</h3>
-        <div class="memo_list">
-          <div v-for="memo in memo_list">
-            <div v-if="memo.is_public === true" class="memo">
-              <p class="memo_title">${memo.title}</p>
-              <p>${memo.body}</p>
-            </div>
-          </div>
+      <div class="initial-prompt">
+        <h2>Find what you are looking for?</h2>
+        <div class="">
+          <a href="{{=URL('default', 'user')}}" class="btn rounded">Find a Landlord</a>
+        </div>
+        <div class="">
+          <a href="{{=URL('default', 'user')}}" class="btn rounded">Find a House</a>
+        </div>
+        <div class="">
+          <a href="{{=URL('default', 'user')}}" class="btn rounded">Write a Review</a>
         </div>
       </div>
+
     </div>
   </div>
   </div>
