@@ -29,19 +29,139 @@
           <i class="fa fa-times fa-lg"></i> Cancel
         </button>
 
+        <!-- <div v-if="is_creating" id="new_memo"> -->
+        <!--   <p class="memo_title">New Memo</p> -->
+        <!--   <form action="#" v-on:submit.prevent="add_memo" class="form-horizontal"> -->
+        <!--     <div class="form-group" id="memo_title_input"> -->
+        <!--       <div> -->
+        <!--         <input placeholder="Memo Title" v-model="form_title" name="title" type="text" /> -->
+        <!--       </div> -->
+        <!--     </div> -->
+        <!--     <div class="form-group" id="memo_body_input"> -->
+        <!--       <div> -->
+        <!--         <input placeholder="Memo Content" v-model="form_body" name="body" type="text" /> -->
+        <!--       </div> -->
+        <!--     </div> -->
+        <!--     <div class="new_memo_buttons"> -->
+        <!--       <div class="form-group" id="submit_memo"> -->
+        <!--         <div> -->
+        <!--           <input class="btn btn-primary " id="add_memo_btn" type="submit" value="Post This Memo" /> -->
+        <!--         </div> -->
+        <!--       </div> -->
+        <!--     </div> -->
+        <!--   </form> -->
+        <!-- </div> -->
+
         <div v-if="is_creating" id="new_memo">
           <p class="memo_title">New Memo</p>
           <form action="#" v-on:submit.prevent="add_memo" class="form-horizontal">
-            <div class="form-group" id="memo_title_input">
-              <div>
-                <input placeholder="Memo Title" v-model="form_title" name="title" type="text" />
-              </div>
+       
+            <div>
+              <input 
+                placeholder="Memo Title: left these the same for now" 
+                v-model="form_title" 
+                name="title" 
+                type="text"/>
             </div>
-            <div class="form-group" id="memo_body_input">
-              <div>
-                <input placeholder="Memo Content" v-model="form_body" name="body" type="text" />
-              </div>
+            
+            <div>
+              <input placeholder="Memo Content" v-model="form_body" name="body" type="text" />
             </div>
+            
+            <div>
+                <p> Rate your landlord </p>
+                <select>
+                    <option selected="true" disabled="true"> 
+                        please select
+                    </option>
+                    <option value="1"> 1 </option>
+                    <option value="2"> 2 </option>
+                    <option value="3"> 3 </option>
+                    <option value="4"> 4 </option>
+                    <option value="5"> 5 </option>
+                </select>
+            <div>
+ 
+            <div>
+                <p> Rate your property </p>
+                <select>
+                    <option selected="true" disabled="true"> 
+                        please select
+                    </option>
+                    <option value="1"> 1 </option>
+                    <option value="2"> 2 </option>
+                    <option value="3"> 3 </option>
+                    <option value="4"> 4 </option>
+                    <option value="5"> 5 </option>
+                </select>
+            </div>
+            
+            <div>
+                <p> is this a landlord or a land management group </p>
+                <select>
+                    <option value="landlord"> landlord </option>
+                    <option value="group/org/ect"> group/org/ect </option>
+                </select>
+            </div>
+
+            <div>
+                <p> How would you rate your landlord's responsiveness? </p>
+                <div>
+                   <select>
+                        <option selected="true" disabled="true"> 
+                            perhaps we can fill this with fun descriptive words 
+                            similar to RMP
+                        </option>
+                        <option value="1"> 1 </option>
+                        <option value="2"> 2 </option>
+                        <option value="3"> 3 </option>
+                        <option value="4"> 4 </option>
+                        <option value="5"> 5 </option>
+                    </select>
+                </div>
+            </div>
+            
+            <div>
+                <p> Would you rent with this landlord again?<p>
+                <div>
+                    <input type="radio" name="land" value="yes">yes!<br>
+                    <input type="radio" name="land" value="no">no!<br>
+                </div>
+            </div>
+
+            <div>
+                <p> Would you rent this propery again? </p>
+                <div>
+                    <input type="radio" name="rent" value="yes">yes!<br>
+                    <input type="radio" name="rent" value="no">no!<br>
+                </div>
+            </div>
+            
+            <div>
+                <p> chill? </p> 
+                <div>
+                    <input type="radio" name="chill"> yas <br>
+                    <input type="radio" name="chill"> yesn't <br>
+                </div>
+            </div>
+
+            <div>
+                <p> 
+                    please select from a list of tags that you think you'd find helpful
+                    perhaps this could also take in user #hashtags or something cool.
+                </p>
+                <div>
+                    <ul>
+                        <li>pets allowed</li>
+                        <li>show up unannounced</li>
+                        <li>lives far away</li>
+                        <li>accepts venmo</li>
+                        <li>. . . if this list goes longer the footer covers sumbit button</li>
+                        <li>write your own?</li>
+                    </ul>
+                </div>
+            </div>
+
             <div class="new_memo_buttons">
               <div class="form-group" id="submit_memo">
                 <div>
@@ -51,6 +171,7 @@
             </div>
           </form>
         </div>
+
 
         <h3 v-if="are_privates">Your Memos</h3>
         <div class="memo_list">
