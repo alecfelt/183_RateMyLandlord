@@ -11,24 +11,45 @@
   {{include "web2py_ajax.html"}}
 {{end}}
 
-<div class="main-content" id="vue-div">
-  <div class="navbar">
-    <h1>RateMyLandlord</h1>
-    <ul>
-      <li>Write a Review</li>
-      <li>Find a Landlord</li>
-      <li>Find a Property</li>
-    </ul>
+<div class="main-content">
+
+  <div class="main-app">
+    <div class="nav-bar">
+      <div class="logo">
+        <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
+      </div>
+      <div class="nav-links">
+        <ul>
+          <li><a href="">Write a Review</a></li>
+          <li><a href="">Find a Landlord</a></li>
+          <li><a href="">Find a Property</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- VUE CODE SHOULD BE LOADED HERE -->
+    <div id="vue-div">
+      <div v-if="page == 0"> <home-page></home-page> </div>
+      <div v-if="page == 1"> <write-review></write-review> </div>
+      <div v-if="page == 2"> <find-landlord></find-landlord> </div>
+      <div v-if="page == 3"> <find-house></find-house> </div>
+      <div v-if="page == 4"> <house-page></house-page> </div>
+      <div v-if="page == 5"> <landlord-page></landlord-page> </div>
+      <div v-if="page == 6"> <landlord-review></landlord-review> </div>
+      <div v-if="page == 7"> <house-review></house-review> </div>
+    </div>
+
   </div>
 
-  <div v-if="page == 0"> <home-page></home-page> </div>
-  <div v-if="page == 1"> <write-review></write-review> </div>
-  <div v-if="page == 2"> <find-landlord></find-landlord> </div>
-  <div v-if="page == 3"> <find-house></find-house> </div>
-  <div v-if="page == 4"> <house-page></house-page> </div>
-  <div v-if="page == 5"> <landlord-page></landlord-page> </div>
-  <div v-if="page == 6"> <landlord-review></landlord-review> </div>
-  <div v-if="page == 7"> <house-review></house-review> </div>
+  <div class="footer">
+    <div class="footer-content">
+      <ul>
+        <li><a href="">About</a></li>
+        <li><a href="">Contact</a></li>
+        <li>RateMyLandlord Team &copy; 2018</li>
+      </ul>
+    </div>
+  </div>
 
 </div>
 

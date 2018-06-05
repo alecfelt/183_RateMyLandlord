@@ -362,3 +362,11 @@
 127.0.0.1, 2018-06-05 15:57:32, GET, /rml/static/js/calendar.js, HTTP/1.1, 200, 0.000481
 127.0.0.1, 2018-06-05 15:57:32, GET, /rml/static/js/web2py.js, HTTP/1.1, 200, 0.000457
 127.0.0.1, 2018-06-05 15:57:32, GET, /rml/static/js/default_index.js, HTTP/1.1, 200, 0.000752
+127.0.0.1, 2018-06-05 16:15:12, GET, /, HTTP/1.1, 200, 0.011912
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/js/vue.js, HTTP/1.1, 200, 0.000891
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/css/main.css, HTTP/1.1, 200, 0.000644
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/js/jquery.js, HTTP/1.1, 200, 0.000575
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/css/calendar.css, HTTP/1.1, 200, 0.000503
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/js/calendar.js, HTTP/1.1, 200, 0.000459
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/js/web2py.js, HTTP/1.1, 200, 0.000420
+127.0.0.1, 2018-06-05 16:15:12, GET, /rml/static/js/default_index.js, HTTP/1.1, 200, 0.000755

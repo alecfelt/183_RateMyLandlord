@@ -1,7 +1,123 @@
+ /* THESE ARE BASIC STYLES AND REFERENCES */
+ body {
+  margin: 0 0 0 0;
+ }
+
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
+  color: #091A22;
 }
 
 p, a, b, li {
   font-family: 'Open Sans', sans-serif;
+  color: #091A22;
+}
+
+.text-orange {
+  color: #F49D37
+}
+
+.text-blue {
+  color: #2E86AB;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.main-app {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 80%;
+}
+
+/* NAVIGATION STYLING */
+
+.nav-bar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.logo a {
+  text-decoration: none;
+}
+
+.logo a h1 {
+  color: #F49D37;
+
+  transition: color ease-in-out 150ms;
+}
+
+.logo a:hover h1{
+  color: #2E86AB;
+}
+
+.nav-links ul li {
+  display: inline;
+  margin: 4pt;
+}
+
+.nav-links ul li a {
+  text-decoration: none;
+  text-transform: lowercase;
+  color: #2E86AB;
+
+  transition: color ease-in-out 150ms;
+}
+
+.nav-links ul li a:hover {
+  color: #F49D37;
+}
+
+/* EVERYTHING FOR THE FOOTER */
+.footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: flex-end;
+  align-items: center;
+  background-color: #091A22;
+  width: 100%;
+}
+
+.footer-content {
+  width: 90%;
+}
+
+.footer-content ul li {
+  display: inline;
+  margin: 2pt;
+}
+
+.footer-content ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 50%;
+  color: #FFFFFF;
+  opacity: .60;
+
+  transition: color ease-in-out 150ms;
+}
+
+.footer-content ul li {
+  text-transform: uppercase;
+  font-size: 50%;
+  color: #FFFFFF;
+  opacity: .60;
+}
+
+.footer-content ul li a:hover {
+  color: #F49D37;
 }
