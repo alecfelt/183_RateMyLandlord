@@ -14,7 +14,7 @@ p, a, b, li, input {
 }
 
 .text-orange {
-  color: #F49D37
+  color: #F49D37;
 }
 
 .text-blue {
@@ -80,6 +80,36 @@ p, a, b, li, input {
 
 .nav-links ul li a:hover {
   color: #F49D37;
+}
+
+.search {
+  margin-top: 32pt;
+  width: 80%;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#search-box {
+  border: 1px solid rgba(9, 26, 34, 0.1);
+  border-radius: 4pt;
+  padding: 8pt 16pt;
+  width: 100%;
+  font-size: 100%;
+}
+
+#search-button {
+  border: 1px solid rgba(9, 26, 34, 0.1);
+  background-color: #F49D37;
+  border-radius: 4pt;
+  font-size: 100%;
+  padding: 10pt 16pt;
+  color: #FFF;
 }
 
 /* EVERYTHING FOR THE FOOTER */
