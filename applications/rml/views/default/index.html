@@ -8,9 +8,10 @@
 
   <!-- STYLESHEETS GO HERE -->
   <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+  {{include "web2py_ajax.html"}}
 {{end}}
 
-<div class="main-content">
+<div class="main-content" id="vue-div">
   <div class="navbar">
     <h1>RateMyLandlord</h1>
     <ul>
@@ -19,4 +20,16 @@
       <li>Find a Property</li>
     </ul>
   </div>
+
+  <div v-if="page == 0"> <home-page></home-page> </div>
+  <div v-if="page == 1"> <write-review></write-review> </div>
+  <div v-if="page == 2"> <find-landlord></find-landlord> </div>
+  <div v-if="page == 3"> <find-house></find-house> </div>
+  <div v-if="page == 4"> <house-page></house-page> </div>
+  <div v-if="page == 5"> <landlord-page></landlord-page> </div>
+  <div v-if="page == 6"> <landlord-review></landlord-review> </div>
+  <div v-if="page == 7"> <house-review></house-review> </div>
+
 </div>
+
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>
