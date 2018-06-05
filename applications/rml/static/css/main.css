@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #091A22;
 }
 
-p, a, b, li {
+p, a, b, li, input {
   font-family: 'Open Sans', sans-serif;
   color: #091A22;
 }
@@ -72,6 +72,7 @@ p, a, b, li {
 .nav-links ul li a {
   text-decoration: none;
   text-transform: lowercase;
+  font-size: 70%;
   color: #2E86AB;
 
   transition: color ease-in-out 150ms;
