@@ -98,6 +98,8 @@ p, a, b, li, input {
 #search-box {
   border: 1px solid rgba(9, 26, 34, 0.1);
   border-radius: 4pt;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 8pt 16pt;
   width: 100%;
   font-size: 100%;
@@ -107,6 +109,8 @@ p, a, b, li, input {
   border: 1px solid rgba(9, 26, 34, 0.1);
   background-color: #F49D37;
   border-radius: 4pt;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
   font-size: 100%;
   padding: 10pt 16pt;
   color: #FFF;
