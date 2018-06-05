@@ -1,4 +1,7 @@
  /* THESE ARE BASIC STYLES AND REFERENCES */
+ body {
+  margin: 0 0 0 0;
+ }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
@@ -75,5 +78,46 @@ p, a, b, li {
 }
 
 .nav-links ul li a:hover {
+  color: #F49D37;
+}
+
+/* EVERYTHING FOR THE FOOTER */
+.footer{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-self: flex-end;
+  align-items: center;
+  background-color: #091A22;
+  width: 100%;
+}
+
+.footer-content {
+  width: 90%;
+}
+
+.footer-content ul li {
+  display: inline;
+  margin: 2pt;
+}
+
+.footer-content ul li a {
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 50%;
+  color: #FFFFFF;
+  opacity: .60;
+
+  transition: color ease-in-out 150ms;
+}
+
+.footer-content ul li {
+  text-transform: uppercase;
+  font-size: 50%;
+  color: #FFFFFF;
+  opacity: .60;
+}
+
+.footer-content ul li a:hover {
   color: #F49D37;
 }
