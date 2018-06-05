@@ -9,6 +9,8 @@
 
   <!-- STYLESHEETS GO HERE -->
   <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+
+  {{include 'web2py_ajax.html'}}
 {{end}}
 
 <div class="main-content">
@@ -50,3 +52,5 @@
   </div>
 
 </div>
+
+<script src="{{=URL('static', 'js/default_index.js')}}"></script>

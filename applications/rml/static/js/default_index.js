@@ -1,5 +1,9 @@
 // This is the js for the default/index.html view.
 
+$(window).on("load", function() {
+  $('.main-content').css('opacity', '1');
+});
+
 var app = function() {
 
   var self = {};
