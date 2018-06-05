@@ -1,20 +1,20 @@
  /* THESE ARE BASIC STYLES AND REFERENCES */
- body {
+body {
   margin: 0 0 0 0;
- }
+}
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Oswald', sans-serif;
   color: #091A22;
 }
 
-p, a, b, li {
+p, a, b, li, input {
   font-family: 'Open Sans', sans-serif;
   color: #091A22;
 }
 
 .text-orange {
-  color: #F49D37
+  color: #F49D37;
 }
 
 .text-blue {
@@ -72,6 +72,7 @@ p, a, b, li {
 .nav-links ul li a {
   text-decoration: none;
   text-transform: lowercase;
+  font-size: 70%;
   color: #2E86AB;
 
   transition: color ease-in-out 150ms;
@@ -79,6 +80,48 @@ p, a, b, li {
 
 .nav-links ul li a:hover {
   color: #F49D37;
+}
+
+.search {
+  margin-top: 16pt;
+  width: 80%;
+}
+
+.search-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#search-box {
+  border: 1px solid rgba(9, 26, 34, 0.1);
+  border-radius: 4pt;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  padding: 8pt 16pt;
+  width: 100%;
+  font-size: 100%;
+}
+
+#search-button {
+  border: 1.5px solid rgba(9, 26, 34, 0.1);
+  background-color: #F49D37;
+  border-radius: 4pt;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  font-size: 100%;
+  padding: 10pt 16pt;
+  color: #FFF;
+
+  transition: background-color ease-in-out 150ms;
+}
+
+#search-button:hover {
+  cursor: pointer;
+  background-color: #2E86AB;
+  color: #FFF;
 }
 
 /* EVERYTHING FOR THE FOOTER */

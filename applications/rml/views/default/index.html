@@ -5,6 +5,7 @@
 
   <!-- FONTS GO HERE -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+  <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
 
   <!-- STYLESHEETS GO HERE -->
   <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
@@ -25,6 +26,14 @@
           <li><a href="">Find a Property</a></li>
         </ul>
       </div>
+    </div>
+    <div class="search">
+      <form class="search-form">
+        <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
+        <button id="search-button">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
     </div>
 
     <!-- VUE CODE SHOULD BE LOADED HERE -->
