@@ -39,6 +39,7 @@ new Vue({
                         <th>Comments</th>
                     </tr>
 
+
                     <tr>
                         <td>
                             <p> date?? rmp has this and it could be relevant </p>
@@ -65,8 +66,50 @@ new Vue({
                                 bottom line: yes/no would rate with ll again
                             <p>
                         </td>
-
                     </tr>
+
+                    <br>
+                    <br>
+                    Line breaks for readability
+                    <br>
+                    <br>
+
+                    <tr>
+                        <td>
+                            <p> date?? 11/2/18 </p>
+                            <p> 4 </p>
+                            <p></p>
+                        </td>
+
+                        <td>
+                            <p><a href="">
+                                420 high St
+                            </a></p>
+                            <p> Very Responsive </p>
+                            <p> chill? yee </p>
+                        </td>
+
+                        <td>
+                            <span> lives far </span>
+                            <span> accepts venmo </span>
+                            <p>
+                                Greg is the bes, the rent is cheap and he even let my housemate
+                                keep a pet hedgehog in the house.  The only downside I guess is
+                                That Greg absolutely stressed that we could not have subletters,
+                                a bit of a bummer since I went away for summer and had to get
+                                a little sneaky with letting my friend stay in.  All in all a
+                                pretty chill set up and Greg is fine with students.  EXPENSIVE
+                                though but what did you expect?
+
+                            </p>
+                            <p>
+                                bottom line: yes I would rent with Greg again
+                            <p>
+                        </td>
+                    </tr>
+
+
+
                 </tbody>
             </table>
 
