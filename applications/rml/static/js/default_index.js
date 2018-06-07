@@ -6,10 +6,147 @@ $(window).on("load", function() {
 
 // components
 
-var HomePage = {
+Vue.component('HomePage', {
   template: `
   `
-}, WriteReview = {
+});
+Vue.component('WriteReview', {
+  props: ['landlord'],
+  template: `
+    <div class="sub-page">
+      <div class="write-review-card">
+        <h1> Write a Review </h1>
+        <form action="#" v-on:submit.prevent="add_review" class="review-items">
+          <div>
+            <input
+              placeholder="Memo Title: left these the same for now"
+              v-model="form_title"
+              name="title"
+              type="text" />
+          </div>
+
+          <div>
+            <input
+              placeholder="Memo Content"
+              v-model="form_body"
+              name="body"
+              type="text" />
+          </div>
+
+          <div>
+              <p> Rate your landlord </p>
+              <select v-model="form_landlord_rating">
+                  <option selected="true" disabled="true">
+                      please select
+                  </option>
+                  <option value="1"> 1 </option>
+                  <option value="2"> 2 </option>
+                  <option value="3"> 3 </option>
+                  <option value="4"> 4 </option>
+                  <option value="5"> 5 </option>
+              </select>
+          </div>
+
+          <div>
+              <p> Rate your property </p>
+              <select v-model="form_property_rating">
+                  <option selected="true" disabled="true">
+                      please select
+                  </option>
+                  <option value="1"> 1 </option>
+                  <option value="2"> 2 </option>
+                  <option value="3"> 3 </option>
+                  <option value="4"> 4 </option>
+                  <option value="5"> 5 </option>
+              </select>
+          </div>
+
+          <div>
+              <p> is this a landlord or a land management group </p>
+              <select v-model="form_is_landlord">
+                  <option value="landlord"> landlord </option>
+                  <option value="group/org/ect"> group/org/ect </option>
+              </select>
+          </div>
+
+          <div>
+              <p> How would you rate your landlord's responsiveness? </p>
+              <div>
+                 <select v-model="form_responsiveness">
+                      <option selected="true" disabled="true">
+                          perhaps we can fill this with fun descriptive words
+                          similar to RMP
+                      </option>
+                      <option value="1"> 1 </option>
+                      <option value="2"> 2 </option>
+                      <option value="3"> 3 </option>
+                      <option value="4"> 4 </option>
+                      <option value="5"> 5 </option>
+                  </select>
+              </div>
+          </div>
+
+          <div>
+              <p> Would you rent with this landlord again?<p>
+              <div>
+                  <input type="radio" name="land" value="yes" v-model="form_rent_landlord_again">yes!<br>
+                  <input type="radio" name="land" value="no" v-model="form_rent_landlord_again">no!<br>
+              </div>
+          </div>
+
+          <div>
+              <p> Would you rent this propery again? </p>
+              <div>
+                  <input type="radio" name="rent" value="yes">yes!<br>
+                  <input type="radio" name="rent" value="no">no!<br>
+              </div>
+          </div>
+
+          <div>
+              <p> chill? </p>
+              <div>
+                  <input type="radio" name="chill"> yas <br>
+                  <input type="radio" name="chill"> yesn't <br>
+              </div>
+          </div>
+
+          <div>
+              <p>
+                  please select from a list of tags that you think you'd find helpful
+                  perhaps this could also take in user #hashtags or something cool.
+              </p>
+              <div>
+                  <ul>
+                      <li>pets allowed</li>
+                      <li>show up unannounced</li>
+                      <li>lives far away</li>
+                      <li>accepts venmo</li>
+                      <li>. . . if this list goes longer the footer covers sumbit button</li>
+                      <li>write your own?</li>
+                  </ul>
+              </div>
+          </div>
+
+          <div>
+              <p> Your unique experience </p>
+              <textarea v-model="form_review_body">
+
+              </textarea>
+          </div>
+
+          <div class="new_memo_buttons">
+            <div class="form-group" id="submit_memo">
+              <div>
+                <input class="btn btn-primary " id="add_memo_btn" type="submit" value="Post This Memo" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  `
+});
+Vue.component('FindLandlord', {
   template: `
     <div class="search">
       <form class="search-form">
@@ -19,44 +156,50 @@ var HomePage = {
         </button>
       </form>
     </div>
+    <div v-on:click="nav_to_create_landlord"> create landlord </div>
   `
-}, FindLandlord = {
-  template: `
-    <div> FindLandlord </div>
-  `
-}, FindHouse = {
+});
+Vue.component('FindProperty', {
   template: `
     <div> FindHouse </div>
   `
-}, HousePage = {
+});
+Vue.component('LandlordPage', {
   template: `
-    <div> HousePage </div>
+    <div class="sub-page">
+      <div class="rating-card">
+        <h1>Landlord Name McNamey</h1>
+        <div class="rating-items">
+          <div class="ratings">
+            <h2>Overall Rating</h2>
+            <p>5.0</p>
+          </div>
+          <div class="ratings-extras">
+            <h3>Average Property Rating</h3>
+            <p>5.0</p>
+            <h3>Responsiveness</h3>
+            <p>5.0</p>
+            <h3>Certified Slumlord?</h3>
+            <p>No</p>
+          </div>
+          <div class="ratings-tags">
+            <h3>Tags for this Landlord</h3>
+            <ul>
+              <li>Tag Items would go here</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   `
-}, LandlordPage = {
-  template: `
-    <div> LandlordPage </div>
-  `
-}, LandlordReview = {
+});
+Vue.component('Review', {
   template: `
     <div> LandlordReview </div>
   `
-}, HouseReview = {
-  template: `
-    <div> HouseReview </div>
-  `
-}
+});
 
-var components = {
-  'home-page': HomePage,
-  'write-review': WriteReview,
-  'find-landlord': FindLandlord,
-  'find-house': FindHouse,
-  'house-page': HousePage,
-  // 'landlord_page': LandlordPage, on the html it has landlord-page
-  'landlord-page': LandlordPage,
-  'landlord-review': LandlordReview,
-  'house-review': HouseReview
-}
+
 
 var app = function() {
 
@@ -69,6 +212,16 @@ var app = function() {
     self.vue.page = page;
   }
 
+  self.nav_to_find_landlord_review = function() {
+    self.change_page(self.vue.FIND_LANDLORD_TO_REVIEW)
+  }
+
+  self.nav_to_find_landlord_page = function() {
+
+  }
+
+  self.nav_to_
+
   // Complete as needed.
   self.vue = new Vue({
     el: "#vue-div",
@@ -76,12 +229,17 @@ var app = function() {
     unsafeDelimiters: ['!{', '}'],
     data: {
       page: 0,
+      HOME_PAGE: 0,
+      FIND_LANDLORD_TO_REVIEW: 1,
+      FIND_LANDLORD_PAGE: 2,
+      FIND_PROPERTY: 3,
+      LANDLORD_PAGE: 4,
       logged_in: false
     },
     methods: {
-      change_page: self.change_page
-    },
-    components: components
+      nav_to_find_landlord_review: self.nav_to_find_landlord_review,
+      nav_to_find_landlord_page: self.nav_to_find_landlord_page
+    }
   });
 
   return self;

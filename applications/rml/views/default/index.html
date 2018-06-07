@@ -24,7 +24,7 @@
       <div class="nav-links">
         <ul>
           {{if auth.user != None:}}
-            <li><a href="#" v-on:click="change_page(1)">Write a Review</a></li>
+            <li><a href="#" v-on:click="nav_to_find_landlord_review()">Write a Review</a></li>
           {{else:}}
             <li><a href="{{=URL('default', 'user')}}">Write a Review</a></li>
           {{pass}}
@@ -50,18 +50,16 @@
       <!-- also the script source at the bottom would be need to be -->
       <!-- commented/uncommented as well.  This just helps us develop -->
       <!-- without the current architecture standards. -->
-      <landlord-page></landlord-page>
+      <!-- <landlord-page></landlord-page> -->
 
       <!-- <p> uncomment line above this to see landlord skeleton </p> -->
-<!--
-      <div v-if="page == 0"> <home-page></home-page> </div>
-      <div v-if="page == 1"> <write-review></write-review> </div>
-      <div v-if="page == 2"> <find-landlord></find-landlord> </div>
-      <div v-if="page == 3"> <find-house></find-house> </div>
-      <div v-if="page == 4"> <house-page></house-page> </div>
-      <div v-if="page == 5"> <landlord-page></landlord-page> </div>
-      <div v-if="page == 6"> <landlord-review></landlord-review> </div>
-      <div v-if="page == 7"> <house-review></house-review> </div> -->
+
+      <div v-if="page == HOME_PAGE"> HOME_PAGE </div>
+      <div v-if="page == FIND_LANDLORD_TO_REVIEW"> FIND_LANDLORD_TO_REVIEW </div>
+      <div v-if="page == FIND_LANDLORD_PAGE"> FIND_LANDLORD </div>
+      <div v-if="page == FIND_PROPERTY"> FIND_PROPERTY </div>
+      <div v-if="page == LANDLORD_PAGE"> LANDLORD_PAGE </div>
+
     </div>
 
   </div>
@@ -80,4 +78,4 @@
 
 <script src="{{=URL('static', 'js/default_index.js')}}"></script>
 <!-- this url for landlord-page is based on the old implntn -->
-<script src="{{=URL('static', 'js/landlord-page.js')}}"></script>
+<!-- <script src="{{=URL('static', 'js/landlord-page.js')}}"></script> -->
