@@ -24,6 +24,7 @@
 // landlord tables review current just called landlord
 // trs are reviews and td are sub fields of the reviews
 //      note: the first 3tr are for the 3 tr headings
+//      hence the indentations
 new Vue({
     el: 'landlord-page',
     template: `
@@ -37,29 +38,34 @@ new Vue({
                         <th>Break-Down</th>
                         <th>Comments</th>
                     </tr>
-                        <tr>
+
+                    <tr>
                         <td>
                             <p> date?? rmp has this and it could be relevant </p>
                             <p> overall landlord rating 1-5 </p>
                             <p> overall property rating 1-5 if applicable</p>
                         </td>
+
                         <td>
                             <p><a href="">
                                 address if provided, link to property page
                             </a></p>
+                            <p> responsiveness score </p>
+                            <p> chill? </p>
                         </td>
-                        <td>
-                            <p>I will never rent with this landlord again</p>
-                        </td>
-                    </tr>
 
-                    <tr>
                         <td>
-                            <p>ello</p>
+                            <span> tag box, rmp puts the tags in this collumn as spans on top </span>
+                            <span> showed unannounced </span>
+                            <span> accepts venmo </span>
+                            <p>
+                                big ass lorem ipsum comment review block for users response
+                            </p>
+                            <p>
+                                bottom line: yes/no would rate with ll again
+                            <p>
                         </td>
-                        <td>
-                            <p>i</p>
-                        </td>
+
                     </tr>
                 </tbody>
             </table>
