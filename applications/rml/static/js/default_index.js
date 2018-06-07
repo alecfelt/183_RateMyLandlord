@@ -8,7 +8,6 @@ $(window).on("load", function() {
 
 var HomePage = {
   template: `
-    <div> HomePage </div>
   `
 }, WriteReview = {
   template: `

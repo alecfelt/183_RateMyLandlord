@@ -167,3 +167,7 @@ p, a, b, li, input {
 .footer-content ul li a:hover {
   color: #F49D37;
 }
+
+#vue-div{
+  width: 100%;
+}
