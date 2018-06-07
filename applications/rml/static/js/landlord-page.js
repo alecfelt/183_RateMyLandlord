@@ -1,4 +1,6 @@
 // this is the landlord page!
+//
+// currently the way this stands as the OVERALL RATING COMPONENT
 
 // notice our index.html has the tag <landlord></landlord>
 //      that is were our code from this page is being rendered
@@ -6,19 +8,21 @@
 //      our html page we render a script called
 //      <script src="{{=URL('static', 'js/landlord.js')}}"></script>
 //
-// We will follow this form for future component development
+//  this is the old form of development
+//  this will be ported as a component soon ( praise to holy alec )
 
 
 // The landlord.js is how we will show a landlord page once a landlord
 // is looked up and selected.  This is equivical to being on
 // RateMyProfessors and reading Wesley Mackey's review.
+// there will be an overall score and then a list of reviews individually
 //
-// The Reviews are going to be implemented a table and within the table
-// we will have pertient information
+// The individual Reviews are going to be implemented as table (maybe not a table)
+// and within the table we will have pertient information
 
 // see http://www.ratemyprofessors.com/ShowRatings.jsp?tid=2328264 for
 // more information/inspiration  note, remove css if needed for easier viewing
-
+// also our slack page has a ratemyprofessor channel that has more info
 
 
 // landlord tables review current just called landlord
