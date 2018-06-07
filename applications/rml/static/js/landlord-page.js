@@ -16,13 +16,18 @@
 // The Reviews are going to be implemented a table and within the table
 // we will have pertient information
 
+// see http://www.ratemyprofessors.com/ShowRatings.jsp?tid=2328264 for
+// more information/inspiration  note, remove css if needed for easier viewing
+
+
 
 // landlord tables review current just called landlord
+// trs are reviews and td are sub fields of the reviews
+//      note: the first 3tr are for the 3 tr headings
 new Vue({
     el: 'landlord-page',
     template: `
         <div id="view">
-            <h1>hello</h1>
 
             <table style="width:100%">
                 <tbody>
@@ -34,10 +39,14 @@ new Vue({
                     </tr>
                         <tr>
                         <td>
-                            <p>hello</p>
+                            <p> date?? rmp has this and it could be relevant </p>
+                            <p> overall landlord rating 1-5 </p>
+                            <p> overall property rating 1-5 if applicable</p>
                         </td>
                         <td>
-                            <p>hi</p>
+                            <p><a href="">
+                                address if provided, link to property page
+                            </a></p>
                         </td>
                         <td>
                             <p>I will never rent with this landlord again</p>
