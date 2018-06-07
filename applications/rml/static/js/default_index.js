@@ -42,7 +42,8 @@ var components = {
   'find-landlord': FindLandlord,
   'find-house': FindHouse,
   'house-page': HousePage,
-  'landlord_page': LandlordPage,
+  // 'landlord_page': LandlordPage, on the html it has landlord-page
+  'landlord-page': LandlordPage,
   'landlord-review': LandlordReview,
   'house-review': HouseReview
 }

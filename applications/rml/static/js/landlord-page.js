@@ -16,8 +16,10 @@
 // The Reviews are going to be implemented a table and within the table
 // we will have pertient information
 
+
+// landlord tables review current just called landlord
 new Vue({
-    el: 'landlord',
+    el: 'landlord-page',
     template: `
         <div id="view">
             <h1>hello</h1>
@@ -54,7 +56,6 @@ new Vue({
             </table>
 
 
-            <button @click="showDescription">Description</button>
         </div>
     `,
 });
