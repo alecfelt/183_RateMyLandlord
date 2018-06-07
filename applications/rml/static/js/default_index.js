@@ -8,7 +8,14 @@ var HomePage = {
   `
 }, WriteReview = {
   template: `
-    <div> WriteReview </div>
+    <div class="search">
+      <form class="search-form">
+        <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
+        <button id="search-button">
+          <i class="fa fa-search"></i>
+        </button>
+      </form>
+    </div>
   `
 }, FindLandlord = {
   template: `
@@ -54,6 +61,7 @@ var app = function() {
   Vue.config.silent = false; // show all warnings
 
   self.change_page = function(page) {
+    console.log(page);
     self.vue.page = page;
   }
 

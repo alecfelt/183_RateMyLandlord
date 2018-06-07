@@ -21,20 +21,24 @@
       </div>
       <div class="nav-links">
         <ul>
-          <li><a href="">Write a Review</a></li>
-          <li><a href="">Find a Landlord</a></li>
-          <li><a href="">Find a Property</a></li>
+          {{if auth.user != None:}}
+            <li><a href="#" v-on:click="change_page(1)">Write a Review</a></li>
+          {{else:}}
+            <li><a href="{{=URL('default', 'user')}}">Write a Review</a></li>
+          {{pass}}
+          <li><a href="" v-on:click="change_page(2)">Find a Landlord</a></li>
+          <li><a href="" v-on:click="change_page(3)">Find a Property</a></li>
         </ul>
       </div>
     </div>
-    <div class="search">
+    <!-- <div class="search">
       <form class="search-form">
         <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
         <button id="search-button">
           <i class="fa fa-search"></i>
         </button>
       </form>
-    </div>
+    </div> -->
 
     <!-- VUE CODE SHOULD BE LOADED HERE -->
     <div id="vue-div">
