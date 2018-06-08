@@ -155,13 +155,24 @@ Vue.component('FindLandlord', {
     }
   },
   template: `
-    <div class="search">
-      <form @submit.prevent="handle_search" class="search-form">
-        <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
-        <button type="submit" id="search-button">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
+    <div>
+      <div class="search">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      <div>
+
+      <div>
+        <p>
+          didnt find what you are looking for?
+          <a href="#" @click.prevent="nav_to_create_landlord">
+            Add A Landlord
+          </a>
+        </p>
+      </div>
     </div>
   `
 });
@@ -204,11 +215,30 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-  template: `
-    <div> CreateLandlord </div>
-  `
-});
+    template: `
+      <div>
+          <h1> Add New Landlord </h1>
+          <form action="#" class="review-items">
 
+            <div>
+              <input
+                placeholder="Name of Landlord/Management Group"
+                type="text" />
+            </div>
+
+            <div>
+              <input
+                placeholder="Landlord website (optional)"
+                type="text" />
+            </div>
+
+            <button type="submit">
+              <i class="fa fa-plus"></i>
+            </button>
+          </form>
+      </div>
+    `
+});
 
 
 var app = function() {
@@ -252,7 +282,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 5,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
