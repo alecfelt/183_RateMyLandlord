@@ -6,8 +6,11 @@ httpserver.pid
 parameters_8000.py 
 gluon/*
 
-#/applications/rml/sessions/
-applications/rml/sessions/*
+#/applications/rml/
+/applications/rml/databases/*
+/applications/rml/errors/*
+/applications/rml/sessions/*
+
 
 # old .gitignore stuff
 gluon/*
