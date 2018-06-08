@@ -14,6 +14,13 @@
   <!-- server URLs -->
   <script>
     var search_landlords_url = "{{ =URL('default', 'search_landlords') }}";
+    var search_properties_url = "{{ =URL('default', 'search_properties') }}";
+    var get_landlords_url = "{{ =URL('default', 'get_landlords') }}";
+    var add_landlord_url = "{{ =URL('default', 'add_landlords') }}";
+    var get_properties_url = "{{ =URL('default', 'get_properties') }}";
+    var add_property_url = "{{ =URL('default', 'add_property') }}";
+    var get_reviews_url = "{{ =URL('default', 'get_reviews') }}";
+    var add_review_url = "{{ =URL('default', 'add_review') }}";
   </script>
 
   {{include 'web2py_ajax.html'}}

@@ -11,12 +11,6 @@ def index():
     response.flash = T("Hello World")
     return dict(message=T('Welcome to web2py!'))
 
-def search_landlords():
-    logger.info(request.vars)
-    return response.json(dict(
-        msg='search_landlords'
-    ))
-
 # ---- API (example) -----
 @auth.requires_login()
 def api_get_user_email():
@@ -64,3 +58,51 @@ def download():
     http://..../[app]/default/download/[filename]
     """
     return response.download(request, db)
+
+### Our endpoints ###
+#####################
+### Our endpoints ###
+#####################
+### Our endpoints ###
+#####################
+### Our endpoints ###
+
+def search_landlords():
+    return response.json(dict(
+        msg='search_landlords'
+    ))
+
+def search_properties():
+    return response.json(dict(
+        msg='search_properties'
+    ))
+
+def get_landlords():
+    return response.json(dict(
+        msg='get_landlords'
+    ))
+
+def add_landlord():
+    return response.json(dict(
+        msg='add_landlord'
+    ))
+
+def get_properties():
+    return response.json(dict(
+        msg='get_properties'
+    ))
+
+def add_property():
+    return response.json(dict(
+        msg='add_property'
+    ))
+
+def get_reviews():
+    return response.json(dict(
+        msg='get_reviews'
+    ))
+
+def add_review():
+    return response.json(dict(
+        msg='add_review'
+    ))
