@@ -7,9 +7,9 @@ parameters_8000.py
 gluon/*
 
 #/applications/rml/
-/applications/rml/databases/*
-/applications/rml/errors/*
-/applications/rml/sessions/*
+applications/rml/databases/*
+applications/rml/errors/*
+applications/rml/sessions/*
 applications/rml/errors/*
 
 
