@@ -10,6 +10,7 @@ gluon/*
 /applications/rml/databases/*
 /applications/rml/errors/*
 /applications/rml/sessions/*
+applications/rml/errors/*
 
 
 # old .gitignore stuff
