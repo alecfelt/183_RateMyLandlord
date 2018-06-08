@@ -1,2 +1,14 @@
+# where / represents 183_RateMyLandlord
+
+# /
+httpserver.log 
+httpserver.pid 
+parameters_8000.py 
+gluon/*
+
+#/applications/rml/sessions/
+applications/rml/sessions/*
+
+# old .gitignore stuff
 gluon/*
 gluon/*.*
