@@ -12,6 +12,7 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
+  props: ['landlord'],
   template: `
     <div class="sub-page">
       <div class="write-review-card">
@@ -170,8 +171,12 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
+  props: ['landlord', 'nav_to_write_review'],
   template: `
     <div class="sub-page">
+      <a href="#" @click.prevent="nav_to_write_review(landlord)">
+        write review for this landlord
+      </a>
       <div class="rating-card">
         <h1>Landlord Name McNamey</h1>
         <div class="rating-items">
@@ -237,7 +242,7 @@ var app = function() {
   }
 
   self.nav_to_write_review = function(landlord) {
-    self.vue.landlord_being_reviewed = landlord;
+    self.vue.selected_landlord = landlord;
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
@@ -255,7 +260,7 @@ var app = function() {
       LANDLORD_PAGE: 4,
       CREATE_LANDLORD: 5,
       WRITE_REVIEW: 6,
-      landlord_being_reviewed: null
+      selected_landlord: null
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,

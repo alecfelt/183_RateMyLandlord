@@ -39,7 +39,9 @@
 
       <!-- VUE CODE SHOULD BE LOADED HERE -->
 
-      <div v-if="page == HOME_PAGE"> <home-page></home-page> </div>
+      <div v-if="page == HOME_PAGE">
+        <home-page></home-page>
+      </div>
       <div v-if="page == FIND_LANDLORD_TO_REVIEW">
         <find-landlord
           v-bind="{
@@ -48,15 +50,35 @@
           }"
         />
       </div>
-      <div v-if="page == FIND_LANDLORD_PAGE"> <find-landlord/> </div>
-      <div v-if="page == FIND_PROPERTY"> <find-property/> </div>
-      <div v-if="page == LANDLORD_PAGE"> <landlord-page/> </div>
-      <div v-if="page == CREATE_LANDLORD"> <create-landlord/> </div>
+      <div v-if="page == FIND_LANDLORD_PAGE">
+        <find-landlord
+          v-bind="{
+            on_select: nav_to_landlord_page,
+            nav_to_create_landlord
+          }"
+        />
+      </div>
+      <div v-if="page == FIND_PROPERTY">
+        <find-property/>
+      </div>
+      <div v-if="page == LANDLORD_PAGE">
+        <landlord-page
+          v-bind="{
+            landlord: selected_landlord,
+            nav_to_write_review
+          }"
+        />
+      </div>
+      <div v-if="page == CREATE_LANDLORD">
+        <create-landlord/>
+      </div>
       <div v-if="page == WRITE_REVIEW">
         <write-review
-          landlord_being_reviewed="self.vue.landlord_being_reviewed">
+          v-bind="{
+            landlord: selected_landlord
+          }"
         />
-       </div>
+      </div>
 
     </div>
 
