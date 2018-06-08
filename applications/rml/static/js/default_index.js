@@ -154,24 +154,15 @@ Vue.component('FindLandlord', {
     }
   },
   template: `
-<<<<<<< Updated upstream
-    <div class="search">
-      <form @submit.prevent="handle_search" class="search-form">
-        <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
-        <button type="submit" id="search-button">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
-=======
     <div>
       <div class="search">
-        <form class="search-form">
-          <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
-          <button id="search-button">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
+          <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
         </form>
-      </div>
+      <div>
 
       <div>
         <p>
@@ -181,7 +172,6 @@ Vue.component('FindLandlord', {
           </a>
         </p>
       </div>
->>>>>>> Stashed changes
     </div>
   `
 });
@@ -228,16 +218,12 @@ Vue.component('CreateLandlord', {
             <div>
               <input
                 placeholder="Name of Landlord/Management Group"
-                v-model=""
-                name=""
                 type="text" />
             </div>
 
             <div>
               <input
                 placeholder="Landlord website (optional)"
-                v-model=""
-                name=""
                 type="text" />
             </div>
 
