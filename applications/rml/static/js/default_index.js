@@ -148,10 +148,15 @@ Vue.component('WriteReview', {
 });
 Vue.component('FindLandlord', {
   props: ['on_select', 'nav_to_create_landlord'],
+  methods: {
+    handle_search: function(event) {
+      console.log(event.target.search_box.value);
+    }
+  },
   template: `
     <div class="search">
-      <form @submit.prevent="nav_to_create_landlord" class="search-form">
-        <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
+      <form @submit.prevent="handle_search" class="search-form">
+        <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
         <button type="submit" id="search-button">
           <i class="fa fa-search"></i>
         </button>

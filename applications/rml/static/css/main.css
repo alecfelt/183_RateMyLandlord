@@ -98,7 +98,7 @@ p, a, b, li, input {
   width: 100%;
 }
 
-#search-box {
+#search_box {
   border: 1px solid rgba(9, 26, 34, 0.1);
   border-radius: 4pt;
   border-top-right-radius: 0;
