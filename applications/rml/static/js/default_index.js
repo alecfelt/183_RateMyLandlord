@@ -206,26 +206,32 @@ var app = function() {
 
   Vue.config.silent = false; // show all warnings
 
-  self.change_page = function(page) {
-    console.log(page);
-    self.vue.page = page;
-  }
-
-  self.nav_to_find_landlord_review = function() {
-    self.change_page(self.vue.FIND_LANDLORD_TO_REVIEW);
+  self.nav_to_find_landlord_to_review = function() {
+    self.vue.page = self.vue.FIND_LANDLORD_TO_REVIEW;
   }
 
   self.nav_to_find_landlord_page = function() {
-    console.log('yolo');
-    self.change_page(self.vue.FIND_LANDLORD_PAGE);
+    self.vue.page = self.vue.FIND_LANDLORD_PAGE;
   }
 
   self.nav_to_find_property = function() {
-    self.change_page(self.vue.FIND_PROPERTY);
+    self.vue.page = self.vue.FIND_PROPERTY;
   }
 
   self.nav_to_create_landlord = function() {
-    self.change_page(self.vue.CREATE_LANDLORD);
+    self.vue.page = self.vue.CREATE_LANDLORD;
+  }
+
+  self.nav_to_home_page = function() {
+    self.vue.page = self.vue.HOME_PAGE;
+  }
+
+  self.nav_to_find_landlord_page = function() {
+    self.vue.page = self.vue.LANDLORD_PAGE;
+  }
+
+  self.nav_to_write_review = function() {
+    self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   // Complete as needed.
@@ -245,10 +251,11 @@ var app = function() {
       logged_in: false
     },
     methods: {
-      nav_to_find_landlord_review: self.nav_to_find_landlord_review,
+      nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
       nav_to_find_landlord_page: self.nav_to_find_landlord_page,
       nav_to_find_property: self.nav_to_find_property,
-      nav_to_create_landlord: self.nav_to_create_landlord
+      nav_to_create_landlord: self.nav_to_create_landlord,
+      nav_to_home_page: self.nav_to_home_page
     }
   });
 
