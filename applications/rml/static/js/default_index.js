@@ -309,6 +309,12 @@ var app = function() {
       LANDLORD_PAGE: 4,
       CREATE_LANDLORD: 5,
       WRITE_REVIEW: 6,
+      LANDLORD_TAGS: [
+
+      ],
+      PROPERTY_TAGS: [
+        
+      ],
       selected_landlord: null
     },
     methods: {

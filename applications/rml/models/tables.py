@@ -12,27 +12,33 @@ import datetime
 
 # Product table.
 # from cart
-db.define_table('product',
-    Field('product_name'),
-    Field('quantity', 'integer'),
-    Field('price', 'float'),
-    Field('image', 'upload'),
-    Field('description', 'text'),
-)
-db.product.id.readable = db.product.id.writable = False
-
-db.define_table('customer_order',
-    Field('order_date', default=datetime.datetime.utcnow()),
-    Field('customer_info', 'blob'),
-    Field('transaction_token', 'blob'),
-    Field('cart', 'blob'),
+db.define_table('landlords',
+    Field('name', type='string'),
+    Field('property_ids', type='list:integer'),
+    Field('review_ids', type='list:integer'),
+    Field('tag_ids', type='list:integer'),
+    Field('updated_on', 'datetime', update=request.now)
 )
 
-# Let's define a secret key for stripe transactions.
-from gluon.utils import web2py_uuid
-if session.hmac_key is None:
-    session.hmac_key = web2py_uuid()
+db.define_table('properties',
+    Field('address', type='string'),
+    Field('landlord_ids', type='list:integer'),
+    Field('tag_ids', type='list:integer'),
+    Field('updated_on', 'datetime', update=request.now)
+)
 
+db.define_table('reviews',
+    Field('landlord_id', type='integer'),
+    Field('property_id', type='integer'),
+    Field('landlord_rating', type='integer'),
+    Field('property_rating', type='integer'),
+    Field('rent_with_landlord_again', type='boolean'),
+    Field('rent_with_property_again', type='boolean'),
+    Field('landlord_tag_ids', type='list:integer'),
+    Field('property_tag_ids', type='list:integer'),
+    Field('comments', type='text'),
+    Field('updated_on', 'datetime', update=request.now)
+)
 
 # after defining tables, uncomment below to enable auditing
 # auth.enable_record_versioning(db)
@@ -48,13 +54,3 @@ def nicefy(b):
 
 def get_user_email():
     return auth.user.email if auth.user else None
-
-# from hw implementation
-db.define_table('images',
-                Field('created_on', 'datetime', default=request.now),
-                Field('created_by', 'reference auth_user', default=auth.user_id),
-                Field('image_url'),
-                Field('image_price','float'),
-                # Field('is_checked', 'boolean', default=False),
-)
-
