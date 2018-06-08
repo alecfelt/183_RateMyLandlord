@@ -17,34 +17,36 @@
 <div class="main-content">
 
   <div class="main-app">
-    <div class="nav-bar">
-      <div class="logo">
-        <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
-      </div>
-      <div class="nav-links">
-        <ul>
-          {{if auth.user != None:}}
-            <li><a href="#" v-on:click="nav_to_find_landlord_review()">Write a Review</a></li>
-          {{else:}}
-            <li><a href="{{=URL('default', 'user')}}">Write a Review</a></li>
-          {{pass}}
-          <li><a href="" v-on:click="change_page(2)">Find a Landlord</a></li>
-          <li><a href="" v-on:click="change_page(3)">Find a Property</a></li>
-        </ul>
-      </div>
-    </div>
-    <!-- <div class="search">
-      <form class="search-form">
-        <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
-        <button id="search-button">
-          <i class="fa fa-search"></i>
-        </button>
-      </form>
-    </div> -->
 
-    <!-- VUE CODE SHOULD BE LOADED HERE -->
-    <!-- how do we toggle these pages -->
     <div id="vue-div">
+
+      <div class="nav-bar">
+        <div class="logo">
+          <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
+        </div>
+        <div class="nav-links">
+          <ul>
+            {{if auth.user != None:}}
+              <li><a href="#" @click.prevent="nav_to_find_landlord_review">Write a Review</a></li>
+            {{else:}}
+              <li><a href="{{=URL('default', 'user')}}">Write a Review</a></li>
+            {{pass}}
+            <li><a href="#" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
+            <li><a href="#" @click.prevent="nav_to_find_property">Find a Property</a></li>
+          </ul>
+        </div>
+      </div>
+      <!-- <div class="search">
+        <form class="search-form">
+          <input id="search-box" type="search" placeholder="Search for a Landlord or Property"/>
+          <button id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      </div> -->
+
+      <!-- VUE CODE SHOULD BE LOADED HERE -->
+      <!-- how do we toggle these pages -->
       <!-- this is just to load a temporary landlord page, uncomment/ -->
       <!-- comment this appropriately to toggle view without navigation. -->
       <!-- also the script source at the bottom would be need to be -->
@@ -53,12 +55,13 @@
       <!-- <landlord-page></landlord-page> -->
 
       <!-- <p> uncomment line above this to see landlord skeleton </p> -->
-
-      <div v-if="page == HOME_PAGE"> HOME_PAGE </div>
-      <div v-if="page == FIND_LANDLORD_TO_REVIEW"> FIND_LANDLORD_TO_REVIEW </div>
+      <div v-if="page == HOME_PAGE"> <home-page></home-page> </div>
+      <div v-if="page == FIND_LANDLORD_TO_REVIEW"> <find-landlord></find-landlord> </div>
       <div v-if="page == FIND_LANDLORD_PAGE"> FIND_LANDLORD </div>
       <div v-if="page == FIND_PROPERTY"> FIND_PROPERTY </div>
       <div v-if="page == LANDLORD_PAGE"> LANDLORD_PAGE </div>
+      <div v-if="page == CREATE_LANDLORD"> CREATE_LANDLORD </div>
+      <div v-if="page == WRITE_REVIEW"> WRITE_REVIEW </div>
 
     </div>
 

@@ -8,10 +8,10 @@ $(window).on("load", function() {
 
 Vue.component('HomePage', {
   template: `
+    <div> HomePage </div>
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord'],
   template: `
     <div class="sub-page">
       <div class="write-review-card">
@@ -156,7 +156,6 @@ Vue.component('FindLandlord', {
         </button>
       </form>
     </div>
-    <div v-on:click="nav_to_create_landlord"> create landlord </div>
   `
 });
 Vue.component('FindProperty', {
@@ -213,14 +212,21 @@ var app = function() {
   }
 
   self.nav_to_find_landlord_review = function() {
-    self.change_page(self.vue.FIND_LANDLORD_TO_REVIEW)
+    self.change_page(self.vue.FIND_LANDLORD_TO_REVIEW);
   }
 
   self.nav_to_find_landlord_page = function() {
-
+    console.log('yolo');
+    self.change_page(self.vue.FIND_LANDLORD_PAGE);
   }
 
-  self.nav_to_
+  self.nav_to_find_property = function() {
+    self.change_page(self.vue.FIND_PROPERTY);
+  }
+
+  self.nav_to_create_landlord = function() {
+    self.change_page(self.vue.CREATE_LANDLORD);
+  }
 
   // Complete as needed.
   self.vue = new Vue({
@@ -228,20 +234,25 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 1,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
       FIND_PROPERTY: 3,
       LANDLORD_PAGE: 4,
+      CREATE_LANDLORD: 5,
+      WRITE_REVIEW: 6,
       logged_in: false
     },
     methods: {
       nav_to_find_landlord_review: self.nav_to_find_landlord_review,
-      nav_to_find_landlord_page: self.nav_to_find_landlord_page
+      nav_to_find_landlord_page: self.nav_to_find_landlord_page,
+      nav_to_find_property: self.nav_to_find_property,
+      nav_to_create_landlord: self.nav_to_create_landlord
     }
   });
 
+  $("#vue-div").show();
   return self;
 
 };
