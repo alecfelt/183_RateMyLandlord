@@ -149,16 +149,25 @@ Vue.component('WriteReview', {
 });
 Vue.component('FindLandlord', {
   props: ['on_select', 'nav_to_create_landlord'],
+  data: function() {
+    return {
+      has_searched: false,
+      search_results: []
+    }
+  },
   methods: {
     handle_search: function(event) {
       console.log(event.target.search_box.value);
+      // async query
+        // in callback function
+         // has_search = true; search_results = data.search_results;
     }
   },
   template: `
     <div>
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Landlord or Property"/>
+          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
           <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
@@ -251,7 +260,8 @@ var app = function() {
     self.vue.page = self.vue.FIND_LANDLORD_TO_REVIEW;
   }
 
-  self.nav_to_find_landlord_page = function() {
+  self.nav_to_find_landlord_page = function(landlord) {
+    self.vue.selected_landlord = landlord;
     self.vue.page = self.vue.FIND_LANDLORD_PAGE;
   }
 
@@ -282,7 +292,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 5,
+      page: 0,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
