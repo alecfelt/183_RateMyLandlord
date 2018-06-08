@@ -3126,3 +3126,14 @@
 127.0.0.1, 2018-06-07 19:13:48, GET, /rml/static/js/calendar.js, HTTP/1.1, 200, 0.000738
 127.0.0.1, 2018-06-07 19:13:48, GET, /rml/static/js/web2py.js, HTTP/1.1, 200, 0.000721
 127.0.0.1, 2018-06-07 19:13:48, GET, /rml/static/js/default_index.js, HTTP/1.1, 200, 0.001101
+127.0.0.1, 2018-06-07 19:18:30, GET, /, HTTP/1.1, 200, 0.034162
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/js/vue.js, HTTP/1.1, 200, 0.000640
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/font-awesome-4.6.3/css/font-awesome.min.css, HTTP/1.1, 200, 0.001038
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/css/main.css, HTTP/1.1, 200, 0.001391
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/css/ratings.css, HTTP/1.1, 200, 0.001366
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/js/jquery.js, HTTP/1.1, 200, 0.000886
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/css/calendar.css, HTTP/1.1, 200, 0.000612
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/js/calendar.js, HTTP/1.1, 200, 0.001601
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/js/web2py.js, HTTP/1.1, 200, 0.003241
+127.0.0.1, 2018-06-07 19:18:30, GET, /rml/static/js/default_index.js, HTTP/1.1, 200, 0.000760
+127.0.0.1, 2018-06-07 19:18:31, GET, /rml/static/font-awesome-4.6.3/fonts/fontawesome-webfont.woff2, HTTP/1.1, 200, 0.000704

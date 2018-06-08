@@ -227,6 +227,9 @@ Vue.component('CreateLandlord', {
                 type="text" />
             </div>
 
+            <button type="submit">
+              <i class="fa fa-plus"></i>
+            </button>
           </form>
       </div>
     `
