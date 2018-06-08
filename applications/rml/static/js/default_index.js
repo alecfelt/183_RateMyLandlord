@@ -226,7 +226,7 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
-  self.nav_to_find_landlord_page = function() {
+  self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -255,7 +255,9 @@ var app = function() {
       nav_to_find_landlord_page: self.nav_to_find_landlord_page,
       nav_to_find_property: self.nav_to_find_property,
       nav_to_create_landlord: self.nav_to_create_landlord,
-      nav_to_home_page: self.nav_to_home_page
+      nav_to_home_page: self.nav_to_home_page,
+      nav_to_landlord_page: self.nav_to_landlord_page,
+      nav_to_write_review: self.nav_to_write_review
     }
   });
 
