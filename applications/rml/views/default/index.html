@@ -11,6 +11,11 @@
   <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
   <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
 
+  <!-- server URLs -->
+  <script>
+    var search_landlords_url = "{{ =URL('default', 'search_landlords') }}";
+  </script>
+
   {{include 'web2py_ajax.html'}}
 {{end}}
 

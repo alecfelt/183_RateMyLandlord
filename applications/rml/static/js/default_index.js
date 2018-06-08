@@ -157,10 +157,19 @@ Vue.component('FindLandlord', {
   },
   methods: {
     handle_search: function(event) {
-      console.log(event.target.search_box.value);
+      var search_str = event.target.search_box.value;
+      console.log(search_str);
+      $.post(search_landlords_url,
+        {
+          search_str: search_str
+        },
+        function(data) {
+          console.log(data);
+        }
+      );
       // async query
         // in callback function
-         // has_search = true; search_results = data.search_results;
+          // has_search = true; search_results = data.search_results;
     }
   },
   template: `

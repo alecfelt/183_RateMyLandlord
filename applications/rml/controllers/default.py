@@ -4,10 +4,18 @@
 # this file is released under public domain and you can use without limitations
 # -------------------------------------------------------------------------
 
+import datetime
+
 # ---- example index page ----
 def index():
     response.flash = T("Hello World")
     return dict(message=T('Welcome to web2py!'))
+
+def search_landlords():
+    logger.info(request.vars)
+    return response.json(dict(
+        msg='search_landlords'
+    ))
 
 # ---- API (example) -----
 @auth.requires_login()
@@ -27,7 +35,7 @@ def grid():
 # ---- Embedded wiki (example) ----
 def wiki():
     auth.wikimenu() # add the wiki to the menu
-    return auth.wiki() 
+    return auth.wiki()
 
 # ---- Action for login/register/etc (required for auth) -----
 def user():

@@ -54,7 +54,7 @@ else:
 # by default give a view/generic.extension to all actions from localhost
 # none otherwise. a pattern can be 'controller/function.extension'
 # -------------------------------------------------------------------------
-response.generic_patterns = [] 
+response.generic_patterns = []
 if request.is_local and not configuration.get('app.production'):
     response.generic_patterns.append('*')
 
@@ -111,8 +111,24 @@ auth.settings.registration_requires_verification = False
 auth.settings.registration_requires_approval = False
 auth.settings.reset_password_requires_verification = True
 
-# -------------------------------------------------------------------------  
-# read more at http://dev.w3.org/html5/markup/meta.name.html               
+# More API examples for controllers:
+#
+# >>> db.mytable.insert(myfield='value')
+# >>> rows = db(db.mytable.myfield == 'value').select(db.mytable.ALL)
+# >>> for row in rows: print row.id, row.myfield
+
+######################
+# Logging
+import logging, sys
+FORMAT = "%(asctime)s %(levelname)s %(process)s %(thread)s %(funcName)s():%(lineno)d %(message)s"
+logging.basicConfig(stream=sys.stderr)
+logger = logging.getLogger(request.application)
+logger.setLevel(logging.INFO)
+# Let's log the request.
+logger.info("====> Request: %r %r %r %r" % (request.env.request_method, request.env.path_info, request.args, request.vars))
+
+# -------------------------------------------------------------------------
+# read more at http://dev.w3.org/html5/markup/meta.name.html
 # -------------------------------------------------------------------------
 response.meta.author = configuration.get('app.author')
 response.meta.description = configuration.get('app.description')
@@ -120,7 +136,7 @@ response.meta.keywords = configuration.get('app.keywords')
 response.meta.generator = configuration.get('app.generator')
 
 # -------------------------------------------------------------------------
-# your http://google.com/analytics id                                      
+# your http://google.com/analytics id
 # -------------------------------------------------------------------------
 response.google_analytics_id = configuration.get('google.analytics_id')
 
