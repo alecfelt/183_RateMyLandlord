@@ -244,13 +244,19 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
+    methods: {
+        CreateLandlord_helper: function(event) {
+            console.log(event.target.landlord_name.value);
+        }
+    },
     template: `
       <div>
           <h1> Add New Landlord </h1>
-          <form action="#" class="review-items">
+          <form @submit.prevent="CreateLandlord_helper" class="review-items">
 
             <div>
               <input
+                id="landlord_name"
                 placeholder="Name of Landlord/Management Group"
                 type="text" />
             </div>
@@ -340,6 +346,7 @@ var app = function() {
   });
 
   $("#vue-div").show();
+  console.log('please please oh god please');
   return self;
 
 };
