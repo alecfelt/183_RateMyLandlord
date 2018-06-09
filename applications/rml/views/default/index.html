@@ -38,7 +38,11 @@
       />
     </div>
     <div v-if="page == CREATE_LANDLORD">
-      <create-landlord/>
+      <create-landlord
+         v-bind="{
+           landlord: selected_landlord
+         }"
+      />
     </div>
     <div v-if="page == WRITE_REVIEW">
       <write-review

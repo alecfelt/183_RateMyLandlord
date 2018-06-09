@@ -244,9 +244,13 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
+    props: ['Landlord'],
     methods: {
         CreateLandlord_helper: function(event) {
             console.log(event.target.landlord_name.value);
+            // var newLandlord = event.target.landlord_name.value);
+            console.log('selected_landlord');
+            landlord = event.target.landlord_name.value;
         }
     },
     template: `
@@ -312,6 +316,10 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
+  toggle_selected_landlord = function(event) {
+      // currently the logic works for form submit from CreateLandlord
+
+
   // Complete as needed.
   self.vue = new Vue({
     el: "#vue-div",
@@ -341,7 +349,9 @@ var app = function() {
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
-      nav_to_write_review: self.nav_to_write_review
+      nav_to_write_review: self.nav_to_write_review,
+
+      toggle_selected_landlord: self.toggle_selected_landlord
     }
   });
 
