@@ -40,6 +40,7 @@
         <div class="nav-links">
           <ul>
             {{if auth.user != None:}}
+              <li><a href="{{=URL('default','user/logout')}}">logout</a></li>
               <li><a href="" @click.prevent="nav_to_find_landlord_to_review">Write a Review</a></li>
             {{else:}}
               <li><a href="{{=URL('default', 'user')}}">login</a></li>
