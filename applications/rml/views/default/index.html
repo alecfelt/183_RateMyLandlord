@@ -9,6 +9,7 @@
 
   <!-- STYLESHEETS GO HERE -->
   <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+  <link href="{{=URL('static','css/landing.css')}}" rel="stylesheet" type="text/css"/>
   <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
 
   <!-- server URLs -->
@@ -34,17 +35,17 @@
 
       <div class="nav-bar">
         <div class="logo">
-          <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
+          <a href="" @click.prevent="nav_to_home_page"><h1>RateMyLandlord</h1></a>
         </div>
         <div class="nav-links">
           <ul>
             {{if auth.user != None:}}
-              <li><a href="#" @click.prevent="nav_to_find_landlord_to_review">Write a Review</a></li>
+              <li><a href="" @click.prevent="nav_to_find_landlord_to_review">Write a Review</a></li>
             {{else:}}
               <li><a href="{{=URL('default', 'user')}}">login</a></li>
             {{pass}}
-            <li><a href="#" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
-            <li><a href="#" @click.prevent="nav_to_find_property">Find a Property</a></li>
+            <li><a href="" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
+            <li><a href="" @click.prevent="nav_to_find_property">Find a Property</a></li>
           </ul>
         </div>
       </div>
@@ -52,7 +53,13 @@
       <!-- VUE components -->
 
       <div v-if="page == HOME_PAGE">
-        <home-page></home-page>
+        <home-page
+          v-bind="{
+            nav_to_find_landlord_to_review,
+            nav_to_find_landlord_page,
+            nav_to_find_property
+          }"
+        />
       </div>
       <div v-if="page == FIND_LANDLORD_TO_REVIEW">
         <find-landlord

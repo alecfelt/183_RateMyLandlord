@@ -7,8 +7,20 @@ $(window).on("load", function() {
 // components
 
 Vue.component('HomePage', {
+  props: ['nav_to_find_landlord_to_review',
+          'nav_to_find_landlord_page',
+          'nav_to_find_property'],
   template: `
-    <div> HomePage </div>
+    <div class=""sub-page"">
+      <div class="call-to-action">
+        <h2>What are you looking for?</h2>
+        <div class="landing-buttons">
+          <button @click.prevent="nav_to_find_landlord_page">Find a<br/><b>Landlord</b></button>
+          <button @click.prevent="nav_to_find_property">Find a<br/><b>Property</b></button>
+          <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
+        </div>
+      </div>
+    </div>
   `
 });
 Vue.component('WriteReview', {
@@ -313,7 +325,7 @@ var app = function() {
 
       ],
       PROPERTY_TAGS: [
-        
+
       ],
       selected_landlord: null
     },

@@ -1,0 +1,39 @@
+/* STYLES THE LANDING (HOME) PAGE */
+.call-to-action {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing-buttons button {
+  padding: 16pt 32pt;
+  margin: 8pt;
+  font-size: 120%;
+  color: #FFF;
+  text-transform: lowercase;
+  border: none;
+  background-color: #091A22;
+  line-height: 1;
+
+  transition: background-color 300ms ease-in-out;
+}
+
+.landing-buttons button:hover {
+  cursor: pointer;
+  background-color: #F49D37;
+}
+
+.landing-buttons button b {
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+  color: #FFF;
+}

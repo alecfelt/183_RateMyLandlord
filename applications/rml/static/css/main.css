@@ -8,7 +8,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #091A22;
 }
 
-p, a, b, li, input {
+p, a, b, li, input, button{
   font-family: 'Open Sans', sans-serif;
   color: #091A22;
 }
