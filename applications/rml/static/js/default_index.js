@@ -244,9 +244,13 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
+    props: ['toggle_selected_landlord'],
     methods: {
         CreateLandlord_helper: function(event) {
+            console.log(event);
             console.log(event.target.landlord_name.value);
+            this.toggle_selected_landlord( event.target.landlord_name.value );
+
         }
     },
     template: `
@@ -312,6 +316,13 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
+  self.toggle_selected_landlord = function(landlord_name) {
+      console.log('youve made it thus far');
+      self.vue.selected_landlord = landlord_name;
+      console.log(self.vue.selected_landlord);
+  }
+
+
   // Complete as needed.
   self.vue = new Vue({
     el: "#vue-div",
@@ -341,7 +352,9 @@ var app = function() {
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
-      nav_to_write_review: self.nav_to_write_review
+      nav_to_write_review: self.nav_to_write_review,
+
+      toggle_selected_landlord: self.toggle_selected_landlord
     }
   });
 
