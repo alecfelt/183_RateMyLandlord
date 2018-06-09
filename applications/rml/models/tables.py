@@ -17,14 +17,14 @@ db.define_table('landlords',
     Field('property_ids', type='list:integer'),
     Field('review_ids', type='list:integer'),
     Field('tag_ids', type='list:integer'),
-    Field('updated_on', 'datetime', update=request.now)
+    Field('updated_on', 'datetime', update=request.now, redefine=True)
 )
 
 db.define_table('properties',
     Field('address', type='string'),
     Field('landlord_ids', type='list:integer'),
     Field('tag_ids', type='list:integer'),
-    Field('updated_on', 'datetime', update=request.now)
+    Field('updated_on', 'datetime', update=request.now, redefine=True)
 )
 
 db.define_table('reviews',
@@ -37,7 +37,7 @@ db.define_table('reviews',
     Field('landlord_tag_ids', type='list:integer'),
     Field('property_tag_ids', type='list:integer'),
     Field('comments', type='text'),
-    Field('updated_on', 'datetime', update=request.now)
+    Field('updated_on', 'datetime', update=request.now, redefine=True)
 )
 
 # after defining tables, uncomment below to enable auditing
