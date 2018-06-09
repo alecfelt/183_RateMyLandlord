@@ -340,7 +340,7 @@ var app = function() {
   });
 
   $("#vue-div").show();
-  console.log('yolo');
+  console.log('yoloyolo');
   return self;
 
 };
