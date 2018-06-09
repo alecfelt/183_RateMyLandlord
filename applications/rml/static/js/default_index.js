@@ -28,7 +28,7 @@ Vue.component('WriteReview', {
   template: `
     <div class="sub-page">
       <div class="write-review-card">
-        <h1> Write a Review </h1>
+        <h1> Write a Review ${this.landlord}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <input
@@ -320,6 +320,8 @@ var app = function() {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
       console.log(self.vue.selected_landlord);
+
+      self.vue.page = self.vue.WRITE_REVIEW;
   }
 
 
