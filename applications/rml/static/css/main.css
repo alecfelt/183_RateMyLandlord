@@ -155,16 +155,19 @@ p, a, b, li, input, button{
 }
 
 .search {
-  margin: 16pt;
-  width: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-form {
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 #search_box {
@@ -178,13 +181,13 @@ p, a, b, li, input, button{
 }
 
 #search-button {
-  border: 1.5px solid rgba(9, 26, 34, 0.1);
+  border: 1px solid rgba(9, 26, 34, 0.1);
   background-color: #F49D37;
   border-radius: 4pt;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   font-size: 100%;
-  padding: 10pt 16pt;
+  padding: 8pt 16pt;
   color: #FFF;
 
   transition: background-color ease-in-out 150ms;
@@ -194,6 +197,10 @@ p, a, b, li, input, button{
   cursor: pointer;
   background-color: #2E86AB;
   color: #FFF;
+}
+
+.search-prompt {
+  margin: 8pt 16pt;
 }
 
 /* EVERYTHING FOR THE FOOTER */
@@ -239,4 +246,12 @@ p, a, b, li, input, button{
 
 #vue-div {
   width: 100%;
+}
+
+.sub-page{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
