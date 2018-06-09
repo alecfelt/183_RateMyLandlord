@@ -244,13 +244,13 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['Landlord'],
+    props: ['toggle_selected_landlord'],
     methods: {
         CreateLandlord_helper: function(event) {
+            console.log(event);
             console.log(event.target.landlord_name.value);
-            // var newLandlord = event.target.landlord_name.value);
-            console.log('selected_landlord');
-            landlord = event.target.landlord_name.value;
+            this.toggle_selected_landlord( event.target.landlord_name.value );
+
         }
     },
     template: `
@@ -316,8 +316,11 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
-  toggle_selected_landlord = function(event) {
-      // currently the logic works for form submit from CreateLandlord
+  self.toggle_selected_landlord = function(landlord_name) {
+      console.log('youve made it thus far');
+      self.vue.selected_landlord = landlord_name;
+      console.log(self.vue.selected_landlord);
+  }
 
 
   // Complete as needed.
