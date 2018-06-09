@@ -1,115 +1,50 @@
-{{block header}}
-
-  <!-- SCRIPTS GO HERE -->
-  <script src="{{=URL('static', 'js/vue.js')}}"></script>
-
-  <!-- FONTS GO HERE -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
-  <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
-
-  <!-- STYLESHEETS GO HERE -->
-  <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
-  <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
-
-  <!-- server URLs -->
-  <script>
-    var search_landlords_url = "{{ =URL('default', 'search_landlords') }}";
-    var search_properties_url = "{{ =URL('default', 'search_properties') }}";
-    var get_landlords_url = "{{ =URL('default', 'get_landlords') }}";
-    var add_landlord_url = "{{ =URL('default', 'add_landlords') }}";
-    var get_properties_url = "{{ =URL('default', 'get_properties') }}";
-    var add_property_url = "{{ =URL('default', 'add_property') }}";
-    var get_reviews_url = "{{ =URL('default', 'get_reviews') }}";
-    var add_review_url = "{{ =URL('default', 'add_review') }}";
-  </script>
-
-  {{include 'web2py_ajax.html'}}
-{{end}}
-
-<div class="main-content">
-
-  <div class="main-app">
-
-    <div id="vue-div">
-
-      <div class="nav-bar">
-        <div class="logo">
-          <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
-        </div>
-        <div class="nav-links">
-          <ul>
-            {{if auth.user != None:}}
-              <li><a href="#" @click.prevent="nav_to_find_landlord_to_review">Write a Review</a></li>
-            {{else:}}
-              <li><a href="{{=URL('default', 'user')}}">login</a></li>
-            {{pass}}
-            <li><a href="#" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
-            <li><a href="#" @click.prevent="nav_to_find_property">Find a Property</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- VUE components -->
-
-      <div v-if="page == HOME_PAGE">
-        <home-page></home-page>
-      </div>
-      <div v-if="page == FIND_LANDLORD_TO_REVIEW">
-        <find-landlord
-          v-bind="{
-            on_select: nav_to_write_review,
-            nav_to_create_landlord
-          }"
-        />
-      </div>
-      <div v-if="page == FIND_LANDLORD_PAGE">
-        <find-landlord
-          v-bind="{
-            on_select: nav_to_landlord_page,
-            nav_to_create_landlord
-          }"
-        />
-      </div>
-      <div v-if="page == FIND_PROPERTY">
-        <find-property/>
-      </div>
-      <div v-if="page == LANDLORD_PAGE">
-        <landlord-page
-          v-bind="{
-            landlord: selected_landlord,
-            nav_to_write_review
-          }"
-        />
-      </div>
-      <div v-if="page == CREATE_LANDLORD">
-        <create-landlord/>
-      </div>
-      <div v-if="page == WRITE_REVIEW">
-        <write-review
-          v-bind="{
-            landlord: selected_landlord
-          }"
-        />
-      </div>
-
-      <!-- end of VUE components -->
-
+{{extend 'layout.html'}}
+{{block header}}{{end}}
+    <!-- VUE components -->
+    <div v-if="page == HOME_PAGE">
+      <home-page
+        v-bind="{
+          nav_to_find_landlord_to_review,
+          nav_to_find_landlord_page,
+          nav_to_find_property
+        }"
+      />
     </div>
-
-  </div>
-
-  <div class="footer">
-    <div class="footer-content">
-      <ul>
-        <li><a href="">About</a></li>
-        <li><a href="">Contact</a></li>
-        <li>RateMyLandlord Team &copy; 2018</li>
-      </ul>
+    <div v-if="page == FIND_LANDLORD_TO_REVIEW">
+      <find-landlord
+        v-bind="{
+          on_select: nav_to_write_review,
+          nav_to_create_landlord
+        }"
+      />
     </div>
-  </div>
-
-</div>
-
-<script src="{{=URL('static', 'js/default_index.js')}}"></script>
-<!-- this url for landlord-page is based on the old implntn -->
-<!-- <script src="{{=URL('static', 'js/landlord-page.js')}}"></script> -->
+    <div v-if="page == FIND_LANDLORD_PAGE">
+      <find-landlord
+        v-bind="{
+          on_select: nav_to_landlord_page,
+          nav_to_create_landlord
+        }"
+      />
+    </div>
+    <div v-if="page == FIND_PROPERTY">
+      <find-property/>
+    </div>
+    <div v-if="page == LANDLORD_PAGE">
+      <landlord-page
+        v-bind="{
+          landlord: selected_landlord,
+          nav_to_write_review
+        }"
+      />
+    </div>
+    <div v-if="page == CREATE_LANDLORD">
+      <create-landlord/>
+    </div>
+    <div v-if="page == WRITE_REVIEW">
+      <write-review
+        v-bind="{
+          landlord: selected_landlord
+        }"
+      />
+    </div>
+    <!-- end of VUE components -->
