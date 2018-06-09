@@ -185,7 +185,7 @@ Vue.component('FindLandlord', {
     }
   },
   template: `
-    <div>
+    <div class="sub-page">
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
           <input id="search_box" type="search" placeholder="Search for a Landlord"/>
@@ -194,8 +194,7 @@ Vue.component('FindLandlord', {
           </button>
         </form>
       <div>
-
-      <div>
+      <div class="search-prompt">
         <p>
           didnt find what you are looking for?
           <a href="#" @click.prevent="nav_to_create_landlord">

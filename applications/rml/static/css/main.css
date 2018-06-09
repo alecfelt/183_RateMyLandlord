@@ -48,6 +48,70 @@ p, a, b, li, input, button{
   width: 80%;
 }
 
+/* USER STYLING */
+.login-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#web2py_user_form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  width: 70%;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 80%;
+}
+
+#web2py_user_form input[type=text] {
+  width: 100%;
+}
+
+#web2py_user_form input[type=password] {
+  width: 100%;
+}
+
+#web2py_user_form input[type=submit] {
+  padding: 4pt 8pt;
+  margin: 4pt;
+  margin-top: 16pt;
+
+  background-color: #F49D37;
+  border: 1px solid #F49D37;
+  color: #FFF;
+
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+}
+
+#web2py_user_form input[type=submit]:hover {
+  background-color: #2E86AB;
+  border: 1px solid #2E86AB;
+  cursor: pointer;
+}
+
+.login-form div button{
+  padding: 4pt 8pt;
+  margin: 4pt;
+  margin-top: 16pt;
+
+  background-color: #2E86AB;
+  border: 1px solid #2E86AB;
+  color: #fff;
+
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+}
+
+.login-form div button:hover{
+  background-color: #F49D37;
+  border: 1px solid #F49D37;
+  cursor: pointer;
+}
+
 /* NAVIGATION STYLING */
 
 .nav-bar {
@@ -91,16 +155,19 @@ p, a, b, li, input, button{
 }
 
 .search {
-  margin: 16pt;
-  width: 80%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .search-form {
+  width: 80%;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
 }
 
 #search_box {
@@ -114,13 +181,13 @@ p, a, b, li, input, button{
 }
 
 #search-button {
-  border: 1.5px solid rgba(9, 26, 34, 0.1);
+  border: 1px solid rgba(9, 26, 34, 0.1);
   background-color: #F49D37;
   border-radius: 4pt;
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
   font-size: 100%;
-  padding: 10pt 16pt;
+  padding: 8pt 16pt;
   color: #FFF;
 
   transition: background-color ease-in-out 150ms;
@@ -130,6 +197,10 @@ p, a, b, li, input, button{
   cursor: pointer;
   background-color: #2E86AB;
   color: #FFF;
+}
+
+.search-prompt {
+  margin: 8pt 16pt;
 }
 
 /* EVERYTHING FOR THE FOOTER */
@@ -175,4 +246,12 @@ p, a, b, li, input, button{
 
 #vue-div {
   width: 100%;
+}
+
+.sub-page{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
