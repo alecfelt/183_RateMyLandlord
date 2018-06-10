@@ -97,7 +97,7 @@ Vue.component('WriteReview', {
   template: `
     <div class="sub-page">
       <div class="write-review-card">
-        <h1> Write a Review for {{landlord}}</h1>
+        <h1> Write a Review for {{landlord.first_name}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <p> Property </p>
@@ -246,7 +246,7 @@ Vue.component('FindLandlord', {
           </button>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
-          <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
+          <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
             <div class="rating-items">
               <div class="ratings">
