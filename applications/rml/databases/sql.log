@@ -21,7 +21,7 @@ timestamp: 2018-06-10T14:01:32.366776
 CREATE TABLE "auth_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
-    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
+    "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE
 );
 success!
 timestamp: 2018-06-10T14:01:32.369406
