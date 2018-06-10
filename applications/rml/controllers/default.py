@@ -79,11 +79,14 @@ def search_landlords():
 
     landlords = []
 
-    for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
+    for row in db().select(db.landlords.id, db.landlords.name, db.landlords.property_ids, db.landlords.review_ids, db.landlords.tag_ids, orderby=db.landlords.name):
         if name in row.name:
             landlord = dict(
                 id=row.id,
-                name=row.name
+                name=row.name,
+                property_ids=row.property_ids,
+                review_ids=row.review_ids,
+                tag_ids=row.tag_ids
             )
         landlords.append(landlord)
 
