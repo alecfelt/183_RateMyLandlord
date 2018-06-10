@@ -1,1 +1,5 @@
-password="pbkdf2(1000,20,sha512)$845b383b765cf356$b4f8f8c0af61847d5229c42c2998d9f0eb5a6a8c"
+<<<<<<< HEAD
+password="pbkdf2(1000,20,sha512)$82afcb778048d13d$866ac3e6f9c33df60d059da3420834c50800d858"
+=======
+password="pbkdf2(1000,20,sha512)$b2f2d7018ff327e1$6c0c33a281b3816ab4f98a96aa3030fb9319ff79"
+>>>>>>> f28bdc84f4846e98fcdc2453a2219a55a5b7cadf

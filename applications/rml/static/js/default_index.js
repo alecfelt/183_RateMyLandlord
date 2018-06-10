@@ -29,21 +29,49 @@ Vue.component('HomePage', {
 });
 Vue.component('WriteReview', {
   props: ['landlord'],
+  methods: {
+    add_review: function() {
+      if(this.validate_review()) {
+        $.post(add_review_url,
+          this._data,
+          function(data) {
+            console.log(data);
+          }
+        );
+      }
+    },
+    validate_review() {
+      return true;
+    }
+  },
+  data: function() {
+    return {
+      address: null,
+      landlord_rating: 1,
+      property_rating: 1,
+      rent_with_landlord_again: null,
+      rent_with_property_again: null,
+      landlord_tag_ids: null,
+      property_tag_ids: null,
+      comments: null
+    }
+  },
   template: `
     <div class="sub-page">
       <div class="write-review-card">
         <h1> Write a Review for {{landlord}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
+            <p> Find Property </p>
             <input
-              placeholder="Review Title: left these the same for now"
-              v-model="form_title"
-              name="title"
+              placeholder="Find Property"
+              v-model="address"
+              name="address"
               type="text" />
           </div>
           <div>
               <p> Rate your landlord </p>
-              <select v-model="form_landlord_rating">
+              <select v-model="landlord_rating">
                   <option selected="true" disabled="true">
                       please select
                   </option>
@@ -57,7 +85,7 @@ Vue.component('WriteReview', {
 
           <div>
               <p> Rate your property </p>
-              <select v-model="form_property_rating">
+              <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select
                   </option>
@@ -70,51 +98,18 @@ Vue.component('WriteReview', {
           </div>
 
           <div>
-              <p> is this a landlord or a land management group </p>
-              <select v-model="form_is_landlord">
-                  <option value="landlord"> landlord </option>
-                  <option value="group/org/ect"> group/org/ect </option>
-              </select>
-          </div>
-
-          <div>
-              <p> How would you rate your landlord's responsiveness? </p>
-              <div>
-                 <select v-model="form_responsiveness">
-                      <option selected="true" disabled="true">
-                          perhaps we can fill this with fun descriptive words
-                          similar to RMP
-                      </option>
-                      <option value="1"> 1 </option>
-                      <option value="2"> 2 </option>
-                      <option value="3"> 3 </option>
-                      <option value="4"> 4 </option>
-                      <option value="5"> 5 </option>
-                  </select>
-              </div>
-          </div>
-
-          <div>
               <p> Would you rent with this landlord again?<p>
               <div>
-                  <input type="radio" name="land" value="yes" v-model="form_rent_landlord_again">yes!<br>
-                  <input type="radio" name="land" value="no" v-model="form_rent_landlord_again">no!<br>
+                  <input type="radio" name="land" value="yes" v-model="rent_with_landlord_again">yes!<br>
+                  <input type="radio" name="land" value="no" v-model="rent_with_landlord_again">no!<br>
               </div>
           </div>
 
           <div>
               <p> Would you rent this propery again? </p>
               <div>
-                  <input type="radio" name="rent" value="yes">yes!<br>
-                  <input type="radio" name="rent" value="no">no!<br>
-              </div>
-          </div>
-
-          <div>
-              <p> chill? </p>
-              <div>
-                  <input type="radio" name="chill"> yas <br>
-                  <input type="radio" name="chill"> yesn't <br>
+                  <input type="radio" name="rent" value="yes" v-model="rent_with_property_again">yes!<br>
+                  <input type="radio" name="rent" value="no" v-model="rent_with_property_again">no!<br>
               </div>
           </div>
 
@@ -137,7 +132,7 @@ Vue.component('WriteReview', {
 
           <div>
               <p> Your unique experience </p>
-              <textarea v-model="form_review_body">
+              <textarea v-model="comments">
 
               </textarea>
           </div>
@@ -210,8 +205,54 @@ Vue.component('FindLandlord', {
   `
 });
 Vue.component('FindProperty', {
+  props: ['on_select',
+          'nav_to_create_landlord',
+          'set_search_results'
+        ],
+  data: function() {
+    return {
+      has_searched: false,
+      search_results: []
+    }
+  },
+  methods: {
+    handle_search: function(event) {
+      var search_str = event.target.search_box.value;
+      console.log(search_str);
+      $.post(search_landlords_url,
+        {
+          search_str: search_str
+        },
+        function(data) {
+          console.log(data.landlords);
+          this.set_search_results(data.landlords);
+        }
+      );
+      // async query
+        // in callback function
+          // has_search = true; search_results = data.search_results;
+    }
+  },
   template: `
-    <div> FindHouse </div>
+    <div class="sub-page">
+      <div class="search">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      <div>
+      <div class="search-prompt">
+        <p>
+          didnt find what you are looking for?
+          <a href="#" @click.prevent="nav_to_create_landlord">
+            Add A Landlord
+          </a>
+        </p>
+      </div>
+    </div>
+
   `
 });
 Vue.component('LandlordPage', {
