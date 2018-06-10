@@ -22,6 +22,7 @@
     <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/landing.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static', 'css/stupid.css')}}" rel="stylesheet" type="text/css"/>
 
     <!-- server URLs -->
     <script>
@@ -72,63 +73,66 @@
           {{block center}}
           {{include}}
           <div class="sub-page">
-            <h1> FOUNDERS </h1>
-            <div class="firstset container">
-              <div class="third profcolone compressible">
-                <div class="profbox" id="alecfelt">
-                  <img class="alecimage" src="{{ =URL('static/images', 'alec.jpeg') }}" />
-                </div>
-                <div class="profheading">
-                  <h4>Alec Felt</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-              <div class="third profcoltwo compressible">
-                <div class="profbox" id="marychern">
-                  <img class="maryimage" src="{{ =URL('static/images', 'mary.png') }}" />
-                </div>
-                <div class="profheading">
-                  <h4>Mary Chern</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
+            <div class="container padded center">
+              <h1> FOUNDERS </h1>
+
+            <div class="firstset container padded">
+              <div class="profcolone card third padded rounded compressible" style="width:250px; height:250px">
+                <div>
+                  <div class="profbox" id="alecfelt">
+                    <img class="alecimage" src="{{ =URL('static/images', 'alec.jpeg') }}" />
+                    <h4>Alec Felt</h4>
+                  </div>
+                  <div class="orange padded">
+                    <p>I love Luca.</p>
+                  </div>
                 </div>
               </div>
-              <div class="third profcolthree compressible">
-                <div class="profbox" id="eltonrego">
-                  <img class="eltonimage" src="{{ =URL('static/images', 'elton.jpeg') }}" />
-                </div>
-                <div class="profheading">
-                  <h4>Elton Rego</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-            </div>
-            <div class="secondset container">
-              <div class="half profcolone compressible">
-                <div class="profbox" id="Ben Pao">
-                  <img class="benimage" src="{{ =URL('static/images', 'ben.jpg') }}" />
-                </div>
-                <div class="profheading">
-                  <h4>Ben Pao</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
+              <div class="profcolone card third padded rounded compressible" style="width:250px; height:250px">
+                <div>
+                  <div class="profbox" id="marychern">
+                    <img class="maryimage" src="{{ =URL('static/images', 'mary.png') }}" />
+                    <h4>Mary Chern</h4>
+                  </div>
+                  <div class="orange padded">
+                    <p>I love Luca.</p>
+                  </div>
                 </div>
               </div>
-              <div class="half profcoltwo compressible">
-                <div class="profbox" id="Kevin Crum">
-                  <img class="kevinimage" src="{{ =URL('static/images', 'kevin.jpeg') }}" />
+              <div class="profcolone card third padded rounded compressible" style="width:250px; height:250px">
+                <div>
+                  <div class="profbox" id="eltonrego">
+                    <img class="eltonimage" src="{{ =URL('static/images', 'elton.jpeg') }}" />
+                    <h4>Elton Rego</h4>
+                  </div>
+                  <div class="orange padded">
+                    <p>I love Luca.</p>
+                  </div>
                 </div>
-                <div class="profheading">
-                  <h4>Kevin Crum</h4>
+              </div>
+
+              <div class="secondset container padded center">
+                <div class="third profcolone compressible">
+                  <div class="profbox" id="Ben Pao">
+                    <img class="benimage" src="{{ =URL('static/images', 'ben.jpg') }}" />
+                  </div>
+                  <div class="profheading">
+                    <h4>Ben Pao</h4>
+                  </div>
+                  <div class="bottomtext">
+                    <br />I love Luca.<br />
+                  </div>
                 </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
+                <div class="third profcoltwo compressible">
+                  <div class="profbox" id="Kevin Crum">
+                    <img class="kevinimage" src="{{ =URL('static/images', 'kevin.jpeg') }}" />
+                  </div>
+                  <div class="profheading">
+                    <h4>Kevin Crum</h4>
+                  </div>
+                  <div class="bottomtext">
+                    <br />I love Luca.<br />
+                  </div>
                 </div>
               </div>
             </div>
