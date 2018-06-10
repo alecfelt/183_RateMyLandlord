@@ -218,7 +218,7 @@ Vue.component('FindLandlord', {
             <i class="fa fa-search"></i>
           </button>
         </form>
-        <div class="search-results">
+        <div v-if="search_results.length != 0" class="search-results">
           <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
             <div class="rating-items">
