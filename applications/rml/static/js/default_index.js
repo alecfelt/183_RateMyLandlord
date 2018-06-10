@@ -409,15 +409,13 @@ var app = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
-  self.nav_to_write_review = function(landlord) {
-    self.vue.selected_landlord = landlord;
+  self.nav_to_write_review = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   self.toggle_selected_landlord = function(landlord_name) {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
-      console.log(self.vue.selected_landlord);
   }
 
   // API METHODS
