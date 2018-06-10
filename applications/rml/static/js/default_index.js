@@ -28,7 +28,7 @@ Vue.component('WriteReview', {
   template: `
     <div class="sub-page">
       <div class="write-review-card">
-        <h1> Write a Review </h1>
+        <h1> Write a Review for {{landlord}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <input
@@ -329,7 +329,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 6,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
@@ -343,7 +343,7 @@ var app = function() {
       PROPERTY_TAGS: [
 
       ],
-      selected_landlord: null
+      selected_landlord: 'tom'
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
@@ -359,11 +359,6 @@ var app = function() {
   });
 
   $("#vue-div").show();
-<<<<<<< HEAD
-  console.log('yoloyolo');
-=======
-  console.log('please please oh god please');
->>>>>>> ff9561d225c652c6dc64d425e74f1b159d66f482
   return self;
 
 };
