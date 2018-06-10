@@ -32,12 +32,13 @@ Vue.component('WriteReview', {
   methods: {
     add_review: function() {
       if(this.validate_review()) {
+        this._data.landlord_id = this.landlord.id;
         var that = this;
         $.post(add_review_url,
           this._data,
           function(data) {
             if(data == "ok"){
-              // this.nav_to_landlord_page(that.landlord.id);
+              that.nav_to_landlord_page(that.landlord.id);
             }
           }
         );
@@ -49,18 +50,25 @@ Vue.component('WriteReview', {
           return false;
         }
       }
+      var regex = /^[A-Za-z][A-Za-z]$/;
+      if(regex.exec(this._data.state) == null) {
+        return false;
+      }
       return true;
     }
   },
   data: function() {
     return {
-      address: null,
+      street: null,
+      city: null,
+      state: null,
+      zip: null,
       landlord_rating: 1,
       property_rating: 1,
       rent_with_landlord_again: null,
       rent_with_property_again: null,
-      landlord_tag_ids: null,
-      property_tag_ids: null,
+      landlord_tag_ids: [],
+      property_tag_ids: [],
       comments: null
     }
   },
@@ -70,12 +78,31 @@ Vue.component('WriteReview', {
         <h1> Write a Review for {{landlord}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
-            <p> Find Property </p>
-            <input
-              placeholder="Find Property"
-              v-model="address"
-              name="address"
-              type="text" />
+            <p> Property </p>
+            <p> Street </p>
+              <input
+                placeholder="street"
+                v-model="street"
+                name="address"
+                type="text" />
+            <p> City </p>
+              <input
+                placeholder="city"
+                v-model="city"
+                name="address"
+                type="text" />
+            <p> State </p>
+              <input
+                placeholder="state"
+                v-model="state"
+                name="address"
+                type="text" />
+            <p> Zip </p>
+              <input
+                placeholder="zip"
+                v-model="zip"
+                name="address"
+                type="text" />
           </div>
           <div>
               <p> Rate your landlord </p>
