@@ -222,8 +222,9 @@ def add_review():
         msg='add_review'
     ))
 
+# redirect to about page's html template
 def about():
     return dict()
-
+# redirect to contact page's html template
 def contact():
     return dict()
