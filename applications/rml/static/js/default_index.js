@@ -7,10 +7,18 @@ $(window).on("load", function() {
 // components
 
 Vue.component('HomePage', {
-  props: ['nav_to_find_landlord_to_review',
+  props: ['on_select',
+          'nav_to_find_landlord_to_review',
           'nav_to_find_landlord_page',
           'nav_to_find_property',
-          'landlord_list'],
+          'landlord_list',
+          'toggle_selected_landlord',],
+  methods: {
+    handle_landlord_select: function(result) {
+      this.toggle_selected_landlord(result);
+      this.on_select();
+    }
+  },
   template:
   `
     <div class="sub-page">
@@ -22,8 +30,22 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1 v-if="(landlord_list.length!=0)">Recently Added Landlords</h1>
-      <p v-for="landlord in landlord_list">{{landlord.first_name}}</p>
+      <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
+      <div class="search-results">
+        <div @click.prevent="handle_landlord_select(landlord.first_name)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+          <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
+          <div class="rating-items">
+            <div class="ratings">
+              <h3>Overall Rating</h3>
+              <p>5.0</p>
+            </div>
+            <div class="ratings">
+              <h3>Average Property Rating</h3>
+              <p>5.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `
 });
@@ -223,7 +245,7 @@ Vue.component('FindLandlord', {
             <i class="fa fa-search"></i>
           </button>
         </form>
-        <div class="search-results">
+        <div v-if="search_results.length != 0" class="search-results">
           <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
             <div class="rating-items">
@@ -236,7 +258,6 @@ Vue.component('FindLandlord', {
                 <p>5.0</p>
               </div>
             </div>
-
           </div>
         </div>
         <div class="search-prompt">
@@ -415,15 +436,13 @@ var app = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
-  self.nav_to_write_review = function(landlord) {
-    self.vue.selected_landlord = landlord;
+  self.nav_to_write_review = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   self.toggle_selected_landlord = function(landlord_name) {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
-      console.log(self.vue.selected_landlord);
   }
 
   // API METHODS

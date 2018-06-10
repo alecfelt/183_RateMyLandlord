@@ -10,10 +10,12 @@
     <div v-if="page == HOME_PAGE">
       <home-page
         v-bind="{
+          on_select: nav_to_landlord_page,
           nav_to_find_landlord_to_review,
           nav_to_find_landlord_page,
           nav_to_find_property,
-          landlord_list
+          landlord_list,
+          toggle_selected_landlord,
         }"
       />
     </div>
