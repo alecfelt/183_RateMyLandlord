@@ -105,12 +105,13 @@ def search_properties():
 
     properties = []
 
-    for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, orderby=db.properties.address):
+    for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
         if address in row.address:
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids
+                landlord_ids=row.landlord_ids,
+                tag_ids=row.tag_ids
             )
         properties.append(propertie)
 
@@ -129,11 +130,22 @@ def get_landlords():
 
     landlords = []
 
-    for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
+    # for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
+    #     if row.id in landlord_ids:
+    #         landlord = dict(
+    #             id=row.id,
+    #             name=row.name
+    #         )
+    #     landlords.append(landlord)
+
+    for row in db().select(orderby=db.landlords.name):
         if row.id in landlord_ids:
             landlord = dict(
                 id=row.id,
-                name=row.name
+                name=row.name,
+                property_ids=row.property_ids,
+                review_ids=row.review_ids,
+                tag_ids=row.tag_ids
             )
         landlords.append(landlord)
 
