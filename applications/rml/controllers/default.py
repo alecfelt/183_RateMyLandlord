@@ -240,6 +240,25 @@ def add_landlord():
 # output: list of property obj
 #         data = { properties: [{address: "", }, {}, {}] }
 def get_properties():
+
+    address = request.vars.search_str if request.vars.search_str else ''
+    properties = []
+
+    for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
+        if address in row.address:
+            propertie = dict(
+                id=row.id,
+                address=row.address,
+                landlord_ids=row.landlord_ids,
+                tag_ids=row.tag_ids
+            )
+        properties.append(propertie)
+
+    return response.json(dict(
+        properties=properties
+    ))
+
+
     return response.json(dict(
         msg='get_properties'
     ))
