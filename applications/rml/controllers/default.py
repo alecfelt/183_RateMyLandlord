@@ -232,16 +232,17 @@ def add_landlord():
         property_id = property_id
     ))
 
+# Get a list of properties based on list of property ids pssed in
 # input: list of property ids
 # output: list of property obj
 #         data = { properties: [{address: "", }, {}, {}] }
 def get_properties():
 
-    address = request.vars.search_str if request.vars.search_str else ''
+    ids = request.vars.property_ids if request.vars.property_ids else []
     properties = []
 
-    for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
-        if address in row.address:
+    for row in db().select(orderby=db.properties.address):
+        if row.id in ids:
             propertie = dict(
                 id=row.id,
                 address=row.address,
