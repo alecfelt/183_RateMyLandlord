@@ -119,8 +119,23 @@ def search_properties():
 # output: list of landlord objs
 #         data = { landlords: [{name: "", }, {}, {}] }
 def get_landlords():
+    if request.vars.landlord_ids:
+        landlord_ids = request.vars.landlord_ids;
+    else:
+        landlord_ids = []
+
+    landlords = []
+
+    for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
+        if row.id in landlord_ids:
+            landlord = dict(
+                id=row.id,
+                name=row.name
+            )
+        landlords.append(landlord)
+
     return response.json(dict(
-        msg='get_landlords'
+        landlords=landlords
     ))
 
 # input: name, website, address
