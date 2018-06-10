@@ -67,19 +67,21 @@ def download():
 #####################
 ### Our endpoints ###
 
-
+# Goes through table landlords and returns a list of landlord objects with name that contains the substring passed in
 # input: search_str
 # output: list of landlord obj
 #         data = { landlords: [{name: "", }, {}, {}] }
 def search_landlords():
-    if request.vars.search_str:
-        name = request.vars.search_str
-    else:
-        name = ""
+    # if request.vars.search_str:
+    #     name = request.vars.search_str
+    # else:
+    #     name = ""
+
+    name = request.vars.search_str if request.vars.search_str else ''
 
     landlords = []
 
-    for row in db().select(db.landlords.id, db.landlords.name, db.landlords.property_ids, db.landlords.review_ids, db.landlords.tag_ids, orderby=db.landlords.name):
+    for row in db().select(orderby=db.landlords.name):
         if name in row.name:
             landlord = dict(
                 id=row.id,
@@ -98,11 +100,12 @@ def search_landlords():
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
-    if request.vars.search_str:
-        address = request.vars.search_str
-    else:
-        address = ""
+    # if request.vars.search_str:
+    #     address = request.vars.search_str
+    # else:
+    #     address = ""
 
+    address = request.vars.search_str if request.vars.search_str else ''
     properties = []
 
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
@@ -123,10 +126,12 @@ def search_properties():
 # output: list of landlord objs
 #         data = { landlords: [{name: "", }, {}, {}] }
 def get_landlords():
-    if request.vars.landlord_ids:
-        landlord_ids = request.vars.landlord_ids;
-    else:
-        landlord_ids = []
+    # if request.vars.landlord_ids:
+    #     landlord_ids = request.vars.landlord_ids;
+    # else:
+    #     landlord_ids = []
+
+    landlord_ids = request.vars.landlord_ids if request.vars.landlord_ids else []
 
     landlords = []
 
@@ -145,45 +150,90 @@ def get_landlords():
         landlords=landlords
     ))
 
+# Strip leading and trailing whitespaces and capitalize the address
+def format_address_elem(address_elem, isState=False):
+    address_elem = address_elem.strip().upper()
+
+    return address_elem
+
+# Takes an address dictionary and returns a formatted string
+def format_address(address):
+    city = format_address_elem( address["city"] )
+    state = format_address_elem( address["state"] )
+    zipcode = format_address_elem( address["zipcode"] )
+
+    street = ""
+    for e in address["street"].split():
+        street = street + " " + format_address_elem(e)
+    street = street.strip()
+
+    full_address = street + ", " + city + ', ' + state + ' ' + zipcode
+
+    return full_address
+
+
 # Add a landlord into table landlords
-# input: name, website, address
-# output: data = {name: "name", website: "website url", address: "address"}
+# input: name, website, address, where address = {street: "", city: "", state: "", zipcode: ""}
+# output: data = {name: "name", website: "website url", address: "address", property_id: 1}
 def add_landlord():
     # Return an error if landlord name is null
-    # if request.vars.name:
-    #     name = request.vars.name
-    # else:
-    #     print "Error: landlord name cannot be null"
-    #     raise HTTP(500)
-    #     # return response.json(dict(
-    #     #     err="Error: landlord name cannot be null"
-    #     # ))
+    if request.vars.name:
+        name = request.vars.name
+    else:
+        print "[Error] add_landlord(): landlord name cannot be null"
+        raise HTTP(500)
+        # name = "John Cena"
 
-    name = ""
+    if request.vars.address:
+        address = format_address(request.vars.address)
+    else:
+        print "[Error] add_landlord(): property address cannot be null"
+        raise HTTP(500)
+        # addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
+        # address = format_address(addy)
 
-    # if request.vars.website:
-    #     website = request.vars.website
-    # else:
-    #     website = ""
 
     website = request.vars.website
 
-    # if request.vars.address:
-    #     address = request.vars.address
-    #     address = ""
+    # Check if property already exists
+    # If exists, get the property id
+    # Otherwise insert to db and get property id
+    q = (db.properties.address == address)
+    r = db(q).select(db.properties.id).first()
+    if r:
+        # print "property found"
+        property_id = r.id
+    else:
+        property_id = db.properties.insert(
+            address = address
+        )
+        # print "property_id: ", property_id
 
-    address = request.vars.address
-
+    # Insert landlord landlords
     landlord_id = db.landlords.insert(
-        name = name
-        # image_price = request.vars.image_price
+        name = name,
+        property_id = property_id
     )
+    # print "landlord id: ", landlord_id
+
+    # Insert/append landlord_id into table properties for the property
+    q = (db.properties.id == property_id)
+    r = db(q).select().first()
+    if r.landlord_ids:
+        landlord_ids = set(r.landlord_ids)
+        landlord_ids.add(landlord_id)
+        landlord_ids = list(landlord_ids)
+    else:
+        landlord_ids = [landlord_id]
+
+    r.update_record(landlord_ids=landlord_ids)
 
     # Returns the landlord info.
     return response.json(dict(
         id = landlord_id,
         address = address,
-        website = website
+        website = website,
+        property_id = property_id
     ))
 
 # input: list of property ids
