@@ -10,10 +10,12 @@
     <div v-if="page == HOME_PAGE">
       <home-page
         v-bind="{
+          on_select: nav_to_landlord_page,
           nav_to_find_landlord_to_review,
           nav_to_find_landlord_page,
           nav_to_find_property,
-          landlord_list
+          landlord_list,
+          toggle_selected_landlord,
         }"
       />
     </div>
@@ -22,7 +24,9 @@
         v-bind="{
           on_select: nav_to_write_review,
           nav_to_create_landlord,
-          set_search_results
+          set_search_results,
+          search_results,
+          toggle_selected_landlord,
         }"
       />
     </div>
@@ -30,7 +34,10 @@
       <find-landlord
         v-bind="{
           on_select: nav_to_landlord_page,
-          nav_to_create_landlord
+          nav_to_create_landlord,
+          set_search_results,
+          search_results,
+          toggle_selected_landlord,
         }"
       />
     </div>
@@ -56,7 +63,8 @@
     <div v-if="page == WRITE_REVIEW">
       <write-review
         v-bind="{
-          landlord: selected_landlord
+          landlord: selected_landlord,
+          nav_to_landlord_page
         }"
       />
     </div>

@@ -7,10 +7,18 @@ $(window).on("load", function() {
 // components
 
 Vue.component('HomePage', {
-  props: ['nav_to_find_landlord_to_review',
+  props: ['on_select',
+          'nav_to_find_landlord_to_review',
           'nav_to_find_landlord_page',
           'nav_to_find_property',
-          'landlord_list'],
+          'landlord_list',
+          'toggle_selected_landlord',],
+  methods: {
+    handle_landlord_select: function(result) {
+      this.toggle_selected_landlord(result);
+      this.on_select();
+    }
+  },
   template:
   `
     <div class="sub-page">
@@ -22,28 +30,78 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1>Recently Added Landlords</h1>
-      <p v-for="landlord in landlord_list">{{landlord.first_name}}</p>
+      <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
+      <div class="search-results">
+        <div @click.prevent="handle_landlord_select(landlord.first_name)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+          <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
+          <div class="rating-items">
+            <div class="ratings">
+              <h3>Overall Rating</h3>
+              <p>5.0</p>
+            </div>
+            <div class="ratings">
+              <h3>Average Property Rating</h3>
+              <p>5.0</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord'],
+  props: ['landlord', 'nav_to_landlord_page'],
+  methods: {
+    add_review: function() {
+      if(this.validate_review()) {
+        var that = this;
+        $.post(add_review_url,
+          this._data,
+          function(data) {
+            if(data == "ok"){
+              // this.nav_to_landlord_page(that.landlord.id);
+            }
+          }
+        );
+      }
+    },
+    validate_review() {
+      for(var key in this._data) {
+        if(this._data[key] == null) {
+          return false;
+        }
+      }
+      return true;
+    }
+  },
+  data: function() {
+    return {
+      address: null,
+      landlord_rating: 1,
+      property_rating: 1,
+      rent_with_landlord_again: null,
+      rent_with_property_again: null,
+      landlord_tag_ids: null,
+      property_tag_ids: null,
+      comments: null
+    }
+  },
   template: `
     <div class="sub-page">
       <div class="write-review-card">
         <h1> Write a Review for {{landlord}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
+            <p> Find Property </p>
             <input
-              placeholder="Review Title: left these the same for now"
-              v-model="form_title"
-              name="title"
+              placeholder="Find Property"
+              v-model="address"
+              name="address"
               type="text" />
           </div>
           <div>
               <p> Rate your landlord </p>
-              <select v-model="form_landlord_rating">
+              <select v-model="landlord_rating">
                   <option selected="true" disabled="true">
                       please select
                   </option>
@@ -57,7 +115,7 @@ Vue.component('WriteReview', {
 
           <div>
               <p> Rate your property </p>
-              <select v-model="form_property_rating">
+              <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select
                   </option>
@@ -70,51 +128,18 @@ Vue.component('WriteReview', {
           </div>
 
           <div>
-              <p> is this a landlord or a land management group </p>
-              <select v-model="form_is_landlord">
-                  <option value="landlord"> landlord </option>
-                  <option value="group/org/ect"> group/org/ect </option>
-              </select>
-          </div>
-
-          <div>
-              <p> How would you rate your landlord's responsiveness? </p>
-              <div>
-                 <select v-model="form_responsiveness">
-                      <option selected="true" disabled="true">
-                          perhaps we can fill this with fun descriptive words
-                          similar to RMP
-                      </option>
-                      <option value="1"> 1 </option>
-                      <option value="2"> 2 </option>
-                      <option value="3"> 3 </option>
-                      <option value="4"> 4 </option>
-                      <option value="5"> 5 </option>
-                  </select>
-              </div>
-          </div>
-
-          <div>
               <p> Would you rent with this landlord again?<p>
               <div>
-                  <input type="radio" name="land" value="yes" v-model="form_rent_landlord_again">yes!<br>
-                  <input type="radio" name="land" value="no" v-model="form_rent_landlord_again">no!<br>
+                  <input type="radio" name="land" value="yes" v-model="rent_with_landlord_again">yes!<br>
+                  <input type="radio" name="land" value="no" v-model="rent_with_landlord_again">no!<br>
               </div>
           </div>
 
           <div>
               <p> Would you rent this propery again? </p>
               <div>
-                  <input type="radio" name="rent" value="yes">yes!<br>
-                  <input type="radio" name="rent" value="no">no!<br>
-              </div>
-          </div>
-
-          <div>
-              <p> chill? </p>
-              <div>
-                  <input type="radio" name="chill"> yas <br>
-                  <input type="radio" name="chill"> yesn't <br>
+                  <input type="radio" name="rent" value="yes" v-model="rent_with_property_again">yes!<br>
+                  <input type="radio" name="rent" value="no" v-model="rent_with_property_again">no!<br>
               </div>
           </div>
 
@@ -137,7 +162,7 @@ Vue.component('WriteReview', {
 
           <div>
               <p> Your unique experience </p>
-              <textarea v-model="form_review_body">
+              <textarea v-model="comments">
 
               </textarea>
           </div>
@@ -155,6 +180,72 @@ Vue.component('WriteReview', {
   `
 });
 Vue.component('FindLandlord', {
+  props: ['on_select',
+          'nav_to_create_landlord',
+          'set_search_results',
+          'search_results',
+          'toggle_selected_landlord',
+        ],
+  methods: {
+    handle_search: function(event) {
+      var search_str = event.target.value;
+      console.log("Searching for " + search_str);
+      var that = this;
+      $.post(search_landlords_url,
+        {
+          search_str: search_str
+        },
+        function(data) {
+          console.log("Recieved: ");
+          console.log(data.landlords); // Data is here
+          that.set_search_results(data.landlords);
+          $('#search-button').prop('enabled', true);
+        }
+      );
+    },
+    handle_landlord_select: function(result) {
+      this.toggle_selected_landlord(result);
+      this.on_select();
+    }
+  },
+  template:
+  `
+    <div class="sub-page">
+      <div class="search">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+        <div v-if="search_results.length != 0" class="search-results">
+          <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
+            <h1>{{result.first_name}} {{result.last_name}}</h1>
+            <div class="rating-items">
+              <div class="ratings">
+                <h3>Overall Rating</h3>
+                <p>5.0</p>
+              </div>
+              <div class="ratings">
+                <h3>Average Property Rating</h3>
+                <p>5.0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="search-prompt">
+          <p>
+            didnt find what you are looking for?
+            <a href="#" @click.prevent="nav_to_create_landlord">
+              Add A Landlord
+            </a>
+          </p>
+        </div>
+      <div>
+    </div>
+  `
+});
+Vue.component('FindProperty', {
   props: ['on_select',
           'nav_to_create_landlord',
           'set_search_results'
@@ -202,11 +293,7 @@ Vue.component('FindLandlord', {
         </p>
       </div>
     </div>
-  `
-});
-Vue.component('FindProperty', {
-  template: `
-    <div> FindHouse </div>
+
   `
 });
 Vue.component('LandlordPage', {
@@ -290,74 +377,6 @@ Vue.component('CreateLandlord', {
     `
 });
 
-// Vue.component('AboutPage', {
-//     props: ['nav_to_about_page'],
-//     template: `
-//       <div class="sub-page">
-//           <h1> FOUNDERS </h1>
-//             <div class="firstset container">
-//               <div class="third profcolone compressible">
-//                 <div class="profbox" id="alecfelt">
-//                   <img class="alecimage" src="/images/alec.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Alec Felt</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcoltwo compressible">
-//                 <div class="profbox" id="marychern">
-//                   <img class="maryimage" src="/images/mary.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Mary Chern</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcolthree compressible">
-//                 <div class="profbox" id="eltonrego">
-//                   <img class="eltonimage" src="/images/elton.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Elton Rego</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//             <div class="secondset container">
-//               <div class="half profcolone compressible">
-//                 <div class="profbox" id="Ben Pao">
-//                   <img class="benimage" src="/images/ben.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Ben Pao</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="half profcoltwo compressible">
-//                 <div class="profbox" id="Kevin Crum">
-//                   <img class="kevinimage" src="/images/kevin.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Kevin Crum</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//       </div>
-//     `
-// });
-
 
 var app = function() {
 
@@ -386,14 +405,6 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
-  // self.nav_to_about_page = function() {
-  //   self.vue.page = self.vue.ABOUT_PAGE;
-  // }
-  //
-  // self.nav_to_contact_page = function() {
-  //   self.vue.page = self.vue.CONTACT_PAGE;
-  // }
-
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
@@ -407,8 +418,6 @@ var app = function() {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
       console.log(self.vue.selected_landlord);
-
-      self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   // API METHODS
@@ -416,8 +425,6 @@ var app = function() {
     $.getJSON(
       get_landlords_url,
       function(data){
-        console.log(data.landlords);
-        console.log(data.landlords[0].first_name)
         self.vue.landlord_list = data.landlords;
         console.log(self.vue.landlord_list);
       }
@@ -444,7 +451,7 @@ var app = function() {
     );
   }
 
-  self.set_search_results = function(results) {
+  self.set_search_results = function(results){
     self.vue.search_results = results;
   }
 
@@ -491,7 +498,7 @@ var app = function() {
 
       // APP FUNCTIONALITY
       create_landlord: self.create_landlord,
-      set_search_results: self.set_search_results
+      set_search_results: self.set_search_results,
     }
   });
 

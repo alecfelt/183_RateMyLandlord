@@ -77,13 +77,14 @@ def search_landlords():
     # else:
     #     name = ""
 
-    first_name = request.vars.search_str if request.vars.search_str else ''
+    str = request.vars.search_str if request.vars.search_str else ''
+    print("searching for " + str)
 
     landlords = []
 
     for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
-        if first_name in row.first_name:
-            landlord = dict(
+        if str.lower() in row.first_name.lower():
+            temp_landlord = dict(
                 id=row.id,
                 first_name=row.first_name,
                 last_name=row.last_name,
@@ -91,7 +92,18 @@ def search_landlords():
                 review_ids=row.review_ids,
                 tag_ids=row.tag_ids
             )
-            landlords.append(landlord)
+            landlords.append(temp_landlord)
+            continue
+        if str.lower() in row.last_name.lower():
+            temp_landlord = dict(
+                id=row.id,
+                first_name=row.first_name,
+                last_name=row.last_name,
+                property_ids=row.property_ids,
+                review_ids=row.review_ids,
+                tag_ids=row.tag_ids
+            )
+            landlords.append(temp_landlord)
 
     return response.json(dict(
         landlords=landlords
@@ -110,8 +122,7 @@ def search_properties():
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids,
-                tag_ids=row.tag_ids
+                landlord_ids=row.landlord_ids
             )
             properties.append(propertie)
 
@@ -257,8 +268,7 @@ def get_properties(inputIds=None):
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids,
-                tag_ids=row.tag_ids
+                landlord_ids=row.landlord_ids
             )
             properties.append(propertie)
 
@@ -408,9 +418,7 @@ def add_review():
     #     property_id = property_id
     # ))
 
-    return response.json(dict(
-        msg='ok'
-    ))
+    return "ok"
 
 # redirect to about page's html template
 def about():
