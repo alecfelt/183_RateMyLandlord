@@ -100,10 +100,7 @@ def search_landlords():
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
-    # if request.vars.search_str:
-    #     address = request.vars.search_str
-    # else:
-    #     address = ""
+
 
     address = request.vars.search_str if request.vars.search_str else ''
     properties = []
