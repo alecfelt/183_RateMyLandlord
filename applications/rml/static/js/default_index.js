@@ -32,7 +32,7 @@ Vue.component('WriteReview', {
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <input
-              placeholder="Memo Title: left these the same for now"
+              placeholder="Review Title: left these the same for now"
               v-model="form_title"
               name="title"
               type="text" />
@@ -40,7 +40,7 @@ Vue.component('WriteReview', {
 
           <div>
             <input
-              placeholder="Memo Content"
+              placeholder="Review Content"
               v-model="form_body"
               name="body"
               type="text" />
@@ -147,10 +147,10 @@ Vue.component('WriteReview', {
               </textarea>
           </div>
 
-          <div class="new_memo_buttons">
-            <div class="form-group" id="submit_memo">
+          <div class="new_review_buttons">
+            <div class="form-group" id="submit_review">
               <div>
-                <input class="btn btn-primary " id="add_memo_btn" type="submit" value="Post This Memo" />
+                <input class="btn btn-primary " id="add_review_btn" type="submit" value="Post This Review" />
               </div>
             </div>
           </div>
@@ -279,6 +279,74 @@ Vue.component('CreateLandlord', {
     `
 });
 
+// Vue.component('AboutPage', {
+//     props: ['nav_to_about_page'],
+//     template: `
+//       <div class="sub-page">
+//           <h1> FOUNDERS </h1>
+//             <div class="firstset container">
+//               <div class="third profcolone compressible">
+//                 <div class="profbox" id="alecfelt">
+//                   <img class="alecimage" src="/images/alec.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Alec Felt</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="third profcoltwo compressible">
+//                 <div class="profbox" id="marychern">
+//                   <img class="maryimage" src="/images/mary.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Mary Chern</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="third profcolthree compressible">
+//                 <div class="profbox" id="eltonrego">
+//                   <img class="eltonimage" src="/images/elton.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Elton Rego</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//             </div>
+//             <div class="secondset container">
+//               <div class="half profcolone compressible">
+//                 <div class="profbox" id="Ben Pao">
+//                   <img class="benimage" src="/images/ben.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Ben Pao</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="half profcoltwo compressible">
+//                 <div class="profbox" id="Kevin Crum">
+//                   <img class="kevinimage" src="/images/kevin.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Kevin Crum</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//             </div>
+//       </div>
+//     `
+// });
+
 
 var app = function() {
 
@@ -307,6 +375,14 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
+  // self.nav_to_about_page = function() {
+  //   self.vue.page = self.vue.ABOUT_PAGE;
+  // }
+  //
+  // self.nav_to_contact_page = function() {
+  //   self.vue.page = self.vue.CONTACT_PAGE;
+  // }
+
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
@@ -331,7 +407,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 6,
+      page: 0,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
@@ -339,6 +415,9 @@ var app = function() {
       LANDLORD_PAGE: 4,
       CREATE_LANDLORD: 5,
       WRITE_REVIEW: 6,
+      // ABOUT_PAGE: 7,
+      // CONTACT_PAGE: 8,
+
       LANDLORD_TAGS: [
 
       ],
@@ -353,6 +432,8 @@ var app = function() {
       nav_to_find_property: self.nav_to_find_property,
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
+      // nav_to_about_page: self.nav_to_about_page,
+      // nav_to_contact_page: self.nav_to_contact_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
       nav_to_write_review: self.nav_to_write_review,
 
