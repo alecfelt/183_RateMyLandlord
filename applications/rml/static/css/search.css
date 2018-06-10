@@ -55,7 +55,7 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  margin-top: 16pt;
+  margin: 32pt 0;
 }
 
 .search-result{
