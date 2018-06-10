@@ -194,6 +194,26 @@ Vue.component('FindLandlord', {
         <div class="search-results">
           <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
             <h2>{{result.first_name}} {{result.last_name}}</h2>
+            <div class="rating-items">
+              <div class="ratings">
+                <h2>Overall Rating</h2>
+                <p>5.0</p>
+              </div>
+              <div class="ratings-extras">
+                <h3>Average Property Rating</h3>
+                <p>5.0</p>
+                <h3>Responsiveness</h3>
+                <p>5.0</p>
+                <h3>Certified Slumlord?</h3>
+                <p>No</p>
+              </div>
+              <div class="ratings-tags">
+                <h3>Tags for this Landlord</h3>
+                <ul>
+                  <li>Tag Items would go here</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </div>
         <div class="search-prompt">
@@ -427,7 +447,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 6,
+      page: 0,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
