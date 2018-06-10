@@ -90,7 +90,7 @@ def search_landlords():
                 review_ids=row.review_ids,
                 tag_ids=row.tag_ids
             )
-        landlords.append(landlord)
+            landlords.append(landlord)
 
     return response.json(dict(
         landlords=landlords
@@ -140,7 +140,7 @@ def get_landlords():
                 review_ids=row.review_ids,
                 tag_ids=row.tag_ids
             )
-        landlords.append(landlord)
+            landlords.append(landlord)
 
     return response.json(dict(
         landlords=landlords
@@ -154,14 +154,19 @@ def format_address_elem(address_elem, isState=False):
 
 # Takes an address dictionary and returns a formatted string
 def format_address(address):
-    city = format_address_elem( address["city"] )
+    # city = format_address_elem( address["city"] )
     state = format_address_elem( address["state"] )
     zipcode = format_address_elem( address["zipcode"] )
 
     street = ""
-    for e in address["street"].split():
-        street = street + " " + format_address_elem(e)
+    for s in address["street"].split():
+        street = street + " " + format_address_elem(s)
     street = street.strip()
+
+    city = ""
+    for c in address["city"].split():
+        city = city + " " + format_address_elem(c)
+    city = city.strip()
 
     full_address = street + ", " + city + ', ' + state + ' ' + zipcode
 
@@ -176,18 +181,17 @@ def add_landlord():
     if request.vars.name:
         name = request.vars.name
     else:
-        print "[Error] add_landlord(): landlord name cannot be null"
-        raise HTTP(500)
-        # name = "John Cena"
+        # print "[Error] add_landlord(): landlord name cannot be null"
+        # raise HTTP(500)
+        name = "John Cena"
 
     if request.vars.address:
         address = format_address(request.vars.address)
     else:
-        print "[Error] add_landlord(): property address cannot be null"
-        raise HTTP(500)
-        # addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
-        # address = format_address(addy)
-
+        # print "[Error] add_landlord(): property address cannot be null"
+        # raise HTTP(500)
+        addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
+        address = format_address(addy)
 
     website = request.vars.website
 
@@ -208,7 +212,7 @@ def add_landlord():
     # Insert landlord landlords
     landlord_id = db.landlords.insert(
         name = name,
-        property_id = property_id
+        property_ids = [property_id]
     )
     # print "landlord id: ", landlord_id
 
@@ -236,9 +240,12 @@ def add_landlord():
 # input: list of property ids
 # output: list of property obj
 #         data = { properties: [{address: "", }, {}, {}] }
-def get_properties():
+def get_properties(inputIds=None):
+    if inputIds:
+        ids = inputIds
+    else:
+        ids = request.vars.property_ids if request.vars.property_ids else []
 
-    ids = request.vars.property_ids if request.vars.property_ids else []
     properties = []
 
     for row in db().select(orderby=db.properties.address):
@@ -262,13 +269,71 @@ def add_property():
     ))
 
 # Get all the reviews of a landlord based on landlord_id
+# Also returns average landlord rating, average property rating,
+# and list of addresses the landlord owns
 # input: landlord_id
 # output: list of review objs
-#         data = { reviews: [{landlord_id: "", }, {}, {}] }
+#         data = { ave_l_rating: 3.4, ave_p_rating: 5.2, addresses: [list of property addresses the landlord owns], reviews: [{landlord_id: "", }, {}, {}] }
 def get_reviews():
+    if request.vars.landlord_id:
+        landlord_id = request.vars.landlord_id;
+    else:
+        print "[Error] get_reviews(): landlord_id cannot be Null"
+        raise HTTP(500)
+        # landlord_id = 10
+
+    reviews = []
+    l_rating_sum = 0
+    p_rating_sum = 0
+    review_count = 0
+
+    q_review = (db.reviews.landlord_id == landlord_id)
+    for row in db(q_review).select(orderby=~db.reviews.updated_on):
+        # book keeping for averages/ids
+        if landlord_rating:
+            l_rating_sum += row.landlord_rating
+        if row.property_rating:
+            p_rating_sum += row.property_rating
+        review_count += 1
+
+        review = dict(
+            id=row.id,
+            landlord_id=row.landlord_id,
+            property_id=row.property_id,
+            landlord_rating=row.landlord_rating,
+            property_rating=row.property_rating,
+            rent_with_landlord_again=row.rent_with_landlord_again,
+            rent_with_property_again=row.rent_with_property_again,
+            landlord_tag_ids=row.landlord_tag_ids,
+            property_tag_ids=row.property_tag_ids,
+            comments=row.comments
+        )
+        reviews.append(review)
+
+    if review_count != 0:
+        ave_l_rating = round((l_rating_sum * 1.0)/review_count, 1)
+        ave_p_rating = round ((p_rating_sum * 1.0)/review_count, 1)
+    else:
+        ave_l_rating = 0
+        ave_p_rating = 0
+
+    # Get a list of property_ids owned by the landlord
+    q_landlord = (db.landlords.id == landlord_id)
+    row = db(q_landlord).select(db.landlords.property_ids).first()
+    property_ids = row.property_ids
+
+    # Get a list of addresses from list of property_ids
+    properties = json.loads(get_properties(property_ids))["properties"]
+    addresses = [ p["address"].encode('ascii','ignore') for p in properties ]
+    # print addresses
+
     return response.json(dict(
-        msg='get_reviews'
+        reviews=reviews,
+        ave_l_rating=ave_l_rating,
+        ave_p_rating=ave_p_rating,
+        addresses=addresses
     ))
+
 
 # input: landlord_id, address,
 # landlord_rating
