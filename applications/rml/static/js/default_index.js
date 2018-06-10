@@ -158,7 +158,7 @@ Vue.component('FindLandlord', {
         ],
   methods: {
     handle_search: function(event) {
-      var search_str = event.target.search_box.value;
+      var search_str = event.target.value;
       console.log("Searching for " + search_str);
       var that = this;
       $.post(search_landlords_url,
@@ -183,7 +183,7 @@ Vue.component('FindLandlord', {
     <div class="sub-page">
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
           <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
