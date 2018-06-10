@@ -104,16 +104,16 @@ p, a, b, li, input, button{
   margin: 4pt;
   margin-top: 16pt;
 
-  background-color: #F49D37;
-  border: 1px solid #F49D37;
-  color: #FFF;
+  background-color: #091A22;
+  border: 1px solid #091A22;
+  color: #fff;
 
   transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
 }
 
 #web2py_user_form input[type=submit]:hover {
-  background-color: #2E86AB;
-  border: 1px solid #2E86AB;
+  background-color: #F49D37;
+  border: 1px solid #F49D37;
   cursor: pointer;
 }
 
@@ -130,8 +130,8 @@ p, a, b, li, input, button{
 }
 
 .login-form div button:hover{
-  background-color: #2E86AB;
-  border: 1px solid #2E86AB;
+  background-color: #F49D37;
+  border: 1px solid #F49D37;
   cursor: pointer;
 }
 
