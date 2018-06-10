@@ -307,6 +307,17 @@ Vue.component('AboutPage', {
                   <br />I love Luca.<br />
                 </div>
               </div>
+              <div class="third profcolthree compressible">
+                <div class="profbox" id="eltonrego">
+                  <img class="eltonimage" src="/images/elton.jpg" />
+                </div>
+                <div class="profheading">
+                  <h4>Elton Rego</h4>
+                </div>
+                <div class="bottomtext">
+                  <br />I love Luca.<br />
+                </div>
+              </div>
             </div>
             <div class="secondset container">
               <div class="half profcolone compressible">
