@@ -69,43 +69,42 @@ p, a, b, li, input, button{
 }
 
 #web2py_user_form input[type=text] {
-  border: 1px solid #091A22;
+  outline: none;
+  border: 1pt solid #091A22;
   margin: 4pt 0;
   width: 100%;
-  padding: 4pt;
+  padding: 8pt;
 
-  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
 }
 
 #web2py_user_form input[type=text]:focus {
-  border: 1px solid #F49D37;
-  background-color: #F49D37;
-  color: #fff;
+  border: 1pt solid #F49D37;
 }
 
 
 #web2py_user_form input[type=password] {
-  border: 1px solid #091A22;
+  outline: none;
+  border: 1pt solid #091A22;
   margin: 4pt 0;
   width: 100%;
-  padding: 4pt;
+  padding: 8pt;
 
-  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
 }
 
 #web2py_user_form input[type=password]:focus {
-  border: 1px solid #F49D37;
-  background-color: #F49D37;
-  color: #fff;
+  border: 1pt solid #F49D37;
 }
 
 #web2py_user_form input[type=submit] {
+  outline: none;
   padding: 4pt 8pt;
   margin: 4pt;
   margin-top: 16pt;
 
   background-color: #091A22;
-  border: 1px solid #091A22;
+  border: 1pt solid #091A22;
   color: #fff;
 
   transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
@@ -113,7 +112,7 @@ p, a, b, li, input, button{
 
 #web2py_user_form input[type=submit]:hover {
   background-color: #F49D37;
-  border: 1px solid #F49D37;
+  border: 1pt solid #F49D37;
   cursor: pointer;
 }
 
