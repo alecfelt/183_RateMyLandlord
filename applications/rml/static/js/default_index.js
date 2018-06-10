@@ -175,6 +175,7 @@ Vue.component('FindLandlord', {
     },
     handle_landlord_select: function(result) {
       this.toggle_selected_landlord(result);
+      this.on_select();
     }
   },
   template:
@@ -363,14 +364,6 @@ var app = function() {
   self.nav_to_home_page = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
-
-  // self.nav_to_about_page = function() {
-  //   self.vue.page = self.vue.ABOUT_PAGE;
-  // }
-  //
-  // self.nav_to_contact_page = function() {
-  //   self.vue.page = self.vue.CONTACT_PAGE;
-  // }
 
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
