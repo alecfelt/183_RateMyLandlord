@@ -281,7 +281,6 @@ Vue.component('CreateLandlord', {
 
 Vue.component('AboutPage', {
     props: ['nav_to_about_page'],
-
     template: `
       <div class="sub-page">
           <h1> FOUNDERS </h1>
@@ -297,20 +296,42 @@ Vue.component('AboutPage', {
                   <br />I love Luca.<br />
                 </div>
               </div>
+              <div class="third profcoltwo compressible">
+                <div class="profbox" id="marychern">
+                  <img class="maryimage" src="/images/mary.jpg" />
+                </div>
+                <div class="profheading">
+                  <h4>Mary Chern</h4>
+                </div>
+                <div class="bottomtext">
+                  <br />I love Luca.<br />
+                </div>
+              </div>
             </div>
-            // <div class="secondset container">
-            //   <div class="half profcolone compressible">
-            //     <div class="profbox" id="Ben Pao">
-            //       <img class="benimage" src="/images/ben.jpg" />
-            //     </div>
-            //     <div class="profheading">
-            //       <h4>Ben Pao</h4>
-            //     </div>
-            //     <div class="bottomtext">
-            //       <br />I love Luca.<br />
-            //     </div>
-            //   </div>
-            // </div>
+            <div class="secondset container">
+              <div class="half profcolone compressible">
+                <div class="profbox" id="Ben Pao">
+                  <img class="benimage" src="/images/ben.jpg" />
+                </div>
+                <div class="profheading">
+                  <h4>Ben Pao</h4>
+                </div>
+                <div class="bottomtext">
+                  <br />I love Luca.<br />
+                </div>
+              </div>
+              <div class="half profcoltwo compressible">
+                <div class="profbox" id="Kevin Crum">
+                  <img class="kevinimage" src="/images/kevin.jpg" />
+                </div>
+                <div class="profheading">
+                  <h4>Kevin Crum</h4>
+                </div>
+                <div class="bottomtext">
+                  <br />I love Luca.<br />
+                </div>
+              </div>
+            </div>
       </div>
     `
 });

@@ -41,6 +41,7 @@
     {{block head}}{{end}}
   </head>
   <body style="background-image: url('{{=URL('static', 'images/bg.svg')}}'); background-size: cover;")>
+
     <div class="main-content">
       <div class="main-app">
         <div id="vue-div">
@@ -78,8 +79,8 @@
     <div class="footer">
       <div class="footer-content">
         <ul>
-          <li><a href="" @click.prevent="nav_to_find_landlord_page">About</a></li>
-          <li><a href="" @click.prevent="nav_to_contact_page">Contact</a></li>
+          <li><a href="#" @click.prevent="nav_to_about_page">About</a></li>
+          <li><a href="#" @click.prevent="nav_to_contact_page">Contact</a></li>
           <li>RateMyLandlord Team &copy; 2018</li>
         </ul>
       </div>
