@@ -320,6 +320,8 @@ var app = function() {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
       console.log(self.vue.selected_landlord);
+
+      self.vue.page = self.vue.WRITE_REVIEW;
   }
 
 
