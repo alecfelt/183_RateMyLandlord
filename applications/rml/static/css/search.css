@@ -17,6 +17,7 @@
 }
 
 #search_box {
+  outline: none;
   border: 1px solid rgba(9, 26, 34, 0.1);
   border-radius: 4pt;
   border-top-right-radius: 0;
@@ -24,6 +25,12 @@
   padding: 8pt 16pt;
   width: 70%;
   font-size: 100%;
+
+  transition: border 300ms ease-in-out;
+}
+
+#search_box:focus {
+  border: 1pt solid #F49D37;
 }
 
 #search-button {
