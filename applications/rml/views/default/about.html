@@ -1,82 +1,173 @@
-{{extend 'layout.html'}}
-{{block header}}
-{{end}}
-<div class="sub-page">
-  <div class="container padded center">
-    <h1> FOUNDERS </h1>
+<!DOCTYPE html>
+<html class="no-js" lang="{{=T.accepted_language or 'en'}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{=response.title or request.application}}</title>
+    <meta name="application-name" content="{{=request.application}}">
+    <meta name="google-site-verification" content="">
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
 
-  <div class="firstset container padded">
-    <div class="profcolone third compressible">
-      <div class="card padded round" style="width:300px; height:300px">
-        <div>
-          <div class="profbox" id="alecfelt">
-            <img class="alecimage" src="{{ =URL('static/images', 'alec.jpeg') }}" />
+    <!-- SCRIPTS GO HERE -->
+    <script src="{{=URL('static', 'js/vue.js')}}"></script>
 
-            <h4>Alec Felt</h4>
+    <!-- FONTS GO HERE -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
+
+    <!-- STYLESHEETS GO HERE -->
+    <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/landing.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/about.css')}}" rel="stylesheet" type="text/css"/>
+
+    <!-- server URLs -->
+    <script>
+      var search_landlords_url = "{{ =URL('default', 'search_landlords') }}";
+      var search_properties_url = "{{ =URL('default', 'search_properties') }}";
+      var get_landlords_url = "{{ =URL('default', 'get_landlords') }}";
+      var add_landlord_url = "{{ =URL('default', 'add_landlords') }}";
+      var get_properties_url = "{{ =URL('default', 'get_properties') }}";
+      var add_property_url = "{{ =URL('default', 'add_property') }}";
+      var get_reviews_url = "{{ =URL('default', 'get_reviews') }}";
+      var add_review_url = "{{ =URL('default', 'add_review') }}";
+      var about_url = "{{ =URL('default', 'about') }}";
+      var contact_url = "{{ =URL('default', 'contact') }}";
+    </script>
+
+    {{include 'web2py_ajax.html'}}
+    {{block head}}{{end}}
+  </head>
+  <body style="background-image: url('{{=URL('static', 'images/bg.svg')}}'); background-size: cover;")>
+
+    <div class="main-content">
+      <div class="main-app">
+        <div id="vue-div">
+          <!-- Navbar ======================================= -->
+          <div class="nav-bar">
+            <div class="logo">
+              <a href="" @click.prevent="nav_to_home_page"><h1>RateMyLandlord</h1></a>
+            </div>
+            <div class="nav-links">
+              <ul>
+                {{if auth.user != None:}}
+                  <li><a href="{{=URL('default','user/logout')}}">logout</a></li>
+                  <li><a href="" @click.prevent="nav_to_find_landlord_to_review">Write a Review</a></li>
+                {{else:}}
+                  <li><a href="{{=URL('default', 'user/login')}}">login</a></li>
+                {{pass}}
+                <li><a href="" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
+                <li><a href="" @click.prevent="nav_to_find_property">Find a Property</a></li>
+              </ul>
+            </div>
           </div>
-          <div class="orange padded">
-            <p>I love Luca.</p>
+
+          <!-- Masthead ===================================== -->
+          {{block header}}
+          {{end}}
+          <!-- Main ========================================= -->
+          <!-- Begin page content -->
+          {{block center}}
+          {{include}}
+          <div class="sub-page">
+            <div class="container padded center">
+              <h1> FOUNDERS </h1>
+              <div class="photos-row">
+                <div class="profcolone third">
+                  <div class="card padded round" style="width:300px; height:300px">
+                    <div>
+                      <div class="profbox" id="alecfelt">
+                        <img class="alecimage" src="{{ =URL('static/images', 'alec.jpeg') }}" />
+
+                        <h4>Alec Felt</h4>
+                      </div>
+                      <div class="text-orange padded">
+                        <p>I love Luca.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="profcoltwo third">
+                  <div class="card padded round" style="width:300px; height:300px">
+                    <div>
+                      <div class="profbox" id="marychern">
+                        <img class="maryimage" src="{{ =URL('static/images', 'mary.png') }}" />
+
+                        <h4>Mary Chern</h4>
+                      </div>
+                      <div class="orange padded">
+                        <p>I love Luca.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="profcolthree third">
+                  <div class="card padded round" style="width:300px; height:300px">
+                    <div>
+                      <div class="profbox" id="eltonrego">
+                        <img class="eltonimage" src="{{ =URL('static/images', 'elton.jpeg') }}" />
+
+                        <h4>Elton Rego</h4>
+                      </div>
+                      <div class="orange padded">
+                        <p>I love Luca.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="photos-row">
+                <div class="profcolone third">
+                  <div class="card padded round" style="width:300px; height:300px">
+                    <div>
+                      <div class="profbox" id="benpao">
+                        <img class="benimage" src="{{ =URL('static/images', 'ben.jpg') }}" />
+                        <!-- <img class="benimage" src="{{ =URL('static/images', 'actualben.jpg') }}" /> -->
+                        <h4>Ben Pao</h4>
+                      </div>
+                      <div class="orange padded">
+                        <p>I love Luca.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="profcoltwo third">
+                  <div class="card padded round" style="width:300px; height:300px">
+                    <div>
+                      <div class="profbox" id="kevincrum">
+                        <img class="kevinimage" src="{{ =URL('static/images', 'kevin.png') }}" />
+                        <h4>Kevin Crum</h4>
+                      </div>
+                      <div class="orange padded">
+                        <p>I love Luca.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
+          {{end}}
         </div>
       </div>
     </div>
-    <div class="profcoltwo third compressible">
-      <div class="card padded round" style="width:300px; height:300px">
-        <div>
-          <div class="profbox" id="marychern">
-            <img class="maryimage" src="{{ =URL('static/images', 'mary.png') }}" />
-
-            <h4>Mary Chern</h4>
-          </div>
-          <div class="orange padded">
-            <p>I love Luca.</p>
-          </div>
-        </div>
+    {{block footer}} <!-- this is default footer -->
+    <div class="footer">
+      <div class="footer-content">
+        <ul>
+          <li><a href="{{ =URL('default', 'about') }}">About</a></li>
+          <li><a href="{{ =URL('default', 'contact') }}">Contact</a></li>
+          <!-- <li><a href="#" @click.prevent="nav_to_about_page">About</a></li>
+          <li><a href="#" @click.prevent="nav_to_contact_page">Contact</a></li> -->
+          <li>RateMyLandlord Team &copy; 2018</li>
+        </ul>
       </div>
     </div>
-    <div class="profcolthree third compressible">
-      <div class="card padded round" style="width:300px; height:300px">
-        <div>
-          <div class="profbox" id="eltonrego">
-            <img class="eltonimage" src="{{ =URL('static/images', 'elton.jpeg') }}" />
-
-            <h4>Elton Rego</h4>
-          </div>
-          <div class="orange padded">
-            <p>I love Luca.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="secondset container padded center">
-      <div class="profcolone third compressible">
-        <div class="card padded round" style="width:300px; height:300px">
-          <div>
-            <div class="profbox" id="benpao">
-              <img class="benimage" src="{{ =URL('static/images', 'ben.jpg') }}" />
-              <!-- <img class="benimage" src="{{ =URL('static/images', 'actualben.jpg') }}" /> -->
-              <h4>Ben Pao</h4>
-            </div>
-            <div class="orange padded">
-              <p>I love Luca.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="profcoltwo third compressible">
-        <div class="card padded round" style="width:300px; height:300px">
-          <div>
-            <div class="profbox" id="kevincrum">
-              <img class="kevinimage" src="{{ =URL('static/images', 'kevin.png') }}" />
-              <h4>Kevin Crum</h4>
-            </div>
-            <div class="orange padded">
-              <p>I love Luca.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+    {{end}}
+    <!-- The javascript =============================== -->
+    <script src="{{=URL('static', 'js/default_index.js')}}"></script>
+  </body>
+</html>
