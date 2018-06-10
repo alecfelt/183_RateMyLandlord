@@ -22,9 +22,6 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <div class="landlord-card" v-for="landlord in landlord_list">
-        <h2>{{landlord.first_name}} {{landlord.last_name}}</h2>
-      </div>
     </div>
   `
 });
