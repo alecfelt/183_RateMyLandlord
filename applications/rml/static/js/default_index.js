@@ -32,7 +32,7 @@ Vue.component('WriteReview', {
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <input
-              placeholder="Memo Title: left these the same for now"
+              placeholder="Review Title: left these the same for now"
               v-model="form_title"
               name="title"
               type="text" />
@@ -40,7 +40,7 @@ Vue.component('WriteReview', {
 
           <div>
             <input
-              placeholder="Memo Content"
+              placeholder="Review Content"
               v-model="form_body"
               name="body"
               type="text" />
@@ -307,6 +307,14 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
+  self.nav_to_about_page = function() {
+    self.vue.page = self.vue.ABOUT_PAGE;
+  }
+
+  self.nav_to_contact_page = function() {
+    self.vue.page = self.vue.CONTACT_PAGE;
+  }
+
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
@@ -331,7 +339,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 6,
+      page: 8,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
@@ -339,6 +347,9 @@ var app = function() {
       LANDLORD_PAGE: 4,
       CREATE_LANDLORD: 5,
       WRITE_REVIEW: 6,
+      ABOUT_PAGE: 7,
+      CONTACT_PAGE: 8,
+
       LANDLORD_TAGS: [
 
       ],
@@ -353,6 +364,8 @@ var app = function() {
       nav_to_find_property: self.nav_to_find_property,
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
+      nav_to_about_page: self.nav_to_about_page,
+      nav_to_contact_page: self.nav_to_contact_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
       nav_to_write_review: self.nav_to_write_review,
 
