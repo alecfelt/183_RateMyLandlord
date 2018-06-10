@@ -59,8 +59,8 @@
                 {{else:}}
                   <li><a href="{{=URL('default', 'user/login')}}">login</a></li>
                 {{pass}}
-                <li><a href="" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
-                <li><a href="" @click.prevent="nav_to_find_property">Find a Property</a></li>
+                <li><a href="{{ =URL('default', 'search_landlords') }}" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
+                <li><a href="{{ =URL('default', 'search_properties') }}" @click.prevent="nav_to_find_property">Find a Property</a></li>
               </ul>
             </div>
           </div>
