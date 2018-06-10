@@ -130,14 +130,6 @@ def get_landlords():
 
     landlords = []
 
-    # for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
-    #     if row.id in landlord_ids:
-    #         landlord = dict(
-    #             id=row.id,
-    #             name=row.name
-    #         )
-    #     landlords.append(landlord)
-
     for row in db().select(orderby=db.landlords.name):
         if row.id in landlord_ids:
             landlord = dict(
@@ -158,23 +150,29 @@ def get_landlords():
 # output: data = {name: "name", website: "website url", address: "address"}
 def add_landlord():
     # Return an error if landlord name is null
-    if request.vars.name:
-        name = request.vars.name
-    else:
-        print "Error: landlord name cannot be null"
-        raise HTTP(500)
-        # return response.json(dict(
-        #     err="Error: landlord name cannot be null"
-        # ))
+    # if request.vars.name:
+    #     name = request.vars.name
+    # else:
+    #     print "Error: landlord name cannot be null"
+    #     raise HTTP(500)
+    #     # return response.json(dict(
+    #     #     err="Error: landlord name cannot be null"
+    #     # ))
 
-    if request.vars.website:
-        website = request.vars.website
-    else:
-        website = ""
+    name = ""
 
-    if request.vars.address:
-        address = request.vars.address
-        address = ""
+    # if request.vars.website:
+    #     website = request.vars.website
+    # else:
+    #     website = ""
+
+    website = request.vars.website
+
+    # if request.vars.address:
+    #     address = request.vars.address
+    #     address = ""
+
+    address = request.vars.address
 
     landlord_id = db.landlords.insert(
         name = name
@@ -182,11 +180,11 @@ def add_landlord():
     )
 
     # Returns the landlord info.
-    return response.json(dict(image=dict(
+    return response.json(dict(
         id = landlord_id,
         address = address,
         website = website
-    )))
+    ))
 
 # input: list of property ids
 # output: list of property obj
