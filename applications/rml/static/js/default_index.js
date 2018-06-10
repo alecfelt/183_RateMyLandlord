@@ -11,15 +11,19 @@ Vue.component('HomePage', {
           'nav_to_find_landlord_page',
           'nav_to_find_property',
           'landlord_list'],
-  template: `
-    <div class=""sub-page"">
+  template:
+  `
+    <div class="sub-page">
       <div class="call-to-action">
-        <h2>What are you looking for?</h2>
+        <h1>What are you looking for?</h1>
         <div class="landing-buttons">
           <button @click.prevent="nav_to_find_landlord_page">Find a<br/><b>Landlord</b></button>
           <button @click.prevent="nav_to_find_property">Find a<br/><b>Property</b></button>
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
+      </div>
+      <div class="landlord-card" v-for="landlord in landlord_list">
+        <h2>{{landlord.first_name}} {{landlord.last_name}}</h2>
       </div>
     </div>
   `

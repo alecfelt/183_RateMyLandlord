@@ -130,7 +130,6 @@ def get_landlords():
 
     landlords = []
     for row in db().select(orderby=db.landlords.last_name):
-        print(row.id)
         if row.first_name is not None:
             landlord = dict(
                 id=row.id,
