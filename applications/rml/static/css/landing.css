@@ -1,10 +1,17 @@
 /* STYLES THE LANDING (HOME) PAGE */
 .call-to-action {
-  width: 100%;
+  width: calc(100%-128pt);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 32pt 64pt;
+
+  background-color: #FFF;
+  border-radius: 4pt;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 }
 
 .landing-buttons {

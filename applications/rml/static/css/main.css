@@ -33,7 +33,7 @@ p, a, b, li, input, button{
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 80%;
+  width: 90%;
 
   opacity: 0;
   transition: opacity ease-in-out 1000ms;
@@ -45,7 +45,7 @@ p, a, b, li, input, button{
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 80%;
+  width: 90%;
 }
 
 /* USER STYLING */
