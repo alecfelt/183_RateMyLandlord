@@ -271,3 +271,10 @@ def add_review():
     return response.json(dict(
         msg='add_review'
     ))
+
+# redirect to about page's html template
+def about():
+    return dict()
+# redirect to contact page's html template
+def contact():
+    return dict()
