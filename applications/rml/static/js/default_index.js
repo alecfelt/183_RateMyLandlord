@@ -279,73 +279,73 @@ Vue.component('CreateLandlord', {
     `
 });
 
-Vue.component('AboutPage', {
-    props: ['nav_to_about_page'],
-    template: `
-      <div class="sub-page">
-          <h1> FOUNDERS </h1>
-            <div class="firstset container">
-              <div class="third profcolone compressible">
-                <div class="profbox" id="alecfelt">
-                  <img class="alecimage" src="/images/alec.jpg" />
-                </div>
-                <div class="profheading">
-                  <h4>Alec Felt</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-              <div class="third profcoltwo compressible">
-                <div class="profbox" id="marychern">
-                  <img class="maryimage" src="/images/mary.jpg" />
-                </div>
-                <div class="profheading">
-                  <h4>Mary Chern</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-              <div class="third profcolthree compressible">
-                <div class="profbox" id="eltonrego">
-                  <img class="eltonimage" src="/images/elton.jpg" />
-                </div>
-                <div class="profheading">
-                  <h4>Elton Rego</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-            </div>
-            <div class="secondset container">
-              <div class="half profcolone compressible">
-                <div class="profbox" id="Ben Pao">
-                  <img class="benimage" src="/images/ben.jpg" />
-                </div>
-                <div class="profheading">
-                  <h4>Ben Pao</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-              <div class="half profcoltwo compressible">
-                <div class="profbox" id="Kevin Crum">
-                  <img class="kevinimage" src="/images/kevin.jpg" />
-                </div>
-                <div class="profheading">
-                  <h4>Kevin Crum</h4>
-                </div>
-                <div class="bottomtext">
-                  <br />I love Luca.<br />
-                </div>
-              </div>
-            </div>
-      </div>
-    `
-});
+// Vue.component('AboutPage', {
+//     props: ['nav_to_about_page'],
+//     template: `
+//       <div class="sub-page">
+//           <h1> FOUNDERS </h1>
+//             <div class="firstset container">
+//               <div class="third profcolone compressible">
+//                 <div class="profbox" id="alecfelt">
+//                   <img class="alecimage" src="/images/alec.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Alec Felt</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="third profcoltwo compressible">
+//                 <div class="profbox" id="marychern">
+//                   <img class="maryimage" src="/images/mary.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Mary Chern</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="third profcolthree compressible">
+//                 <div class="profbox" id="eltonrego">
+//                   <img class="eltonimage" src="/images/elton.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Elton Rego</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//             </div>
+//             <div class="secondset container">
+//               <div class="half profcolone compressible">
+//                 <div class="profbox" id="Ben Pao">
+//                   <img class="benimage" src="/images/ben.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Ben Pao</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//               <div class="half profcoltwo compressible">
+//                 <div class="profbox" id="Kevin Crum">
+//                   <img class="kevinimage" src="/images/kevin.jpg" />
+//                 </div>
+//                 <div class="profheading">
+//                   <h4>Kevin Crum</h4>
+//                 </div>
+//                 <div class="bottomtext">
+//                   <br />I love Luca.<br />
+//                 </div>
+//               </div>
+//             </div>
+//       </div>
+//     `
+// });
 
 
 var app = function() {
@@ -375,14 +375,13 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
-  self.nav_to_about_page = function() {
-    self.vue.page = self.vue.ABOUT_PAGE;
-    console.log('help');
-  }
-
-  self.nav_to_contact_page = function() {
-    self.vue.page = self.vue.CONTACT_PAGE;
-  }
+  // self.nav_to_about_page = function() {
+  //   self.vue.page = self.vue.ABOUT_PAGE;
+  // }
+  //
+  // self.nav_to_contact_page = function() {
+  //   self.vue.page = self.vue.CONTACT_PAGE;
+  // }
 
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
@@ -416,8 +415,8 @@ var app = function() {
       LANDLORD_PAGE: 4,
       CREATE_LANDLORD: 5,
       WRITE_REVIEW: 6,
-      ABOUT_PAGE: 7,
-      CONTACT_PAGE: 8,
+      // ABOUT_PAGE: 7,
+      // CONTACT_PAGE: 8,
 
       LANDLORD_TAGS: [
 
@@ -433,8 +432,8 @@ var app = function() {
       nav_to_find_property: self.nav_to_find_property,
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
-      nav_to_about_page: self.nav_to_about_page,
-      nav_to_contact_page: self.nav_to_contact_page,
+      // nav_to_about_page: self.nav_to_about_page,
+      // nav_to_contact_page: self.nav_to_contact_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
       nav_to_write_review: self.nav_to_write_review,
 

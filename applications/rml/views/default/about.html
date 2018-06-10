@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="no-js" lang="{{=T.accepted_language or 'en'}}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{=response.title or request.application}}</title>
+    <meta name="application-name" content="{{=request.application}}">
+    <meta name="google-site-verification" content="">
+    <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
+    <link rel="apple-touch-icon" href="{{=URL('static','images/favicon.png')}}">
+    <script src="{{=URL('static','js/modernizr-2.8.3.min.js')}}"></script>
+
+    <!-- SCRIPTS GO HERE -->
+    <script src="{{=URL('static', 'js/vue.js')}}"></script>
+
+    <!-- FONTS GO HERE -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald" rel="stylesheet">
+    <link rel="stylesheet" href="{{=URL('static', 'font-awesome-4.6.3/css/font-awesome.min.css')}}">
+
+    <!-- STYLESHEETS GO HERE -->
+    <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/landing.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
+
+    {{include 'web2py_ajax.html'}}
+    {{block head}}{{end}}
+  </head>
+
+  <body style="background-image: url('{{=URL('static', 'images/bg.svg')}}'); background-size: cover;")>
+    <div class="sub-page">
+      <h1> FOUNDERS </h1>
+      <div class="firstset container">
+        <div class="third profcolone compressible">
+          <div class="profbox" id="alecfelt">
+            <img class="alecimage" src="{{ =URL('static/images', 'alec.jpeg') }}" />
+          </div>
+          <div class="profheading">
+            <h4>Alec Felt</h4>
+          </div>
+          <div class="bottomtext">
+            <br />I love Luca.<br />
+          </div>
+        </div>
+        <div class="third profcoltwo compressible">
+          <div class="profbox" id="marychern">
+            <img class="maryimage" src="{{ =URL('static/images', 'mary.png') }}" />
+          </div>
+          <div class="profheading">
+            <h4>Mary Chern</h4>
+          </div>
+          <div class="bottomtext">
+            <br />I love Luca.<br />
+          </div>
+        </div>
+        <div class="third profcolthree compressible">
+          <div class="profbox" id="eltonrego">
+            <img class="eltonimage" src="{{ =URL('static/images', 'elton.jpeg') }}" />
+          </div>
+          <div class="profheading">
+            <h4>Elton Rego</h4>
+          </div>
+          <div class="bottomtext">
+            <br />I love Luca.<br />
+          </div>
+        </div>
+      </div>
+      <div class="secondset container">
+        <div class="half profcolone compressible">
+          <div class="profbox" id="Ben Pao">
+            <img class="benimage" src="{{ =URL('static/images', 'ben.jpg') }}" />
+          </div>
+          <div class="profheading">
+            <h4>Ben Pao</h4>
+          </div>
+          <div class="bottomtext">
+            <br />I love Luca.<br />
+          </div>
+        </div>
+        <div class="half profcoltwo compressible">
+          <div class="profbox" id="Kevin Crum">
+            <img class="kevinimage" src="{{ =URL('static/images', 'kevin.jpeg') }}" />
+          </div>
+          <div class="profheading">
+            <h4>Kevin Crum</h4>
+          </div>
+          <div class="bottomtext">
+            <br />I love Luca.<br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

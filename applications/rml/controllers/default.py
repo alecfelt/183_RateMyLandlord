@@ -195,3 +195,6 @@ def add_review():
     return response.json(dict(
         msg='add_review'
     ))
+
+def about():
+    return dict()
