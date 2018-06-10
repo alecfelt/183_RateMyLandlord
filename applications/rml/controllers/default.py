@@ -81,11 +81,12 @@ def search_landlords():
 
     landlords = []
 
-    for row in db().select(orderby=db.landlords.name):
-        if name in row.name:
+    for row in db().select(orderby=db.landlords.last_name):
+        if first_name in row.first_name:
             landlord = dict(
                 id=row.id,
-                name=row.name,
+                first_name=row.first_name,
+                last_name=row.last_name,
                 property_ids=row.property_ids,
                 review_ids=row.review_ids,
                 tag_ids=row.tag_ids
