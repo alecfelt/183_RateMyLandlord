@@ -345,8 +345,67 @@ def get_reviews():
 # comments
 # output: "ok"
 def add_review():
+    # # Return an error if landlord name is null
+    # if request.vars.name:
+    #     name = request.vars.name
+    # else:
+    #     # print "[Error] add_landlord(): landlord name cannot be null"
+    #     # raise HTTP(500)
+    #     name = "John Cena"
+    #
+    # if request.vars.address:
+    #     address = format_address(request.vars.address)
+    # else:
+    #     # print "[Error] add_landlord(): property address cannot be null"
+    #     # raise HTTP(500)
+    #     addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
+    #     address = format_address(addy)
+    #
+    # website = request.vars.website
+    #
+    # # Check if property already exists
+    # # If exists, get the property id
+    # # Otherwise insert to db and get property id
+    # q = (db.properties.address == address)
+    # r = db(q).select(db.properties.id).first()
+    # if r:
+    #     # print "property found"
+    #     property_id = r.id
+    # else:
+    #     property_id = db.properties.insert(
+    #         address = address
+    #     )
+    #     # print "property_id: ", property_id
+    #
+    # # Insert landlord landlords
+    # landlord_id = db.landlords.insert(
+    #     name = name,
+    #     property_ids = [property_id]
+    # )
+    # # print "landlord id: ", landlord_id
+    #
+    # # Insert/append landlord_id into table properties for the property
+    # q = (db.properties.id == property_id)
+    # r = db(q).select().first()
+    # if r.landlord_ids:
+    #     landlord_ids = set(r.landlord_ids)
+    #     landlord_ids.add(landlord_id)
+    #     landlord_ids = list(landlord_ids)
+    # else:
+    #     landlord_ids = [landlord_id]
+    #
+    # r.update_record(landlord_ids=landlord_ids)
+    #
+    # # Returns the landlord info.
+    # return response.json(dict(
+    #     id = landlord_id,
+    #     address = address,
+    #     website = website,
+    #     property_id = property_id
+    # ))
+
     return response.json(dict(
-        msg='add_review'
+        msg='ok'
     ))
 
 # redirect to about page's html template
