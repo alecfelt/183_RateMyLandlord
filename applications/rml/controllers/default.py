@@ -70,16 +70,31 @@ def download():
 
 # input: search_str
 # output: list of landlord obj
-#         data = [{name: "", }, {}, {}]
+#         data = { landlords: [{name: "", }, {}, {}] }
 def search_landlords():
+    name = request.vars.search_str
+    landlords = []
+
+    for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
+        if name in row.name:
+            landlord = dict(
+                id=row.id,
+                name=row.name
+            )
+        landlords.append(landlord)
+
     return response.json(dict(
-        msg='search_landlords'
+        landlords=landlords
     ))
+
+    # return response.json(dict(
+    #     msg='search_landlords'
+    # ))
 
 
 # input: search_str
 # output: list of property obj
-#         data = [{address: "", }, {}, {}]
+#         data = { properties: [{address: "", }, {}, {}] }
 def search_properties():
     return response.json(dict(
         msg='search_properties'
@@ -87,14 +102,14 @@ def search_properties():
 
 # input: list of landlord ids
 # output: list of landlord objs
-#         data = [{name: "", }, {}, {}]
+#         data = { landlords: [{name: "", }, {}, {}] }
 def get_landlords():
     return response.json(dict(
         msg='get_landlords'
     ))
 
 # input: name, website, address
-# output: name, website, address
+# output: data = {name: "name", website: "website url", address: "address"}
 def add_landlord():
     return response.json(dict(
         msg='add_landlord'
@@ -102,7 +117,7 @@ def add_landlord():
 
 # input: list of property ids
 # output: list of property obj
-#         data = [{address: "", }, {}, {}]
+#         data = { properties: [{address: "", }, {}, {}] }
 def get_properties():
     return response.json(dict(
         msg='get_properties'
@@ -116,7 +131,7 @@ def add_property():
 
 # input: landlord_id
 # output: list of review objs
-#         data = [{landlord_id: "", }, {}, {}]
+#         data = { reviews: [{landlord_id: "", }, {}, {}] }
 def get_reviews():
     return response.json(dict(
         msg='get_reviews'
