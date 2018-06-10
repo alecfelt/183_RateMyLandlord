@@ -96,12 +96,11 @@ def search_landlords():
         landlords=landlords
     ))
 
+# Goes through table properties and returns a list of property objects with address that contains the substring passed in
 # input: search_str
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
-
-
     address = request.vars.search_str if request.vars.search_str else ''
     properties = []
 
