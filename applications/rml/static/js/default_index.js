@@ -279,6 +279,42 @@ Vue.component('CreateLandlord', {
     `
 });
 
+Vue.component('AboutPage', {
+    props: ['nav_to_about_page'],
+
+    template: `
+      <div class="sub-page">
+          <h1> FOUNDERS </h1>
+            <div class="firstset container">
+              <div class="third profcolone compressible">
+                <div class="profbox" id="alecfelt">
+                  <img class="alecimage" src="/images/alec.jpg" />
+                </div>
+                <div class="profheading">
+                  <h4>Alec Felt</h4>
+                </div>
+                <div class="bottomtext">
+                  <br />I love Luca.<br />
+                </div>
+              </div>
+            </div>
+            // <div class="secondset container">
+            //   <div class="half profcolone compressible">
+            //     <div class="profbox" id="Ben Pao">
+            //       <img class="benimage" src="/images/ben.jpg" />
+            //     </div>
+            //     <div class="profheading">
+            //       <h4>Ben Pao</h4>
+            //     </div>
+            //     <div class="bottomtext">
+            //       <br />I love Luca.<br />
+            //     </div>
+            //   </div>
+            // </div>
+      </div>
+    `
+});
+
 
 var app = function() {
 
@@ -309,6 +345,7 @@ var app = function() {
 
   self.nav_to_about_page = function() {
     self.vue.page = self.vue.ABOUT_PAGE;
+    console.log('help');
   }
 
   self.nav_to_contact_page = function() {
