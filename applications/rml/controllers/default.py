@@ -224,3 +224,6 @@ def add_review():
 
 def about():
     return dict()
+
+def contact():
+    return dict()
