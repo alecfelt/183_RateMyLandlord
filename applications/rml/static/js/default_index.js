@@ -200,6 +200,34 @@ Vue.component('FindLandlord', {
   `
 });
 Vue.component('FindProperty', {
+  props: ['on_select',
+          'nav_to_create_landlord',
+          'set_search_results'
+        ],
+  data: function() {
+    return {
+      has_searched: false,
+      search_results: []
+    }
+  },
+  methods: {
+    handle_search: function(event) {
+      var search_str = event.target.search_box.value;
+      console.log(search_str);
+      $.post(search_landlords_url,
+        {
+          search_str: search_str
+        },
+        function(data) {
+          console.log(data.landlords);
+          this.set_search_results(data.landlords);
+        }
+      );
+      // async query
+        // in callback function
+          // has_search = true; search_results = data.search_results;
+    }
+  },
   template: `
     <div class="sub-page">
       <div class="search">
