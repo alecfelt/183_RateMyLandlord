@@ -180,55 +180,6 @@ p, a, b, li, input, button{
   color: #F49D37;
 }
 
-.search {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-form {
-  width: 80%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-}
-
-#search_box {
-  border: 1px solid rgba(9, 26, 34, 0.1);
-  border-radius: 4pt;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
-  padding: 8pt 16pt;
-  width: 100%;
-  font-size: 100%;
-}
-
-#search-button {
-  border: 1px solid rgba(9, 26, 34, 0.1);
-  background-color: #F49D37;
-  border-radius: 4pt;
-  border-top-left-radius: 0;
-  border-bottom-left-radius: 0;
-  font-size: 100%;
-  padding: 8pt 16pt;
-  color: #FFF;
-
-  transition: background-color ease-in-out 150ms;
-}
-
-#search-button:hover {
-  cursor: pointer;
-  background-color: #2E86AB;
-  color: #FFF;
-}
-
-.search-prompt {
-  margin: 8pt 16pt;
-}
-
 /* EVERYTHING FOR THE FOOTER */
 .footer{
   display: flex;

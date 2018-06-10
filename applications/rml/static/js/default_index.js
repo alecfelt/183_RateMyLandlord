@@ -22,7 +22,7 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1>Recently Added Landlords</h1>
+      <h1 v-if="(landlord_list.length!=0)">Recently Added Landlords</h1>
       <p v-for="landlord in landlord_list">{{landlord.first_name}}</p>
     </div>
   `
@@ -155,6 +155,61 @@ Vue.component('WriteReview', {
 Vue.component('FindLandlord', {
   props: ['on_select',
           'nav_to_create_landlord',
+          'set_search_results',
+          'search_results',
+          'toggle_selected_landlord',
+        ],
+  methods: {
+    handle_search: function(event) {
+      var search_str = event.target.search_box.value;
+      console.log("Searching for " + search_str);
+      var that = this;
+      $.post(search_landlords_url,
+        {
+          search_str: search_str
+        },
+        function(data) {
+          console.log("Recieved: ");
+          console.log(data.landlords); // Data is here
+          that.set_search_results(data.landlords);
+          $('#search-button').prop('enabled', true);
+        }
+      );
+    },
+    handle_landlord_select: function(result) {
+      this.toggle_selected_landlord(result);
+    }
+  },
+  template:
+  `
+    <div class="sub-page">
+      <div class="search">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+        <div class="search-results">
+          <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
+            <h2>{{result.first_name}} {{result.last_name}}</h2>
+          </div>
+        </div>
+        <div class="search-prompt">
+          <p>
+            didnt find what you are looking for?
+            <a href="#" @click.prevent="nav_to_create_landlord">
+              Add A Landlord
+            </a>
+          </p>
+        </div>
+      <div>
+    </div>
+  `
+});
+Vue.component('FindProperty', {
+  props: ['on_select',
+          'nav_to_create_landlord',
           'set_search_results'
         ],
   data: function() {
@@ -200,11 +255,7 @@ Vue.component('FindLandlord', {
         </p>
       </div>
     </div>
-  `
-});
-Vue.component('FindProperty', {
-  template: `
-    <div> FindHouse </div>
+
   `
 });
 Vue.component('LandlordPage', {
@@ -288,74 +339,6 @@ Vue.component('CreateLandlord', {
     `
 });
 
-// Vue.component('AboutPage', {
-//     props: ['nav_to_about_page'],
-//     template: `
-//       <div class="sub-page">
-//           <h1> FOUNDERS </h1>
-//             <div class="firstset container">
-//               <div class="third profcolone compressible">
-//                 <div class="profbox" id="alecfelt">
-//                   <img class="alecimage" src="/images/alec.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Alec Felt</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcoltwo compressible">
-//                 <div class="profbox" id="marychern">
-//                   <img class="maryimage" src="/images/mary.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Mary Chern</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcolthree compressible">
-//                 <div class="profbox" id="eltonrego">
-//                   <img class="eltonimage" src="/images/elton.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Elton Rego</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//             <div class="secondset container">
-//               <div class="half profcolone compressible">
-//                 <div class="profbox" id="Ben Pao">
-//                   <img class="benimage" src="/images/ben.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Ben Pao</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="half profcoltwo compressible">
-//                 <div class="profbox" id="Kevin Crum">
-//                   <img class="kevinimage" src="/images/kevin.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Kevin Crum</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//       </div>
-//     `
-// });
-
 
 var app = function() {
 
@@ -414,8 +397,6 @@ var app = function() {
     $.getJSON(
       get_landlords_url,
       function(data){
-        console.log(data.landlords);
-        if(data.landlords.length) console.log(data.landlords[0].first_name)
         self.vue.landlord_list = data.landlords;
         console.log(self.vue.landlord_list);
       }
@@ -442,7 +423,7 @@ var app = function() {
     );
   }
 
-  self.set_search_results = function(results) {
+  self.set_search_results = function(results){
     self.vue.search_results = results;
   }
 
@@ -489,7 +470,7 @@ var app = function() {
 
       // APP FUNCTIONALITY
       create_landlord: self.create_landlord,
-      set_search_results: self.set_search_results
+      set_search_results: self.set_search_results,
     }
   });
 
