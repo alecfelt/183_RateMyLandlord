@@ -6,63 +6,73 @@
   var create_landlord_url = "{{=URL('default', 'add_landlord', user_signature=True)}}";
 </script>
 {{end}}
-<!-- VUE components -->
-<div v-if="page == HOME_PAGE">
-  <home-page
-    v-bind="{
-      nav_to_find_landlord_to_review,
-      nav_to_find_landlord_page,
-      nav_to_find_property,
-      landlord_list
-    }"
-  />
-</div>
-<div v-if="page == FIND_LANDLORD_TO_REVIEW">
-  <find-landlord
-    v-bind="{
-      on_select: nav_to_write_review,
-      nav_to_create_landlord,
-      set_search_results,
-      search_results,
-      toggle_selected_landlord
-    }"
-  />
-</div>
-<div v-if="page == FIND_LANDLORD_PAGE">
-  <find-landlord
-    v-bind="{
-      on_select: nav_to_landlord_page,
-      nav_to_create_landlord,
-      set_search_results,
-      search_results,
-      toggle_selected_landlord
-    }"
-  />
-</div>
-<div v-if="page == FIND_PROPERTY">
-  <find-property/>
-</div>
-<div v-if="page == LANDLORD_PAGE">
-  <landlord-page
-    v-bind="{
-      landlord: selected_landlord,
-      nav_to_write_review
-    }"
-  />
-</div>
-<div v-if="page == CREATE_LANDLORD">
-  <create-landlord
-     v-bind="{
-       toggle_selected_landlord,
-       create_landlord
-     }"
-  />
-</div>
-<div v-if="page == WRITE_REVIEW">
-  <write-review
-    v-bind="{
-      landlord: selected_landlord
-    }"
-  />
-</div>
-<!-- end of VUE components -->
+    <!-- VUE components -->
+    <div v-if="page == HOME_PAGE">
+      <home-page
+        v-bind="{
+          nav_to_find_landlord_to_review,
+          nav_to_find_landlord_page,
+          nav_to_find_property,
+          landlord_list
+        }"
+      />
+    </div>
+    <div v-if="page == FIND_LANDLORD_TO_REVIEW">
+      <find-landlord
+        v-bind="{
+          on_select: nav_to_write_review,
+          nav_to_create_landlord,
+          set_search_results
+        }"
+      />
+    </div>
+    <div v-if="page == FIND_LANDLORD_PAGE">
+      <find-landlord
+        v-bind="{
+          on_select: nav_to_landlord_page,
+          nav_to_create_landlord
+        }"
+      />
+    </div>
+    <div v-if="page == FIND_PROPERTY">
+      <find-property/>
+    </div>
+    <div v-if="page == LANDLORD_PAGE">
+      <landlord-page
+        v-bind="{
+          landlord: selected_landlord,
+          nav_to_write_review
+        }"
+      />
+    </div>
+    <div v-if="page == CREATE_LANDLORD">
+      <create-landlord
+         v-bind="{
+           toggle_selected_landlord,
+           create_landlord
+         }"
+      />
+    </div>
+    <div v-if="page == WRITE_REVIEW">
+      <write-review
+        v-bind="{
+          landlord: selected_landlord,
+          nav_to_landlord_page
+        }"
+      />
+    </div>
+    <!-- <div v-if="page == ABOUT_PAGE">
+      <about-page
+        v-bind="{
+          nav_to_about_page
+        }"
+      />
+    </div>
+    <div v-if="page == CONTACT_PAGE">
+      <contact-page
+        v-bind="{
+          nav_to_contact_page
+        }"
+      />
+    </div> -->
+    <!-- end of VUE components -->

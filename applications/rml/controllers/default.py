@@ -420,9 +420,7 @@ def add_review():
     #     property_id = property_id
     # ))
 
-    return response.json(dict(
-        msg='ok'
-    ))
+    return "ok"
 
 # redirect to about page's html template
 def about():

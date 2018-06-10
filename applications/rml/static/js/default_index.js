@@ -28,14 +28,17 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord'],
+  props: ['landlord', 'nav_to_landlord_page'],
   methods: {
     add_review: function() {
       if(this.validate_review()) {
+        var that = this;
         $.post(add_review_url,
           this._data,
           function(data) {
-            console.log(data);
+            if(data == "ok"){
+              // this.nav_to_landlord_page(that.landlord.id);
+            }
           }
         );
       }
@@ -424,7 +427,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 6,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
