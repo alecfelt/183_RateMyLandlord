@@ -66,6 +66,11 @@ Vue.component('WriteReview', {
       }
     },
     validate_review() {
+      for(var key in this._data) {
+        if(this._data[key] == null) {
+          return false;
+        }
+      }
       return true;
     }
   },

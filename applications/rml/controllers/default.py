@@ -122,8 +122,7 @@ def search_properties():
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids,
-                tag_ids=row.tag_ids
+                landlord_ids=row.landlord_ids
             )
             properties.append(propertie)
 
@@ -269,8 +268,7 @@ def get_properties(inputIds=None):
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids,
-                tag_ids=row.tag_ids
+                landlord_ids=row.landlord_ids
             )
             properties.append(propertie)
 
