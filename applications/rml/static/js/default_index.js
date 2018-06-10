@@ -28,7 +28,7 @@ Vue.component('WriteReview', {
   template: `
     <div class="sub-page">
       <div class="write-review-card">
-        <h1> Write a Review </h1>
+        <h1> Write a Review for {{landlord}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
             <input
@@ -244,13 +244,23 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
+    props: ['toggle_selected_landlord'],
+    methods: {
+        CreateLandlord_helper: function(event) {
+            console.log(event);
+            console.log(event.target.landlord_name.value);
+            this.toggle_selected_landlord( event.target.landlord_name.value );
+
+        }
+    },
     template: `
       <div>
           <h1> Add New Landlord </h1>
-          <form action="#" class="review-items">
+          <form @submit.prevent="CreateLandlord_helper" class="review-items">
 
             <div>
               <input
+                id="landlord_name"
                 placeholder="Name of Landlord/Management Group"
                 type="text" />
             </div>
@@ -306,13 +316,22 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
+  self.toggle_selected_landlord = function(landlord_name) {
+      console.log('youve made it thus far');
+      self.vue.selected_landlord = landlord_name;
+      console.log(self.vue.selected_landlord);
+
+      self.vue.page = self.vue.WRITE_REVIEW;
+  }
+
+
   // Complete as needed.
   self.vue = new Vue({
     el: "#vue-div",
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 6,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
@@ -326,7 +345,7 @@ var app = function() {
       PROPERTY_TAGS: [
 
       ],
-      selected_landlord: null
+      selected_landlord: 'tom'
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
@@ -335,7 +354,9 @@ var app = function() {
       nav_to_create_landlord: self.nav_to_create_landlord,
       nav_to_home_page: self.nav_to_home_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
-      nav_to_write_review: self.nav_to_write_review
+      nav_to_write_review: self.nav_to_write_review,
+
+      toggle_selected_landlord: self.toggle_selected_landlord
     }
   });
 
