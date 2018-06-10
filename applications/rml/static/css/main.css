@@ -74,6 +74,7 @@ p, a, b, li, input, button{
   margin: 4pt 0;
   width: 100%;
   padding: 8pt;
+  border-radius: 4pt;
 
   transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
 }
@@ -89,6 +90,7 @@ p, a, b, li, input, button{
   margin: 4pt 0;
   width: 100%;
   padding: 8pt;
+  border-radius: 4pt;
 
   transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
 }
@@ -102,6 +104,7 @@ p, a, b, li, input, button{
   padding: 4pt 8pt;
   margin: 4pt;
   margin-top: 16pt;
+  border-radius: 2pt;
 
   background-color: #091A22;
   border: 1pt solid #091A22;
@@ -120,6 +123,7 @@ p, a, b, li, input, button{
   padding: 4pt 8pt;
   margin: 4pt;
   margin-top: 16pt;
+  border-radius: 2pt;
 
   background-color: #091A22;
   border: 1px solid #091A22;
