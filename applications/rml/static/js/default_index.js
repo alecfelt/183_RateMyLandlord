@@ -201,7 +201,25 @@ Vue.component('FindLandlord', {
 });
 Vue.component('FindProperty', {
   template: `
-    <div> FindHouse </div>
+    <div class="sub-page">
+      <div class="search">
+        <form @submit.prevent="handle_search" class="search-form">
+          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
+        </form>
+      <div>
+      <div class="search-prompt">
+        <p>
+          didnt find what you are looking for?
+          <a href="#" @click.prevent="nav_to_create_landlord">
+            Add A Landlord
+          </a>
+        </p>
+      </div>
+    </div>
+
   `
 });
 Vue.component('LandlordPage', {
@@ -284,75 +302,6 @@ Vue.component('CreateLandlord', {
       </div>
     `
 });
-
-// Vue.component('AboutPage', {
-//     props: ['nav_to_about_page'],
-//     template: `
-//       <div class="sub-page">
-//           <h1> FOUNDERS </h1>
-//             <div class="firstset container">
-//               <div class="third profcolone compressible">
-//                 <div class="profbox" id="alecfelt">
-//                   <img class="alecimage" src="/images/alec.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Alec Felt</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcoltwo compressible">
-//                 <div class="profbox" id="marychern">
-//                   <img class="maryimage" src="/images/mary.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Mary Chern</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="third profcolthree compressible">
-//                 <div class="profbox" id="eltonrego">
-//                   <img class="eltonimage" src="/images/elton.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Elton Rego</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//             <div class="secondset container">
-//               <div class="half profcolone compressible">
-//                 <div class="profbox" id="Ben Pao">
-//                   <img class="benimage" src="/images/ben.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Ben Pao</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//               <div class="half profcoltwo compressible">
-//                 <div class="profbox" id="Kevin Crum">
-//                   <img class="kevinimage" src="/images/kevin.jpg" />
-//                 </div>
-//                 <div class="profheading">
-//                   <h4>Kevin Crum</h4>
-//                 </div>
-//                 <div class="bottomtext">
-//                   <br />I love Luca.<br />
-//                 </div>
-//               </div>
-//             </div>
-//       </div>
-//     `
-// });
-
 
 var app = function() {
 
