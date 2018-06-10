@@ -77,11 +77,11 @@ def search_landlords():
     # else:
     #     name = ""
 
-    name = request.vars.search_str if request.vars.search_str else ''
+    first_name = request.vars.search_str if request.vars.search_str else ''
 
     landlords = []
 
-    for row in db().select(orderby=db.landlords.last_name):
+    for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
         if first_name in row.first_name:
             landlord = dict(
                 id=row.id,

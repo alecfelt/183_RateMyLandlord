@@ -22,6 +22,8 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
+      <h1>Recently Added Landlords</h1>
+      <p v-for="landlord in landlord_list">{{landlord.first_name}}</p>
     </div>
   `
 });
@@ -153,7 +155,10 @@ Vue.component('WriteReview', {
   `
 });
 Vue.component('FindLandlord', {
-  props: ['on_select', 'nav_to_create_landlord'],
+  props: ['on_select',
+          'nav_to_create_landlord',
+          'set_search_results'
+        ],
   data: function() {
     return {
       has_searched: false,
@@ -169,7 +174,8 @@ Vue.component('FindLandlord', {
           search_str: search_str
         },
         function(data) {
-          console.log(data);
+          console.log(data.landlords);
+          this.set_search_results(data.landlords);
         }
       );
       // async query
@@ -438,6 +444,10 @@ var app = function() {
     );
   }
 
+  self.set_search_results = function(results) {
+    self.vue.search_results = results;
+  }
+
 
   // Complete as needed.
   self.vue = new Vue({
@@ -463,6 +473,7 @@ var app = function() {
 
       ],
       landlord_list: [],
+      search_results: [],
       selected_landlord: 'Tom',
       form_title: null,
     },
@@ -480,6 +491,7 @@ var app = function() {
 
       // APP FUNCTIONALITY
       create_landlord: self.create_landlord,
+      set_search_results: self.set_search_results
     }
   });
 
