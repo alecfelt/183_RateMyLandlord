@@ -62,9 +62,9 @@
   width: 100%;
   margin: 16pt;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   padding: 8pt 16pt;
   background-color: #FFF;
   border-radius: 4pt;
