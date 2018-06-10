@@ -153,12 +153,40 @@ def get_landlords():
         landlords=landlords
     ))
 
+# Add a landlord into table landlords
 # input: name, website, address
 # output: data = {name: "name", website: "website url", address: "address"}
 def add_landlord():
-    return response.json(dict(
-        msg='add_landlord'
-    ))
+    # Return an error if landlord name is null
+    if request.vars.name:
+        name = request.vars.name
+    else:
+        print "Error: landlord name cannot be null"
+        raise HTTP(500)
+        # return response.json(dict(
+        #     err="Error: landlord name cannot be null"
+        # ))
+
+    if request.vars.website:
+        website = request.vars.website
+    else:
+        website = ""
+
+    if request.vars.address:
+        address = request.vars.address
+        address = ""
+
+    landlord_id = db.landlords.insert(
+        name = name
+        # image_price = request.vars.image_price
+    )
+
+    # Returns the landlord info.
+    return response.json(dict(image=dict(
+        id = landlord_id,
+        address = address,
+        website = website
+    )))
 
 # input: list of property ids
 # output: list of property obj
