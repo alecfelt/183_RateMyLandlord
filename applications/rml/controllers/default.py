@@ -112,7 +112,7 @@ def search_properties():
                 landlord_ids=row.landlord_ids,
                 tag_ids=row.tag_ids
             )
-        properties.append(propertie)
+            properties.append(propertie)
 
     return response.json(dict(
         properties=properties
@@ -249,15 +249,10 @@ def get_properties():
                 landlord_ids=row.landlord_ids,
                 tag_ids=row.tag_ids
             )
-        properties.append(propertie)
+            properties.append(propertie)
 
     return response.json(dict(
         properties=properties
-    ))
-
-
-    return response.json(dict(
-        msg='get_properties'
     ))
 
 # private method, not an actual route
@@ -266,6 +261,7 @@ def add_property():
         msg='add_property'
     ))
 
+# Get all the reviews of a landlord based on landlord_id
 # input: landlord_id
 # output: list of review objs
 #         data = { reviews: [{landlord_id: "", }, {}, {}] }
