@@ -67,41 +67,70 @@ def download():
 #####################
 ### Our endpoints ###
 
+
+# input: search_str
+# output: list of landlord obj
+#         data = [{name: "", }, {}, {}]
 def search_landlords():
     return response.json(dict(
         msg='search_landlords'
     ))
 
+
+# input: search_str
+# output: list of property obj
+#         data = [{address: "", }, {}, {}]
 def search_properties():
     return response.json(dict(
         msg='search_properties'
     ))
 
+# input: list of landlord ids
+# output: list of landlord objs
+#         data = [{name: "", }, {}, {}]
 def get_landlords():
     return response.json(dict(
         msg='get_landlords'
     ))
 
+# input: name, website, address
+# output: name, website, address
 def add_landlord():
     return response.json(dict(
         msg='add_landlord'
     ))
 
+# input: list of property ids
+# output: list of property obj
+#         data = [{address: "", }, {}, {}]
 def get_properties():
     return response.json(dict(
         msg='get_properties'
     ))
 
+# private method, not an actual route
 def add_property():
     return response.json(dict(
         msg='add_property'
     ))
 
+# input: landlord_id
+# output: list of review objs
+#         data = [{landlord_id: "", }, {}, {}]
 def get_reviews():
     return response.json(dict(
         msg='get_reviews'
     ))
 
+# input: landlord_id, address,
+# landlord_rating
+# property_rating
+# rent_with_landlord_again
+# rent_with_property_again
+# landlord_tag_ids
+# property_tag_ids
+# comments
+# output: "ok"
 def add_review():
     return response.json(dict(
         msg='add_review'
