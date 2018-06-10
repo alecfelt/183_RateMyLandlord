@@ -72,7 +72,11 @@ def download():
 # output: list of landlord obj
 #         data = { landlords: [{name: "", }, {}, {}] }
 def search_landlords():
-    name = request.vars.search_str
+    if request.vars.search_str:
+        name = request.vars.search_str
+    else:
+        name = ""
+
     landlords = []
 
     for row in db().select(db.landlords.id, db.landlords.name, orderby=db.landlords.name):
@@ -86,11 +90,6 @@ def search_landlords():
     return response.json(dict(
         landlords=landlords
     ))
-
-    # return response.json(dict(
-    #     msg='search_landlords'
-    # ))
-
 
 # input: search_str
 # output: list of property obj
