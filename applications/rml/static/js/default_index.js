@@ -345,7 +345,7 @@ var app = function() {
       PROPERTY_TAGS: [
 
       ],
-      selected_landlord: 'tom'
+      selected_landlord: 'Tom'
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
