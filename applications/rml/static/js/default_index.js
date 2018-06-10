@@ -417,7 +417,6 @@ var app = function() {
       get_landlords_url,
       function(data){
         console.log(data.landlords);
-        console.log(data.landlords[0].first_name)
         self.vue.landlord_list = data.landlords;
         console.log(self.vue.landlord_list);
       }
