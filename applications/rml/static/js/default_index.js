@@ -166,7 +166,7 @@ Vue.component('FindLandlord', {
         ],
   methods: {
     handle_search: function(event) {
-      var search_str = event.target.search_box.value;
+      var search_str = event.target.value;
       console.log("Searching for " + search_str);
       var that = this;
       $.post(search_landlords_url,
@@ -183,6 +183,7 @@ Vue.component('FindLandlord', {
     },
     handle_landlord_select: function(result) {
       this.toggle_selected_landlord(result);
+      this.on_select();
     }
   },
   template:
@@ -190,14 +191,25 @@ Vue.component('FindLandlord', {
     <div class="sub-page">
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
           <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
         </form>
         <div class="search-results">
           <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
-            <h2>{{result.first_name}} {{result.last_name}}</h2>
+            <h1>{{result.first_name}} {{result.last_name}}</h1>
+            <div class="rating-items">
+              <div class="ratings">
+                <h3>Overall Rating</h3>
+                <p>5.0</p>
+              </div>
+              <div class="ratings">
+                <h3>Average Property Rating</h3>
+                <p>5.0</p>
+              </div>
+            </div>
+
           </div>
         </div>
         <div class="search-prompt">
@@ -372,14 +384,6 @@ var app = function() {
     self.vue.page = self.vue.HOME_PAGE;
   }
 
-  // self.nav_to_about_page = function() {
-  //   self.vue.page = self.vue.ABOUT_PAGE;
-  // }
-  //
-  // self.nav_to_contact_page = function() {
-  //   self.vue.page = self.vue.CONTACT_PAGE;
-  // }
-
   self.nav_to_landlord_page = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
@@ -393,8 +397,6 @@ var app = function() {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
       console.log(self.vue.selected_landlord);
-
-      self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   // API METHODS
@@ -439,7 +441,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 6,
+      page: 0,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,

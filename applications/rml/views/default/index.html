@@ -22,7 +22,9 @@
         v-bind="{
           on_select: nav_to_write_review,
           nav_to_create_landlord,
-          set_search_results
+          set_search_results,
+          search_results,
+          toggle_selected_landlord,
         }"
       />
     </div>
@@ -30,7 +32,10 @@
       <find-landlord
         v-bind="{
           on_select: nav_to_landlord_page,
-          nav_to_create_landlord
+          nav_to_create_landlord,
+          set_search_results,
+          search_results,
+          toggle_selected_landlord,
         }"
       />
     </div>
