@@ -93,10 +93,26 @@ def search_landlords():
 
 # input: search_str
 # output: list of property obj
-#         data = { properties: [{address: "", }, {}, {}] }
+#         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
+    if request.vars.search_str:
+        address = request.vars.search_str
+    else:
+        address = ""
+
+    properties = []
+
+    for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, orderby=db.properties.address):
+        if address in row.address:
+            propertie = dict(
+                id=row.id,
+                address=row.address,
+                landlord_ids=row.landlord_ids
+            )
+        properties.append(propertie)
+
     return response.json(dict(
-        msg='search_properties'
+        properties=properties
     ))
 
 # input: list of landlord ids
