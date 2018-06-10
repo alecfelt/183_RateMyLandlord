@@ -1,12 +1,19 @@
 {{extend 'layout.html'}}
-{{block header}}{{end}}
+{{block header}}
+<script>
+  // I define URLs here.
+  var get_landlords_url = "{{=URL('default', 'get_landlords')}}";
+  var create_landlord_url = "{{=URL('default', 'add_landlord', user_signature=True)}}";
+</script>
+{{end}}
     <!-- VUE components -->
     <div v-if="page == HOME_PAGE">
       <home-page
         v-bind="{
           nav_to_find_landlord_to_review,
           nav_to_find_landlord_page,
-          nav_to_find_property
+          nav_to_find_property,
+          landlord_list
         }"
       />
     </div>
@@ -40,7 +47,8 @@
     <div v-if="page == CREATE_LANDLORD">
       <create-landlord
          v-bind="{
-           toggle_selected_landlord
+           toggle_selected_landlord,
+           create_landlord
          }"
       />
     </div>

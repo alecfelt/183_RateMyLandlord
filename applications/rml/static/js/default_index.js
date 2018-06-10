@@ -9,7 +9,8 @@ $(window).on("load", function() {
 Vue.component('HomePage', {
   props: ['nav_to_find_landlord_to_review',
           'nav_to_find_landlord_page',
-          'nav_to_find_property'],
+          'nav_to_find_property',
+          'landlord_list'],
   template: `
     <div class=""sub-page"">
       <div class="call-to-action">
@@ -37,15 +38,6 @@ Vue.component('WriteReview', {
               name="title"
               type="text" />
           </div>
-
-          <div>
-            <input
-              placeholder="Review Content"
-              v-model="form_body"
-              name="body"
-              type="text" />
-          </div>
-
           <div>
               <p> Rate your landlord </p>
               <select v-model="form_landlord_rating">
@@ -244,37 +236,49 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['toggle_selected_landlord'],
+    props: ['toggle_selected_landlord',
+            'create_landlord'],
     methods: {
-        CreateLandlord_helper: function(event) {
-            console.log(event);
-            console.log(event.target.landlord_name.value);
-            this.toggle_selected_landlord( event.target.landlord_name.value );
-
-        }
+      CreateLandlord_helper: function(event) {
+          console.log(event);
+          console.log(event.target.landlord_first_name.value);
+          console.log(event.target.landlord_last_name.value);
+          this.create_landlord(event);
+          this.toggle_selected_landlord(event.target.landlord_first_name.value);
+      }
     },
     template: `
-      <div>
-          <h1> Add New Landlord </h1>
-          <form @submit.prevent="CreateLandlord_helper" class="review-items">
+      <div class="sub-page">
+        <h1> Add New Landlord </h1>
+        <form @submit.prevent="CreateLandlord_helper" class="add-landlord-form">
 
-            <div>
-              <input
-                id="landlord_name"
-                placeholder="Name of Landlord/Management Group"
-                type="text" />
-            </div>
+          <div class="landlord-form-item">
+            <p>First Name</p>
+            <input
+              id="landlord_first_name"
+              type="text" />
+          </div>
 
-            <div>
-              <input
-                placeholder="Landlord website (optional)"
-                type="text" />
-            </div>
+          <div class="landlord-form-item">
+            <p>Last Name</p>
+            <input
+              id="landlord_last_name"
+              type="text" />
+          </div>
 
-            <button type="submit">
-              <i class="fa fa-plus"></i>
+          <div class="landlord-form-item">
+            <p>Landlord's Website (Optional)</p>
+            <input
+              id="landlord_site"
+              type="text" />
+          </div>
+
+          <div class="landlord-form-item">
+            <button @v-on:click="CreateLandlord_helper" type="submit">
+              <i class="fa fa-plus"></i>Confirm New Landlord
             </button>
-          </form>
+          </div>
+        </form>
       </div>
     `
 });
@@ -400,6 +404,39 @@ var app = function() {
       self.vue.page = self.vue.WRITE_REVIEW;
   }
 
+  // API METHODS
+  self.get_landlords = function() {
+    $.getJSON(
+      get_landlords_url,
+      function(data){
+        console.log(data.landlords);
+        console.log(data.landlords[0].first_name)
+        self.vue.landlord_list = data.landlords;
+        console.log(self.vue.landlord_list);
+      }
+    );
+  }
+
+  self.create_landlord = function(event) {
+    console.log(event);
+    var form = event.target;
+    var first_name = form.landlord_first_name.value;
+    var last_name = form.landlord_last_name.value;
+    var website = (form.landlord_site.value === "") ? "" : form.landord_site.value;
+    $.post(
+      create_landlord_url,
+      {
+        first_name: first_name,
+        last_name: last_name,
+        website: website,
+      },
+      function(data){
+        console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
+        self.vue.landlord_list.unshift(data.landlord);
+      }
+    );
+  }
+
 
   // Complete as needed.
   self.vue = new Vue({
@@ -424,7 +461,9 @@ var app = function() {
       PROPERTY_TAGS: [
 
       ],
-      selected_landlord: 'Tom'
+      landlord_list: [],
+      selected_landlord: 'Tom',
+      form_title: null,
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
@@ -436,11 +475,14 @@ var app = function() {
       // nav_to_contact_page: self.nav_to_contact_page,
       nav_to_landlord_page: self.nav_to_landlord_page,
       nav_to_write_review: self.nav_to_write_review,
+      toggle_selected_landlord: self.toggle_selected_landlord,
 
-      toggle_selected_landlord: self.toggle_selected_landlord
+      // APP FUNCTIONALITY
+      create_landlord: self.create_landlord,
     }
   });
 
+  self.get_landlords();
   $("#vue-div").show();
   return self;
 

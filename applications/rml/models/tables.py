@@ -13,7 +13,8 @@ import datetime
 # Product table.
 # from cart
 db.define_table('landlords',
-    Field('name', type='string'),
+    Field('first_name', type='string'),
+    Field('last_name', type='string'),
     Field('property_ids', type='list:integer'),
     Field('review_ids', type='list:integer'),
     Field('tag_ids', type='list:integer'),

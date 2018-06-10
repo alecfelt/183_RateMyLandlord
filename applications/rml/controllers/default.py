@@ -127,15 +127,14 @@ def get_landlords():
     # else:
     #     landlord_ids = []
 
-    landlord_ids = request.vars.landlord_ids if request.vars.landlord_ids else []
-
     landlords = []
-
-    for row in db().select(orderby=db.landlords.name):
-        if row.id in landlord_ids:
+    for row in db().select(orderby=db.landlords.last_name):
+        print(row.id)
+        if row.first_name is not None:
             landlord = dict(
                 id=row.id,
-                name=row.name,
+                first_name=row.first_name,
+                last_name=row.last_name,
                 property_ids=row.property_ids,
                 review_ids=row.review_ids,
                 tag_ids=row.tag_ids
@@ -178,12 +177,11 @@ def format_address(address):
 # output: data = {name: "name", website: "website url", address: "address", property_id: 1}
 def add_landlord():
     # Return an error if landlord name is null
-    if request.vars.name:
-        name = request.vars.name
+    if request.vars.first_name and request.vars.last_name:
+        first_name = request.vars.first_name
+        last_name = request.vars.last_name
     else:
-        # print "[Error] add_landlord(): landlord name cannot be null"
-        # raise HTTP(500)
-        name = "John Cena"
+        return("nok")
 
     if request.vars.address:
         address = format_address(request.vars.address)
@@ -193,8 +191,7 @@ def add_landlord():
         addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
         address = format_address(addy)
 
-    website = request.vars.website
-
+    website = request.vars.website;
     # Check if property already exists
     # If exists, get the property id
     # Otherwise insert to db and get property id
@@ -211,7 +208,8 @@ def add_landlord():
 
     # Insert landlord landlords
     landlord_id = db.landlords.insert(
-        name = name,
+        first_name = first_name,
+        last_name = last_name,
         property_ids = [property_id]
     )
     # print "landlord id: ", landlord_id
@@ -228,12 +226,18 @@ def add_landlord():
 
     r.update_record(landlord_ids=landlord_ids)
 
+    temp_landlord = dict(
+        first_name=first_name,
+        last_name=last_name,
+        property_id = property_id,
+        address = address,
+        website = website,
+    )
+
     # Returns the landlord info.
     return response.json(dict(
         id = landlord_id,
-        address = address,
-        website = website,
-        property_id = property_id
+        landlord = temp_landlord
     ))
 
 # Get a list of properties based on list of property ids pssed in

@@ -1,9 +1,60 @@
+/* STYLES FOR THE ADD LANDLORD MENU */
+.add-landlord-form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.landlord-form-item {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.add-landlord-form input[type="text"]{
+  border: 1px solid #091A22;
+  margin: 4pt 0;
+  width: 100%;
+  padding: 4pt;
+
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+.add-landlord-form input[type=text]:focus {
+  border: 1px solid #F49D37;
+  background-color: #F49D37;
+  color: #fff;
+}
+
+.add-landlord-form input[type=submit] {
+  padding: 4pt 8pt;
+  margin: 4pt;
+  margin-top: 16pt;
+
+  background-color: #091A22;
+  border: 1px solid #091A22;
+  color: #fff;
+
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+}
+
+.add-landlord-form input[type=submit]:hover {
+  background-color: #F49D37;
+  border: 1px solid #F49D37;
+  cursor: pointer;
+}
+
+/* STYLES FOR RATINGS */
+
 .sub-page{
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .rating-card{
