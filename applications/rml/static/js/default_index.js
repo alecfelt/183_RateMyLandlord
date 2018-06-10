@@ -147,10 +147,10 @@ Vue.component('WriteReview', {
               </textarea>
           </div>
 
-          <div class="new_memo_buttons">
-            <div class="form-group" id="submit_memo">
+          <div class="new_review_buttons">
+            <div class="form-group" id="submit_review">
               <div>
-                <input class="btn btn-primary " id="add_memo_btn" type="submit" value="Post This Memo" />
+                <input class="btn btn-primary " id="add_review_btn" type="submit" value="Post This Review" />
               </div>
             </div>
           </div>
