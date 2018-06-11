@@ -37,11 +37,17 @@ Vue.component('HomePage', {
           <div class="rating-items">
             <div class="ratings">
               <h3>Overall Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_l_rating">
+                  {{landlord.avg_l_rating}} </p>
+              <p v-if="!landlord.avg_l_rating">
+                  N/A </p>
             </div>
             <div class="ratings">
               <h3>Average Property Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_p_rating">
+                  {{landlord.avg_p_rating}} </p>
+              <p v-if="!landlord.avg_p_rating">
+                  N/A </p>
             </div>
           </div>
         </div>
