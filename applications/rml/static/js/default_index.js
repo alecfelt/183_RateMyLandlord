@@ -262,7 +262,7 @@ Vue.component('FindLandlord', {
         </div>
         <div class="search-prompt">
           <p>
-            didnt find what you are looking for?
+            didn't find what you are looking for?
             <a href="#" @click.prevent="nav_to_create_landlord">
               Add A Landlord
             </a>
@@ -313,7 +313,7 @@ Vue.component('FindProperty', {
       <div>
       <div class="search-prompt">
         <p>
-          didnt find what you are looking for?
+          didn't find what you are looking for?
           <a href="#" @click.prevent="nav_to_create_landlord">
             Add A Landlord
           </a>
