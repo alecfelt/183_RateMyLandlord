@@ -78,11 +78,15 @@ Vue.component('WriteReview', {
       }
       return true;
     },
-    handle_landlord_tag(event) {
-      console.log(event);
+    handle_landlord_tag(index) {
+      if(this.landlord_tag_ids.indexOf(index) == -1) {
+        this.landlord_tag_ids.push(index);
+      }
     },
-    handle_property_tag(event) {
-      console.log(event);
+    handle_property_tag(index) {
+      if(this.property_tag_ids.indexOf(index) == -1) {
+        this.property_tag_ids.push(index);
+      }
     }
   },
   data: function() {
@@ -185,7 +189,7 @@ Vue.component('WriteReview', {
                   <ul>
                       <li
                           v-for="tag in LANDLORD_TAGS"
-                          v-on:click="handle_landlord_tag">
+                          v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
                               {{tag}}
                       </li>
                   </ul>
@@ -195,7 +199,7 @@ Vue.component('WriteReview', {
                   <ul>
                       <li
                           v-for="tag in PROPERTY_TAGS"
-                          v-on:click="handle_property_tag">
+                          v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
                               {{tag}}
                       </li>
                   </ul>
