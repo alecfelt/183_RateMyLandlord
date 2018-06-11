@@ -272,11 +272,17 @@ Vue.component('FindLandlord', {
             <div class="rating-items">
               <div class="ratings">
                 <h3>Overall Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_l_rating">
+                    {{result.avg_l_rating}} </p>
+                <p v-if="!result.avg_l_rating">
+                    N/A </p>
               </div>
               <div class="ratings">
                 <h3>Average Property Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_p_rating">
+                    {{result.avg_p_rating}} </p>
+                <p v-if="!result.avg_p_rating">
+                    N/A </p>
               </div>
             </div>
           </div>
