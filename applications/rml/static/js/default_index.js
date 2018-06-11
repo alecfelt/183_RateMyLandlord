@@ -50,7 +50,7 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord', 'nav_to_landlord_page'],
+  props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
   methods: {
     add_review: function() {
       if(this.validate_review()) {
@@ -77,6 +77,12 @@ Vue.component('WriteReview', {
         return false;
       }
       return true;
+    },
+    handle_landlord_tag(event) {
+      console.log(event);
+    },
+    handle_property_tag(event) {
+      console.log(event);
     }
   },
   data: function() {
@@ -172,17 +178,26 @@ Vue.component('WriteReview', {
 
           <div>
               <p>
-                  please select from a list of tags that you think you'd find helpful
-                  perhaps this could also take in user #hashtags or something cool.
+                  please select from a list of tags that you think you'd find helpful.
               </p>
-              <div>
+              <div id="landlord-tags-container">
+                  <p> Landlord Tags </p>
                   <ul>
-                      <li>pets allowed</li>
-                      <li>show up unannounced</li>
-                      <li>lives far away</li>
-                      <li>accepts venmo</li>
-                      <li>. . . if this list goes longer the footer covers sumbit button</li>
-                      <li>write your own?</li>
+                      <li
+                          v-for="tag in LANDLORD_TAGS"
+                          v-on:click="handle_landlord_tag">
+                              {{tag}}
+                      </li>
+                  </ul>
+              </div>
+              <div id="landlord-tags-container">
+                  <p> Property Tags </p>
+                  <ul>
+                      <li
+                          v-for="tag in PROPERTY_TAGS"
+                          v-on:click="handle_property_tag">
+                              {{tag}}
+                      </li>
                   </ul>
               </div>
           </div>
@@ -273,16 +288,12 @@ Vue.component('FindLandlord', {
   `
 });
 Vue.component('FindProperty', {
-  props: ['on_select',
-          'nav_to_create_landlord',
-          'set_search_results'
+  props: [
+          'nav_to_landlord_page',
+          'nav_to_find_landlord_page',
+          'set_search_results',
+          'search_results'
         ],
-  data: function() {
-    return {
-      has_searched: false,
-      search_results: []
-    }
-  },
   methods: {
     handle_search: function(event) {
       var search_str = event.target.search_box.value;
@@ -296,16 +307,19 @@ Vue.component('FindProperty', {
           this.set_search_results(data.landlords);
         }
       );
-      // async query
-        // in callback function
-          // has_search = true; search_results = data.search_results;
+    },
+    handle_property_select: function(event) {
+      console.log(event);
+    },
+    handle_landlord_select: function(event) {
+      console.log(event);
     }
   },
   template: `
     <div class="sub-page">
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <input id="search_box" type="search" placeholder="Search for a Property"/>
           <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
@@ -314,7 +328,7 @@ Vue.component('FindProperty', {
       <div class="search-prompt">
         <p>
           didnt find what you are looking for?
-          <a href="#" @click.prevent="nav_to_create_landlord">
+          <a href="#" @click.prevent="nav_to_add_landlord">
             Add A Landlord
           </a>
         </p>
@@ -499,10 +513,28 @@ var app = function() {
       // CONTACT_PAGE: 8,
 
       LANDLORD_TAGS: [
-
+        'friendly',
+        'mean',
+        'chill',
+        'understanding',
+        'homie',
+        'snoopy',
+        'responsive',
+        'lives nearby',
+        'humorous',
+        'will repair house'
       ],
       PROPERTY_TAGS: [
-
+        'washer / dryer',
+        'leaks',
+        'old',
+        'outdoor space',
+        'spacious',
+        'furnished',
+        'utilities included',
+        'good cell signal',
+        'irritable neighbors',
+        'sufficient parking'
       ],
       landlord_list: [],
       search_results: [],
