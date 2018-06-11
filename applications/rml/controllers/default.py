@@ -67,6 +67,30 @@ def download():
 #####################
 ### Our endpoints ###
 
+def match_names(search_name, first_name, last_name):
+    search_name = search_name.strip().lower()
+    first_name = first_name.strip().lower()
+    last_name = last_name.strip().lower()
+    if (search_name in first_name) or (search_name in last_name) or (first_name in search_name) or (last_name in search_name):
+        return True
+    else:
+        return False
+
+    # matched_chars = set(name1).intersection(name2)
+    # # num_matched_chars = len(set(name1).intersection(name2))
+    # num_matched_chars = len(matched_chars)
+    # # matching_percent = (matched_chars * 1.0) / len(name1)
+    # matching_percent = (num_matched_chars * 1.0) / len(name1)
+    #
+    # print 'matched_chars: ', matched_chars
+    # print 'matching_percent: ', matching_percent
+    #
+    # if matching_percent == 1:
+    #     return True
+    # else:
+    #     return False
+    # return True if
+
 # Goes through table landlords and returns a list of landlord objects with name that contains the substring passed in
 # input: search_str
 # output: list of landlord obj
@@ -77,13 +101,38 @@ def search_landlords():
     # else:
     #     name = ""
 
-    str = request.vars.search_str if request.vars.search_str else ''
-    print("searching for " + str)
+    # str = request.vars.search_str if request.vars.search_str else ''
+    search_name = request.vars.search_str if request.vars.search_str else ''
+    # print("searching for " + str)
+    print("searching for " + search_name)
 
     landlords = []
 
+    # for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
+    # for row in db().select(orderby=db.landlords.last_name):
+    #     if str.lower() in row.first_name.lower():
+    #         temp_landlord = dict(
+    #             id=row.id,
+    #             first_name=row.first_name,
+    #             last_name=row.last_name,
+    #             property_ids=row.property_ids,
+    #             review_ids=row.review_ids,
+    #             tag_ids=row.tag_ids
+    #         )
+    #         landlords.append(temp_landlord)
+    #         continue
+    #     if str.lower() in row.last_name.lower():
+    #         temp_landlord = dict(
+    #             id=row.id,
+    #             first_name=row.first_name,
+    #             last_name=row.last_name,
+    #             property_ids=row.property_ids,
+    #             review_ids=row.review_ids,
+    #             tag_ids=row.tag_ids
+    #         )
+    #         landlords.append(temp_landlord)
     for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
-        if str.lower() in row.first_name.lower():
+        if match_names(search_name, row.first_name, row.last_name):
             temp_landlord = dict(
                 id=row.id,
                 first_name=row.first_name,
@@ -93,17 +142,7 @@ def search_landlords():
                 tag_ids=row.tag_ids
             )
             landlords.append(temp_landlord)
-            continue
-        if str.lower() in row.last_name.lower():
-            temp_landlord = dict(
-                id=row.id,
-                first_name=row.first_name,
-                last_name=row.last_name,
-                property_ids=row.property_ids,
-                review_ids=row.review_ids,
-                tag_ids=row.tag_ids
-            )
-            landlords.append(temp_landlord)
+
 
     return response.json(dict(
         landlords=landlords
