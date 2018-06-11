@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge{{=not request.is_local and ',chrome=1' or ''}}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {{if request.application == "rml":}}
+    <title>Rate My Landlord</title>
+    {{else:}}
     <title>{{=response.title or request.application}}</title>
+    {{pass}}
     <meta name="application-name" content="{{=request.application}}">
     <meta name="google-site-verification" content="">
     <link rel="shortcut icon" href="{{=URL('static','images/favicon.ico')}}" type="image/x-icon">
