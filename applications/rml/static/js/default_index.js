@@ -182,24 +182,26 @@ Vue.component('WriteReview', {
             </div>
 
             <div class="tag-form">
-              <div class="tag-form-question">
-                <ul>
-                  <li
-                    v-for="tag in LANDLORD_TAGS"
-                    v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
-                    {{tag}}
-                  </li>
-                </ul>
-              </div>
-              <div class="tag-form-question">
-                <ul>
-                  <li
-                    v-for="tag in PROPERTY_TAGS"
-                    v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
-                        {{tag}}
-                  </li>
-                </ul>
-              </div>
+            <div class="tag-form-question">
+              <p>Please select tags to describe your landlord.</p>
+              <ul>
+                <li
+                  v-for="tag in LANDLORD_TAGS"
+                  v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
+                  {{tag}}
+                </li>
+              </ul>
+            </div>
+            <div class="tag-form-question">
+              <p>Please select tags to describe the property.</p>
+              <ul>
+                <li
+                  v-for="tag in PROPERTY_TAGS"
+                  v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
+                      {{tag}}
+                </li>
+              </ul>
+            </div>
             </div>
           </div>
 

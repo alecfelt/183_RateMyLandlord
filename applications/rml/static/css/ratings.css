@@ -84,15 +84,22 @@
 }
 
 .ratings-tags {
+  display: inline;
 }
 
 .ratings-tags ul {
+  margin: 0;
+  padding: 9;
+  list-style-type: none;
 }
 
 .ratings-tags ul li {
-}
-
-.ratings-tags ul li:hover {
+  display: inline;
+  margin: 4pt;
+  text-transform: lowercase;
+  font-size: 50%;
+  padding: 4pt;
+  background-color: #CED1D3;
 }
 
 /* STYLES FOR THE FORM */
