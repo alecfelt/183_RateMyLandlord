@@ -341,7 +341,7 @@ Vue.component('LandlordPage', {
   template: `
     <div class="sub-page">
       <a href="#" @click.prevent="nav_to_write_review(landlord)">
-        write review for this landlord
+        write a review for this landlord
       </a>
       <div class="rating-card">
         <h1>Landlord Name McNamey</h1>
