@@ -1,7 +1,7 @@
 
 /*** helpers ***/
 .center {text-align:center; margin-left:auto; margin-right:auto}
-.center>div {text-align:left}
+.center>div {text-align:center}
 .container img {max-width:100%}
 
 /*** cards from http://codepen.io/edeesims/pen/iGDzk ***/
@@ -29,11 +29,21 @@
 }
 
 /* ABOUT STYLING */
-.photos-row {
+.topphotos-row {
   display: flex;
   flex: 1;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100%;
+}
+
+.botphotos-row {
+  display: flex;
+  flex: 1;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  width: 80%;
 }
