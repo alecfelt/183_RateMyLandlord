@@ -119,7 +119,9 @@ def search_landlords():
                 last_name=row.last_name,
                 property_ids=row.property_ids,
                 review_ids=row.review_ids,
-                tag_ids=row.tag_ids
+                tag_ids=row.tag_ids,
+                avg_l_rating = row.average_l_rating,
+                avg_p_rating = row.average_p_rating
             )
             landlords.append(temp_landlord)
 
@@ -197,7 +199,8 @@ def search_properties():
         properties=properties
     ))
 
-# input: list of landlord ids
+
+# Get all landlords
 # output: list of landlord objs
 #         data = { landlords: [{name: "", }, {}, {}] }
 def get_landlords():
@@ -210,7 +213,9 @@ def get_landlords():
                 last_name    = row.last_name,
                 property_ids = row.property_ids,
                 review_ids   = row.review_ids,
-                tag_ids      = row.tag_ids
+                tag_ids      = row.tag_ids,
+                avg_l_rating = row.average_l_rating,
+                avg_p_rating = row.average_p_rating
             )
             landlords.append(landlord)
 
@@ -349,6 +354,18 @@ def add_property():
         msg='add_property'
     ))
 
+# private method to get average landlord rating and average property rating
+def get_averages(landlord_id):
+    q = (db.reviews.landlord_id == landlord_id)
+    l_avg = db.reviews.landlord_rating.avg()
+    p_avg = db.reviews.property_rating.avg()
+
+    r = db(q).select(l_avg, p_avg).first()
+    avg_l_rating = r[l_avg]
+    avg_p_rating = r[p_avg]
+
+    return (avg_l_rating, avg_p_rating)
+
 # Get all the reviews of a landlord based on landlord_id
 # Also returns average landlord rating, average property rating,
 # and list of addresses the landlord owns
@@ -360,7 +377,8 @@ def get_reviews():
         landlord_id = request.vars.landlord_id;
     else:
         print "[Error] get_reviews(): landlord_id cannot be Null"
-        raise HTTP(500)
+        # raise HTTP(500)
+        return "nok"
         # landlord_id = 10
 
     reviews = []
@@ -476,6 +494,20 @@ def update_landlord(landlord_id, landlord_obj):
 
     r.tag_ids = tag_ids
 
+    # Update landlord's avrage landlord rating and average property rating
+    (avg_l_rating, avg_p_rating) = get_averages(landlord_id)
+    r.average_l_rating = avg_l_rating
+    r.average_p_rating = avg_p_rating
+
+    r.update_record()
+
+def test_route():
+    landlord_id = 2
+    q = (db.landlords.id == landlord_id)
+    r = db(q).select().first()
+    (avg_l_rating, avg_p_rating) = get_averages(landlord_id)
+    r.average_l_rating = avg_l_rating
+    r.average_p_rating = avg_p_rating
     r.update_record()
 
 # input:
@@ -496,7 +528,7 @@ def add_review():
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
     else:
-        print "In add_review(): landlord_id should never be 0"
+        print "In add_review(): landlord_id should never be null"
         return "nok"
 
     address_obj = dict(
@@ -544,9 +576,9 @@ def add_review():
 
     # Insert landlord landlords
     landlord_obj = dict(
-        property_id = property_id,
-        review_id   = review_id,
-        tag_ids     = request.vars.landlord_tag_ids
+        property_id  = property_id,
+        review_id    = review_id,
+        tag_ids      = request.vars.landlord_tag_ids
     )
     update_landlord(landlord_id, landlord_obj)
 

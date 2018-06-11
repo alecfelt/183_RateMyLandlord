@@ -1851,6 +1851,7 @@ CREATE TABLE "reviews"(
     "updated_on" TIMESTAMP
 );
 success!
+<<<<<<< HEAD
 success!
 success!
 success!
@@ -2155,3 +2156,9 @@ success!
 success!
 success!
 success!
+=======
+timestamp: 2018-06-11T14:57:51.130810
+ALTER TABLE "landlords" ADD "average_l_rating" DOUBLE;
+timestamp: 2018-06-11T14:57:51.181670
+ALTER TABLE "landlords" ADD "average_p_rating" DOUBLE;
+>>>>>>> fab3ff2abc188a68d35b38ee04c7941509430e7a

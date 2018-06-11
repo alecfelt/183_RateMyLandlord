@@ -37,11 +37,17 @@ Vue.component('HomePage', {
           <div class="rating-items">
             <div class="ratings">
               <h3>Overall Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_l_rating">
+                  {{landlord.avg_l_rating}} </p>
+              <p v-if="!landlord.avg_l_rating">
+                  N/A </p>
             </div>
             <div class="ratings">
               <h3>Average Property Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_p_rating">
+                  {{landlord.avg_p_rating}} </p>
+              <p v-if="!landlord.avg_p_rating">
+                  N/A </p>
             </div>
           </div>
         </div>
@@ -248,6 +254,9 @@ Vue.component('FindLandlord', {
       );
     },
     handle_landlord_select: function(result) {
+      // console.log("selcted landlord")
+      // console.log(result);
+      // console.log(result.first_name)
       this.toggle_selected_landlord(result);
       this.on_select();
     }
@@ -267,11 +276,17 @@ Vue.component('FindLandlord', {
             <div class="rating-items">
               <div class="ratings">
                 <h3>Overall Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_l_rating">
+                    {{result.avg_l_rating}} </p>
+                <p v-if="!result.avg_l_rating">
+                    N/A </p>
               </div>
               <div class="ratings">
                 <h3>Average Property Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_p_rating">
+                    {{result.avg_p_rating}} </p>
+                <p v-if="!result.avg_p_rating">
+                    N/A </p>
               </div>
             </div>
           </div>
@@ -362,15 +377,21 @@ Vue.component('LandlordPage', {
         write a review for this landlord
       </a>
       <div class="rating-card">
-        <h1>Landlord Name McNamey</h1>
+        <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
         <div class="rating-items">
           <div class="ratings">
             <h2>Overall Rating</h2>
-            <p>5.0</p>
+            <p v-if="landlord.avg_l_rating">
+                {{landlord.avg_l_rating}} </p>
+            <p v-if="!landlord.avg_l_rating">
+                N/A </p>
           </div>
           <div class="ratings-extras">
             <h3>Average Property Rating</h3>
-            <p>5.0</p>
+            <p v-if="landlord.avg_p_rating">
+                {{landlord.avg_p_rating}} </p>
+            <p v-if="!landlord.avg_p_rating">
+                N/A </p>
             <h3>Responsiveness</h3>
             <p>5.0</p>
             <h3>Certified Slumlord?</h3>
@@ -473,9 +494,9 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
-  self.toggle_selected_landlord = function(landlord_name) {
-    console.log(landlord_name);
-      self.vue.selected_landlord = landlord_name;
+  self.toggle_selected_landlord = function(landlord) {
+    console.log(landlord);
+      self.vue.selected_landlord = landlord;
   }
 
   self.toggle_selected_property = function(property) {
