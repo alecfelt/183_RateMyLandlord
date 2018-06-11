@@ -222,8 +222,7 @@ Vue.component('WriteReview', {
   `
 });
 Vue.component('FindLandlord', {
-  props: ['on_select',
-          'nav_to_create_landlord',
+  props: ['nav_to_create_landlord',
           'set_search_results',
           'search_results',
           'toggle_selected_landlord',
@@ -371,7 +370,8 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['toggle_selected_landlord',
+    props: ['on_select',
+            'toggle_selected_landlord',
             'create_landlord'],
     methods: {
       CreateLandlord_helper: function(event) {
@@ -380,6 +380,7 @@ Vue.component('CreateLandlord', {
           console.log(event.target.landlord_last_name.value);
           this.create_landlord(event);
           this.toggle_selected_landlord(event.target.landlord_first_name.value);
+          this.on_select();
       }
     },
     template: `
@@ -486,6 +487,7 @@ var app = function() {
       function(data){
         console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
         self.vue.landlord_list.unshift(data.landlord);
+        self.toggle_selected_landlord(data.landlord);
       }
     );
   }
