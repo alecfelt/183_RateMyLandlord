@@ -366,9 +366,6 @@ def get_averages(landlord_id):
 
     return (avg_l_rating, avg_p_rating)
 
-# def test_route():
-#     get_averages(1);
-
 # Get all the reviews of a landlord based on landlord_id
 # Also returns average landlord rating, average property rating,
 # and list of addresses the landlord owns
@@ -501,6 +498,15 @@ def update_landlord(landlord_id, landlord_obj):
     r.average_l_rating = avg_l_rating
     r.average_p_rating = avg_p_rating
 
+    r.update_record()
+
+def test_route():
+    landlord_id = 2
+    q = (db.landlords.id == landlord_id)
+    r = db(q).select().first()
+    (avg_l_rating, avg_p_rating) = get_averages(landlord_id)
+    r.average_l_rating = avg_l_rating
+    r.average_p_rating = avg_p_rating
     r.update_record()
 
 # input:
