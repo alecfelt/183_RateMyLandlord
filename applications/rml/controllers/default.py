@@ -204,12 +204,12 @@ def get_landlords():
     for row in db().select(orderby=db.landlords.last_name):
         if row.first_name is not None:
             landlord = dict(
-                id=row.id,
-                first_name=row.first_name,
-                last_name=row.last_name,
-                property_ids=row.property_ids,
-                review_ids=row.review_ids,
-                tag_ids=row.tag_ids
+                id           = row.id,
+                first_name   = row.first_name,
+                last_name    = row.last_name,
+                property_ids = row.property_ids,
+                review_ids   = row.review_ids,
+                tag_ids      = row.tag_ids
             )
             landlords.append(landlord)
 
@@ -243,73 +243,79 @@ def format_address(address):
 
     return full_address
 
+# Private method to format name
+def format_name(first_name, last_name):
+    first_name = first_name.strip().lower().capitalize()
+    last_name = last_name.strip().lower().capitalize()
+
+    return (first_name, last_name)
+
+# Private method to check if landlord exists
+# If landlord exists, returns a landlord object
+# landlord name needs to be formatted
+def landlord_exists(first_name, last_name):
+    q = ((db.landlords.first_name == first_name) & (db.landlords.last_name == last_name))
+    r = db(q).select().first()
+    if r:
+        return dict(
+            id           = r.id,
+            first_name   = r.first_name,
+            last_name    = r.last_name,
+            property_ids = r.property_ids,
+            review_ids   = r.review_ids,
+            tag_ids      = r.tag_ids
+        )
+    else:
+        return None
 
 # Add a landlord into table landlords
-# input: name, website, address, where address = {street: "", city: "", state: "", zipcode: ""}
-# output: data = {name: "name", website: "website url", address: "address", property_id: 1}
+# If landlord already exists, add_landlord() will return the existing
+# landlord as a landlord object
+# input: name, website
+# output: data = {name: "name", website: "website url", property_ids: [4, 5]}
 def add_landlord():
     # Return an error if landlord name is null
     if request.vars.first_name and request.vars.last_name:
-        first_name = request.vars.first_name
-        last_name = request.vars.last_name
+        (first_name, last_name) = format_name(request.vars.first_name, request.vars.last_name)
     else:
+        print ("In add_landlord(): Name can't be null")
         return("nok")
 
-    if request.vars.address:
-        address = format_address(request.vars.address)
-    else:
-        # print "[Error] add_landlord(): property address cannot be null"
-        # raise HTTP(500)
-        addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
-        address = format_address(addy)
+    website = request.vars.website
+    address = 'Slack me if this is used -Ben'
 
-    website = request.vars.website;
-    # Check if property already exists
-    # If exists, get the property id
-    # Otherwise insert to db and get property id
-    q = (db.properties.address == address)
-    r = db(q).select(db.properties.id).first()
-    if r:
-        # print "property found"
-        property_id = r.id
+    # If landlord exists, return it.
+    landlord = landlord_exists(first_name, last_name)
+    if landlord:
+        landlord['address'] = address
+        landlord['website'] = website
+        # return response.json(dict(
+        #     id = landlord['id'],
+        #     landlord = landlord
+        # ))
+    # If not insert it
     else:
-        property_id = db.properties.insert(
-            address = address
+        # Insert landlord landlords
+        landlord_id = db.landlords.insert(
+            first_name = first_name,
+            last_name  = last_name
         )
-        # print "property_id: ", property_id
 
-    # Insert landlord landlords
-    landlord_id = db.landlords.insert(
-        first_name = first_name,
-        last_name = last_name,
-        property_ids = [property_id]
-    )
-    # print "landlord id: ", landlord_id
-
-    # Insert/append landlord_id into table properties for the property
-    q = (db.properties.id == property_id)
-    r = db(q).select().first()
-    if r.landlord_ids:
-        landlord_ids = set(r.landlord_ids)
-        landlord_ids.add(landlord_id)
-        landlord_ids = list(landlord_ids)
-    else:
-        landlord_ids = [landlord_id]
-
-    r.update_record(landlord_ids=landlord_ids)
-
-    temp_landlord = dict(
-        first_name=first_name,
-        last_name=last_name,
-        property_id = property_id,
-        address = address,
-        website = website,
-    )
+        landlord = dict(
+            id = landlord_id,
+            first_name=first_name,
+            last_name=last_name,
+            property_ids  = [],
+            review_ids   = [],
+            tag_ids      = [],
+            address = address,
+            website = website,
+        )
 
     # Returns the landlord info.
     return response.json(dict(
-        id = landlord_id,
-        landlord = temp_landlord
+        id = landlord['id'],
+        landlord = landlord
     ))
 
 # Get a list of properties based on list of property ids pssed in
@@ -409,75 +415,140 @@ def get_reviews():
         addresses=addresses
     ))
 
+# Boolean method that checks if address exists
+# Doesn't actually return property object
+def address_exists(address_str):
+    q = (db.properties.address == address_str)
+    r = db(q).select(db.properties.id).first()
+    if r:
+        return r.id
+    else:
+        return None
 
-# input: landlord_id, address,
-# landlord_rating
-# property_rating
-# rent_with_landlord_again
-# rent_with_property_again
-# landlord_tag_ids
-# property_tag_ids
-# comments
+# Private method to insert into table reviews when given a review
+def insert_into_reviews(review):
+    review_id = db.reviews.insert(
+        landlord_id = review['landlord_id'],
+        property_id = review['property_id'],
+        landlord_rating = review['landlord_rating'],
+        property_rating = review['property_rating'],
+        rent_with_landlord_again = review['rent_with_landlord_again'],
+        rent_with_property_again = review['rent_with_property_again'],
+        landlord_tag_ids = review['landlord_tag_ids'],
+        property_tag_ids = review['landlord_tag_ids'],
+        comments = review['comments']
+    )
+
+    return review_id
+
+# Private method to update a landlord's review_ids, property_ids,
+# and tag_ids. Called right after a review has been inserted into db
+def update_landlord(landlord_id, landlord_obj):
+    q = (db.landlords.id == landlord_id)
+    r = db(q).select().first()
+    # Update property_ids
+    if r.property_ids:
+        property_ids = set(r.property_ids)
+        property_ids.add( landlord_obj['property_id'] )
+        property_ids = list(property_ids)
+    else:
+        property_ids = [ landlord_obj['property_id'] ]
+
+    r.property_ids = property_ids
+
+    # Update review_ids
+    if r.review_ids:
+        review_ids = set(r.review_ids)
+        review_ids.add( landlord_obj['review_id'] )
+        review_ids = list(review_ids)
+    else:
+        review_ids = [ landlord_obj['review_id'] ]
+
+    r.review_ids = review_ids
+
+    # Update tag_ids
+    if r.tag_ids:
+        tag_ids = set(r.tag_ids)
+        tag_ids = tag_ids.union( set(landlord_obj['tag_id']) )
+        tag_ids = list(tag_ids)
+    else:
+        tag_ids = landlord_obj['tag_ids']
+
+    r.tag_ids = tag_ids
+
+    r.update_record()
+
+# input:
+# landlord_id
+# street: null, -
+# city: null, -
+# state: null, -
+# zip: null, -
+# landlord_rating: 1,
+# property_rating: 1,
+# rent_with_landlord_again: null,
+# rent_with_property_again: null,
+# landlord_tag_ids: [],
+# property_tag_ids: [],
+# comments: null
 # output: "ok"
 def add_review():
-    # # Return an error if landlord name is null
-    # if request.vars.name:
-    #     name = request.vars.name
-    # else:
-    #     # print "[Error] add_landlord(): landlord name cannot be null"
-    #     # raise HTTP(500)
-    #     name = "John Cena"
-    #
-    # if request.vars.address:
-    #     address = format_address(request.vars.address)
-    # else:
-    #     # print "[Error] add_landlord(): property address cannot be null"
-    #     # raise HTTP(500)
-    #     addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
-    #     address = format_address(addy)
-    #
-    # website = request.vars.website
-    #
-    # # Check if property already exists
-    # # If exists, get the property id
-    # # Otherwise insert to db and get property id
-    # q = (db.properties.address == address)
-    # r = db(q).select(db.properties.id).first()
-    # if r:
-    #     # print "property found"
-    #     property_id = r.id
-    # else:
-    #     property_id = db.properties.insert(
-    #         address = address
-    #     )
-    #     # print "property_id: ", property_id
-    #
-    # # Insert landlord landlords
-    # landlord_id = db.landlords.insert(
-    #     name = name,
-    #     property_ids = [property_id]
-    # )
-    # # print "landlord id: ", landlord_id
-    #
-    # # Insert/append landlord_id into table properties for the property
-    # q = (db.properties.id == property_id)
-    # r = db(q).select().first()
-    # if r.landlord_ids:
-    #     landlord_ids = set(r.landlord_ids)
-    #     landlord_ids.add(landlord_id)
-    #     landlord_ids = list(landlord_ids)
-    # else:
-    #     landlord_ids = [landlord_id]
-    #
-    # r.update_record(landlord_ids=landlord_ids)
-    #
-    # # Returns the landlord info.
-    # return response.json(dict(
-    #     id = landlord_id,
-    #     address = address,
-    #     website = website,
-    #     property_id = property_id
-    # ))
+    if request.vars.landlord_id:
+        landlord_id = request.vars.landlord_id
+    else:
+        print "In add_review(): landlord_id should never be 0"
+        return "nok"
+
+    address_obj = dict(
+        street  = request.vars.street,
+        city    = request.vars.city,
+        state   = request.vars.state,
+        zipcode = request.vars.zip
+    )
+    address = format_address(address_obj)
+
+    # Check if property already exists
+    # If exists, get property_id and add landlord_id to list landlord_ids
+    property_id = address_exists(address)
+    if property_id:
+        q = (db.properties.id == property_id)
+        r = db(q).select().first()
+        if r.landlord_ids: # if landlord_ids is not NULL
+            landlord_ids = set(r.landlord_ids)
+            landlord_ids.add(landlord_id)
+            landlord_ids = list(landlord_ids)
+        else: # if landlord_ids is NULL
+            landlord_ids = [landlord_id]
+        r.update_record(landlord_ids=landlord_ids)
+    # If property doesn't exist yet
+    # Insert property to db and get property id
+    else:
+        property_id = db.properties.insert(
+            address = address,
+            landlord_ids = [landlord_id])
+
+    # Insert review
+    review_obj = dict(
+        landlord_id = landlord_id,
+        property_id = property_id,
+        landlord_rating = request.vars.landlord_rating,
+        property_rating = request.vars.property_rating,
+        rent_with_landlord_again = request.vars.rent_with_landlord_again,
+        rent_with_property_again = request.vars.rent_with_property_again,
+        landlord_tag_ids = request.vars.landlord_tag_ids,
+        property_tag_ids = request.vars.landlord_tag_ids,
+        comments = request.vars.comments
+    )
+
+    review_id = insert_into_reviews(review_obj)
+
+    # Insert landlord landlords
+    landlord_obj = dict(
+        property_id = property_id,
+        review_id   = review_id,
+        tag_ids     = request.vars.landlord_tag_ids
+    )
+    update_landlord(landlord_id, landlord_obj)
 
     return "ok"
 
