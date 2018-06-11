@@ -418,7 +418,7 @@ def get_reviews():
 # Boolean method that checks if address exists
 # Doesn't actually return property object
 def address_exists(address_str):
-    q = (db.properties.address == address)
+    q = (db.properties.address == address_str)
     r = db(q).select(db.properties.id).first()
     if r:
         return r.id
@@ -427,7 +427,7 @@ def address_exists(address_str):
 
 # Private method to insert into table reviews when given a review
 def insert_into_reviews(review):
-    review_id = b.reviews.insert(
+    review_id = db.reviews.insert(
         landlord_id = review['landlord_id'],
         property_id = review['property_id'],
         landlord_rating = review['landlord_rating'],
@@ -444,14 +444,6 @@ def insert_into_reviews(review):
 # Private method to update a landlord's review_ids, property_ids,
 # and tag_ids. Called right after a review has been inserted into db
 def update_landlord(landlord_id, landlord_obj):
-
-    landlord_obj = dict(
-        property_id = property_id,
-        review_id   = review_id,
-        tag_ids     = request.vars.landlord_tag_ids
-    )
-
-
     q = (db.landlords.id == landlord_id)
     r = db(q).select().first()
     # Update property_ids
@@ -480,7 +472,7 @@ def update_landlord(landlord_id, landlord_obj):
         tag_ids = tag_ids.union( set(landlord_obj['tag_id']) )
         tag_ids = list(tag_ids)
     else:
-        tag_ids = [ landlord_obj['tag_id'] ]
+        tag_ids = landlord_obj['tag_ids']
 
     r.tag_ids = tag_ids
 
