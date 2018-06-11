@@ -212,6 +212,7 @@ Vue.component('FindLandlord', {
           'set_search_results',
           'search_results',
           'toggle_selected_landlord',
+          'nav_to_write_review',
         ],
   methods: {
     handle_search: function(event) {
@@ -239,6 +240,7 @@ Vue.component('FindLandlord', {
   `
     <div class="sub-page">
       <div class="search">
+        <h4 v-if="on_select === nav_to_write_review">Step 1: Find the landlord you wish to review</h4>
         <form @submit.prevent="handle_search" class="search-form">
           <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
           <button type="submit" id="search-button">
@@ -296,9 +298,6 @@ Vue.component('FindProperty', {
           this.set_search_results(data.landlords);
         }
       );
-      // async query
-        // in callback function
-          // has_search = true; search_results = data.search_results;
     }
   },
   template: `
