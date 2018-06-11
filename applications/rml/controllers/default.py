@@ -243,40 +243,25 @@ def format_address(address):
 
     return full_address
 
-
 # Add a landlord into table landlords
-# input: name, website, address, where address = {street: "", city: "", state: "", zipcode: ""}
-# output: data = {name: "name", website: "website url", address: "address", property_id: 1}
+# If landlord already exists, add_landlord() will return the existing
+# landlord as a landlord object
+# input: name, website
+# output: data = {name: "name", website: "website url", property_ids: [4, 5]}
 def add_landlord():
     # Return an error if landlord name is null
     if request.vars.first_name and request.vars.last_name:
         first_name = request.vars.first_name
         last_name = request.vars.last_name
     else:
+        print ("In add_landlord(): Name can't be null")
         return("nok")
 
-    if request.vars.address:
-        address = format_address(request.vars.address)
-    else:
-        # print "[Error] add_landlord(): property address cannot be null"
-        # raise HTTP(500)
-        addy = {'street': "417 high steet", 'city': " santa  cruz", 'state': 'CA ', 'zipcode': ' 95060'}
-        address = format_address(addy)
+    property_id = request.vars.property_id if request.vars.property_id else None
 
     website = request.vars.website;
-    # Check if property already exists
-    # If exists, get the property id
-    # Otherwise insert to db and get property id
-    q = (db.properties.address == address)
-    r = db(q).select(db.properties.id).first()
-    if r:
-        # print "property found"
-        property_id = r.id
-    else:
-        property_id = db.properties.insert(
-            address = address
-        )
-        # print "property_id: ", property_id
+
+    # if landlord already exists, add property id to landlord
 
     # Insert landlord landlords
     landlord_id = db.landlords.insert(
