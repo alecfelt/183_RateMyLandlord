@@ -441,17 +441,50 @@ def insert_into_reviews(review):
 
     return review_id
 
+# Private method to update a landlord's review_ids, property_ids,
+# and tag_ids. Called right after a review has been inserted into db
 def update_landlord(landlord_id, landlord_obj):
-    q = (db.properties.id == property_id)
-    r = db(q).select().first()
-    if r.landlord_ids:
-        landlord_ids = set(r.landlord_ids)
-        landlord_ids.add(landlord_id)
-        landlord_ids = list(landlord_ids)
-    else:
-        landlord_ids = [landlord_id]
 
-    r.update_record(landlord_ids=landlord_ids)
+    landlord_obj = dict(
+        property_id = property_id,
+        review_id   = review_id,
+        tag_ids     = request.vars.landlord_tag_ids
+    )
+
+
+    q = (db.landlords.id == landlord_id)
+    r = db(q).select().first()
+    # Update property_ids
+    if r.property_ids:
+        property_ids = set(r.property_ids)
+        property_ids.add( landlord_obj['property_id'] )
+        property_ids = list(property_ids)
+    else:
+        property_ids = [ landlord_obj['property_id'] ]
+
+    r.property_ids = property_ids
+
+    # Update review_ids
+    if r.review_ids:
+        review_ids = set(r.review_ids)
+        review_ids.add( landlord_obj['review_id'] )
+        review_ids = list(review_ids)
+    else:
+        review_ids = [ landlord_obj['review_id'] ]
+
+    r.review_ids = review_ids
+
+    # Update tag_ids
+    if r.tag_ids:
+        tag_ids = set(r.tag_ids)
+        tag_ids = tag_ids.union( set(landlord_obj['tag_id']) )
+        tag_ids = list(tag_ids)
+    else:
+        tag_ids = [ landlord_obj['tag_id'] ]
+
+    r.tag_ids = tag_ids
+
+    r.update_record()
 
 # input:
 # landlord_id
@@ -500,8 +533,7 @@ def add_review():
     else:
         property_id = db.properties.insert(
             address = address,
-            landlord_ids = [landlord_id]
-        )
+            landlord_ids = [landlord_id])
 
     # Insert review
     review_obj = dict(
