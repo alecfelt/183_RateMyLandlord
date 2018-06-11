@@ -105,49 +105,51 @@ Vue.component('WriteReview', {
       <div class="write-review-card">
         <h1> Write a Review for {{landlord.first_name}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
-          <div>
-            <p> Property </p>
-            <p> Street </p>
-              <input
-                placeholder="street"
-                v-model="street"
-                name="address"
-                type="text" />
+          <div class="address-form">
+            <h3>Step 2: Identify the Property</h3>
+            <p>Street</p>
+            <input
+              placeholder="Ex: 212 Bleecker"
+              v-model="street"
+              name="address"
+              type="text" />
             <p> City </p>
-              <input
-                placeholder="city"
-                v-model="city"
-                name="address"
-                type="text" />
+            <input
+              placeholder="Ex: New York"
+              v-model="city"
+              name="address"
+              type="text" />
             <p> State </p>
-              <input
-                placeholder="state"
-                v-model="state"
-                name="address"
-                type="text" />
+            <input
+              placeholder="Ex: California"
+              v-model="state"
+              name="address"
+              type="text" />
             <p> Zip </p>
-              <input
-                placeholder="zip"
-                v-model="zip"
-                name="address"
-                type="text" />
+            <input
+              placeholder="Ex: 90210"
+              v-model="zip"
+              name="address"
+              type="text" />
           </div>
-          <div>
-              <p> Rate your landlord </p>
-              <select v-model="landlord_rating">
-                  <option selected="true" disabled="true">
-                      please select
-                  </option>
-                  <option value="1"> 1 </option>
-                  <option value="2"> 2 </option>
-                  <option value="3"> 3 </option>
-                  <option value="4"> 4 </option>
-                  <option value="5"> 5 </option>
-              </select>
+          <div class="rate-landlord-form">
+              <h3>Step 3: Rate Your Landlord</h3>
+              <label class="select">
+                <select v-model="landlord_rating">
+                    <option selected="true" disabled="true">
+                        please select
+                    </option>
+                    <option value="1"> 1 </option>
+                    <option value="2"> 2 </option>
+                    <option value="3"> 3 </option>
+                    <option value="4"> 4 </option>
+                    <option value="5"> 5 </option>
+                </select>
+              </label>
           </div>
 
-          <div>
-              <p> Rate your property </p>
+          <div class="rate-property-form">
+              <h3>Step4: Rate your property </h3>
               <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select

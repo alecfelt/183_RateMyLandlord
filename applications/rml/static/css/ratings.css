@@ -101,3 +101,39 @@
   padding: 4pt;
   background-color: #CED1D3;
 }
+
+/* STYLES FOR THE FORM */
+.address-form input[type="text"]{
+  outline: none;
+  border: 1pt solid #091A22;
+  margin: 4pt 0;
+  width: 100%;
+  padding: 8pt;
+  border-radius: 4pt;
+
+  transition: border 300ms ease-in-out;
+}
+
+.address-form input[type="text"]:focus {
+  border: 1pt solid #F49D37;
+}
+
+.rate-landlord-form select{
+  outline: none;
+  -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background-image:
+  font-family: 'Open Sans', sans-serif;
+  padding: 8pt;
+}
+
+.rate-property-form select{
+  outline: none;
+  -webkit-appearance: none;
+   -moz-appearance: none;
+   appearance: none;
+   background-image:
+  font-family: 'Open Sans', sans-serif;
+  padding: 8pt;
+}
