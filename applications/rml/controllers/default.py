@@ -377,7 +377,8 @@ def get_reviews():
         landlord_id = request.vars.landlord_id;
     else:
         print "[Error] get_reviews(): landlord_id cannot be Null"
-        raise HTTP(500)
+        # raise HTTP(500)
+        return "nok"
         # landlord_id = 10
 
     reviews = []
