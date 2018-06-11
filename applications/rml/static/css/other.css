@@ -4,13 +4,12 @@
 .center>div {text-align:center}
 .container img {max-width:90%; margin:auto}
 
-/*** cards from http://codepen.io/edeesims/pen/iGDzk ***/
+/*** cards referenced from http://codepen.io/edeesims/pen/iGDzk ***/
 .card {perspective: 500px; max-width:100%}
 .card>div {
   position: absolute;
   width: 90%;
   height: 90%;
-  background: #FFF;
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   transition: transform 1s;
   transform-style: preserve-3d;
