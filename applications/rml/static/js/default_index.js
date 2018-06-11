@@ -256,11 +256,9 @@ Vue.component('FindLandlord', {
     <div class="sub-page">
       <div class="search">
         <h4 v-if="on_select === nav_to_write_review">Step 1: Find the landlord you wish to review</h4>
-        <form @submit.prevent="handle_search" class="search-form">
-          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
-          <button type="submit" id="search-button">
-            <i class="fa fa-search"></i>
-          </button>
+        <form class="search-form">
+          Search for a landlord:
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
           <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
