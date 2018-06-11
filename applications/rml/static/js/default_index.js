@@ -222,11 +222,11 @@ Vue.component('WriteReview', {
   `
 });
 Vue.component('FindLandlord', {
-  props: ['on_select',
-          'nav_to_create_landlord',
+  props: ['nav_to_create_landlord',
           'set_search_results',
           'search_results',
           'toggle_selected_landlord',
+          'nav_to_write_review',
         ],
   methods: {
     handle_search: function(event) {
@@ -254,11 +254,10 @@ Vue.component('FindLandlord', {
   `
     <div class="sub-page">
       <div class="search">
-        <form @submit.prevent="handle_search" class="search-form">
-          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
-          <button type="submit" id="search-button">
-            <i class="fa fa-search"></i>
-          </button>
+        <h4 v-if="on_select === nav_to_write_review">Step 1: Find the landlord you wish to review</h4>
+        <form class="search-form">
+          Search for a landlord:
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
           <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
@@ -371,7 +370,8 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['toggle_selected_landlord',
+    props: ['on_select',
+            'toggle_selected_landlord',
             'create_landlord'],
     methods: {
       CreateLandlord_helper: function(event) {
@@ -380,6 +380,7 @@ Vue.component('CreateLandlord', {
           console.log(event.target.landlord_last_name.value);
           this.create_landlord(event);
           this.toggle_selected_landlord(event.target.landlord_first_name.value);
+          this.on_select();
       }
     },
     template: `
@@ -486,6 +487,7 @@ var app = function() {
       function(data){
         console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
         self.vue.landlord_list.unshift(data.landlord);
+        self.toggle_selected_landlord(data.landlord);
       }
     );
   }
