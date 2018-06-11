@@ -22,6 +22,7 @@
     <link href="{{=URL('static','css/main.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/landing.css')}}" rel="stylesheet" type="text/css"/>
     <link href="{{=URL('static','css/ratings.css')}}" rel="stylesheet" type="text/css"/>
+    <link href="{{=URL('static','css/other.css')}}" rel="stylesheet" type="text/css"/>
 
     <!-- server URLs -->
     <script>
@@ -72,20 +73,24 @@
           {{block center}}
           {{include}}
           <div class="sub-page">
-            <div class="container">
-              <div class="contactcolone half compressible">
-                <h1> CONTACT US </h1><br>
-                <h6> Please feel free to contact us with any questions or concerns! </h6>
-                <p> Mobile: 1-877-RATE-L-LORD <br>
-                    Email: customer@rmllord.com </p>
-
-                <!-- <p> Mobile: 1-877-RATE-L-LORD <br>
-                    Email: somuchdope@itbrokethescale.com </p> -->
-              </div>
-              <div class="contactcoltwo half compressible">
-                <div class="housebox" id="humbleabode">
-                  <img class="houseimage" src="{{ =URL('static/images', 'house.jpeg') }}" />
+            <div class="contact-content">
+              <div class="contact-info">
+                <div class="card" style="width:300px; height:300px">
+                  <div>
+                    <div class="contactbox" style="background-color: #2E86AB">
+                      <h1> CONTACT US </h1><br>
+                      <h3> Please feel free to contact us with any questions or concerns! </h3><br>
+                    </div>
+                    <div class="backinfo" style="background-color: #2E86AB">
+                      <p><br><br><br>
+                         Mobile: 1-877-RATE-L-LORD <br>
+                         Email: customer@rmllord.com </p>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div class="image-container">
+                <img class="houseimage" src="{{ =URL('static/images', 'house.jpeg') }}" />
               </div>
             </div>
           </div>
