@@ -153,7 +153,7 @@ Vue.component('WriteReview', {
           </div>
 
           <div class="rate-property-form">
-              <h3>Step4: Rate your property </h3>
+              <h3>Step 4: Rate your property</h3>
               <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select
@@ -166,53 +166,46 @@ Vue.component('WriteReview', {
               </select>
           </div>
 
-          <div>
-              <p> Would you rent with this landlord again?<p>
-              <div>
-                  <input type="radio" name="land" value="yes" v-model="rent_with_landlord_again">yes!<br>
-                  <input type="radio" name="land" value="no" v-model="rent_with_landlord_again">no!<br>
+          <div class="rate-extras-form">
+            <h3>Step 5: Tell us a bit more</h3>
+
+            <p>Would you rent with this landlord again?</p>
+            <div class="rate-radio-answer">
+              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_landlord_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_landlord_again"/><label> No</label></input></div>
+            </div>
+
+            <p>Would you rent this propery again?</p>
+            <div class="rate-radio-answer">
+              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
+            </div>
+
+            <div class="tag-form">
+              <div class="tag-form-question">
+                <ul>
+                  <li
+                    v-for="tag in LANDLORD_TAGS"
+                    v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
+                    {{tag}}
+                  </li>
+                </ul>
               </div>
+              <div class="tag-form-question">
+                <ul>
+                  <li
+                    v-for="tag in PROPERTY_TAGS"
+                    v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
+                        {{tag}}
+                  </li>
+                </ul>
+              </div>
+            </div>
           </div>
 
-          <div>
-              <p> Would you rent this propery again? </p>
-              <div>
-                  <input type="radio" name="rent" value="yes" v-model="rent_with_property_again">yes!<br>
-                  <input type="radio" name="rent" value="no" v-model="rent_with_property_again">no!<br>
-              </div>
-          </div>
-
-          <div>
-              <p>
-                  please select from a list of tags that you think you'd find helpful.
-              </p>
-              <div id="landlord-tags-container">
-                  <p> Landlord Tags </p>
-                  <ul>
-                      <li
-                          v-for="tag in LANDLORD_TAGS"
-                          v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
-                              {{tag}}
-                      </li>
-                  </ul>
-              </div>
-              <div id="landlord-tags-container">
-                  <p> Property Tags </p>
-                  <ul>
-                      <li
-                          v-for="tag in PROPERTY_TAGS"
-                          v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
-                              {{tag}}
-                      </li>
-                  </ul>
-              </div>
-          </div>
-
-          <div>
-              <p> Your unique experience </p>
-              <textarea v-model="comments">
-
-              </textarea>
+          <div class="review-comment">
+              <p>Please describe your experience with this landlord</p>
+              <textarea v-model="comments"/>
           </div>
 
           <div class="new_review_buttons">

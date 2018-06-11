@@ -84,22 +84,15 @@
 }
 
 .ratings-tags {
-  display: inline;
 }
 
 .ratings-tags ul {
-  margin: 0;
-  padding: 9;
-  list-style-type: none;
 }
 
 .ratings-tags ul li {
-  display: inline;
-  margin: 4pt;
-  text-transform: lowercase;
-  font-size: 50%;
-  padding: 4pt;
-  background-color: #CED1D3;
+}
+
+.ratings-tags ul li:hover {
 }
 
 /* STYLES FOR THE FORM */
@@ -121,9 +114,8 @@
 .rate-landlord-form select{
   outline: none;
   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   background-image:
+  -moz-appearance: none;
+  appearance: none;
   font-family: 'Open Sans', sans-serif;
   padding: 8pt;
 }
@@ -131,9 +123,24 @@
 .rate-property-form select{
   outline: none;
   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   background-image:
+  -moz-appearance: none;
+  appearance: none;
   font-family: 'Open Sans', sans-serif;
   padding: 8pt;
+}
+
+.radio-item {
+  padding: 8pt 0;
+  padding-right: 16pt;
+}
+
+.rate-radio-answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tag-form {
+  width: 100%;
 }
