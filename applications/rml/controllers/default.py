@@ -67,6 +67,8 @@ def download():
 #####################
 ### Our endpoints ###
 
+# Boolean function that determines whether name in search string
+# matches with first, last name stored in the database
 def match_names(search_name, first_name, last_name):
     search_name = search_name.strip().lower()
     first_name = first_name.strip().lower()
@@ -75,6 +77,8 @@ def match_names(search_name, first_name, last_name):
         return True
     else:
         return False
+
+    # ---- Use matching percentage but doesn't work as well  ---- #
 
     # matched_chars = set(name1).intersection(name2)
     # # num_matched_chars = len(set(name1).intersection(name2))
@@ -101,12 +105,31 @@ def search_landlords():
     # else:
     #     name = ""
 
-    # str = request.vars.search_str if request.vars.search_str else ''
     search_name = request.vars.search_str if request.vars.search_str else ''
-    # print("searching for " + str)
+
     print("searching for " + search_name)
 
     landlords = []
+
+    for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
+        if match_names(search_name, row.first_name, row.last_name):
+            temp_landlord = dict(
+                id=row.id,
+                first_name=row.first_name,
+                last_name=row.last_name,
+                property_ids=row.property_ids,
+                review_ids=row.review_ids,
+                tag_ids=row.tag_ids
+            )
+            landlords.append(temp_landlord)
+
+    return response.json(dict(
+        landlords=landlords
+    ))
+
+    # Old way. Change it back it anyone prefers this one
+    # str = request.vars.search_str if request.vars.search_str else ''
+    # print("searching for " + str)
 
     # for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
     # for row in db().select(orderby=db.landlords.last_name):
@@ -131,22 +154,10 @@ def search_landlords():
     #             tag_ids=row.tag_ids
     #         )
     #         landlords.append(temp_landlord)
-    for row in db(db.landlords.first_name).select(orderby=db.landlords.last_name):
-        if match_names(search_name, row.first_name, row.last_name):
-            temp_landlord = dict(
-                id=row.id,
-                first_name=row.first_name,
-                last_name=row.last_name,
-                property_ids=row.property_ids,
-                review_ids=row.review_ids,
-                tag_ids=row.tag_ids
-            )
-            landlords.append(temp_landlord)
-
-
-    return response.json(dict(
-        landlords=landlords
-    ))
+    #
+    # return response.json(dict(
+    #     landlords=landlords
+    # ))
 
 # Goes through table properties and returns a list of property objects with address that contains the substring passed in
 # input: search_str
