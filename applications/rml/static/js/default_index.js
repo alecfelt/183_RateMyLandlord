@@ -50,16 +50,17 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord', 'nav_to_landlord_page'],
+  props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
   methods: {
     add_review: function() {
       if(this.validate_review()) {
+        this._data.landlord_id = this.landlord.id;
         var that = this;
         $.post(add_review_url,
           this._data,
           function(data) {
             if(data == "ok"){
-              // this.nav_to_landlord_page(that.landlord.id);
+              that.nav_to_landlord_page(that.landlord.id);
             }
           }
         );
@@ -71,33 +72,65 @@ Vue.component('WriteReview', {
           return false;
         }
       }
+      var regex = /^[A-Za-z][A-Za-z]$/;
+      if(regex.exec(this._data.state) == null) {
+        return false;
+      }
       return true;
+    },
+    handle_landlord_tag(event) {
+      console.log(event);
+    },
+    handle_property_tag(event) {
+      console.log(event);
     }
   },
   data: function() {
     return {
-      address: null,
+      street: null,
+      city: null,
+      state: null,
+      zip: null,
       landlord_rating: 1,
       property_rating: 1,
       rent_with_landlord_again: null,
       rent_with_property_again: null,
-      landlord_tag_ids: null,
-      property_tag_ids: null,
+      landlord_tag_ids: [],
+      property_tag_ids: [],
       comments: null
     }
   },
   template: `
     <div class="sub-page">
       <div class="write-review-card">
-        <h1> Write a Review for {{landlord}}</h1>
+        <h1> Write a Review for {{landlord.first_name}}</h1>
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div>
-            <p> Find Property </p>
-            <input
-              placeholder="Find Property"
-              v-model="address"
-              name="address"
-              type="text" />
+            <p> Property </p>
+            <p> Street </p>
+              <input
+                placeholder="street"
+                v-model="street"
+                name="address"
+                type="text" />
+            <p> City </p>
+              <input
+                placeholder="city"
+                v-model="city"
+                name="address"
+                type="text" />
+            <p> State </p>
+              <input
+                placeholder="state"
+                v-model="state"
+                name="address"
+                type="text" />
+            <p> Zip </p>
+              <input
+                placeholder="zip"
+                v-model="zip"
+                name="address"
+                type="text" />
           </div>
           <div>
               <p> Rate your landlord </p>
@@ -145,17 +178,26 @@ Vue.component('WriteReview', {
 
           <div>
               <p>
-                  please select from a list of tags that you think you'd find helpful
-                  perhaps this could also take in user #hashtags or something cool.
+                  please select from a list of tags that you think you'd find helpful.
               </p>
-              <div>
+              <div id="landlord-tags-container">
+                  <p> Landlord Tags </p>
                   <ul>
-                      <li>pets allowed</li>
-                      <li>show up unannounced</li>
-                      <li>lives far away</li>
-                      <li>accepts venmo</li>
-                      <li>. . . if this list goes longer the footer covers sumbit button</li>
-                      <li>write your own?</li>
+                      <li
+                          v-for="tag in LANDLORD_TAGS"
+                          v-on:click="handle_landlord_tag">
+                              {{tag}}
+                      </li>
+                  </ul>
+              </div>
+              <div id="landlord-tags-container">
+                  <p> Property Tags </p>
+                  <ul>
+                      <li
+                          v-for="tag in PROPERTY_TAGS"
+                          v-on:click="handle_property_tag">
+                              {{tag}}
+                      </li>
                   </ul>
               </div>
           </div>
@@ -185,6 +227,7 @@ Vue.component('FindLandlord', {
           'set_search_results',
           'search_results',
           'toggle_selected_landlord',
+          'nav_to_write_review',
         ],
   methods: {
     handle_search: function(event) {
@@ -212,14 +255,13 @@ Vue.component('FindLandlord', {
   `
     <div class="sub-page">
       <div class="search">
-        <form @submit.prevent="handle_search" class="search-form">
-          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search for a Landlord"/>
-          <button type="submit" id="search-button">
-            <i class="fa fa-search"></i>
-          </button>
+        <h4 v-if="on_select === nav_to_write_review">Step 1: Find the landlord you wish to review</h4>
+        <form class="search-form">
+          Search for a landlord:
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
-          <div @click.prevent="handle_landlord_select(result.first_name)" v-for="result in search_results" class="search-result">
+          <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
             <div class="rating-items">
               <div class="ratings">
@@ -235,7 +277,7 @@ Vue.component('FindLandlord', {
         </div>
         <div class="search-prompt">
           <p>
-            didnt find what you are looking for?
+            didn't find what you are looking for?
             <a href="#" @click.prevent="nav_to_create_landlord">
               Add A Landlord
             </a>
@@ -246,16 +288,12 @@ Vue.component('FindLandlord', {
   `
 });
 Vue.component('FindProperty', {
-  props: ['on_select',
-          'nav_to_create_landlord',
-          'set_search_results'
+  props: [
+          'nav_to_landlord_page',
+          'nav_to_find_landlord_page',
+          'set_search_results',
+          'search_results'
         ],
-  data: function() {
-    return {
-      has_searched: false,
-      search_results: []
-    }
-  },
   methods: {
     handle_search: function(event) {
       var search_str = event.target.search_box.value;
@@ -269,16 +307,19 @@ Vue.component('FindProperty', {
           this.set_search_results(data.landlords);
         }
       );
-      // async query
-        // in callback function
-          // has_search = true; search_results = data.search_results;
+    },
+    handle_property_select: function(event) {
+      console.log(event);
+    },
+    handle_landlord_select: function(event) {
+      console.log(event);
     }
   },
   template: `
     <div class="sub-page">
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Landlord"/>
+          <input id="search_box" type="search" placeholder="Search for a Property"/>
           <button type="submit" id="search-button">
             <i class="fa fa-search"></i>
           </button>
@@ -287,8 +328,8 @@ Vue.component('FindProperty', {
       <div class="search-prompt">
         <p>
           didnt find what you are looking for?
-          <a href="#" @click.prevent="nav_to_create_landlord">
-            Add A Landlord
+          <a href="#" @click.prevent="nav_to_add_landlord">
+            Find A Landlord
           </a>
         </p>
       </div>
@@ -409,15 +450,13 @@ var app = function() {
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
-  self.nav_to_write_review = function(landlord) {
-    self.vue.selected_landlord = landlord;
+  self.nav_to_write_review = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
   self.toggle_selected_landlord = function(landlord_name) {
       console.log('youve made it thus far');
       self.vue.selected_landlord = landlord_name;
-      console.log(self.vue.selected_landlord);
   }
 
   // API METHODS
@@ -474,10 +513,28 @@ var app = function() {
       // CONTACT_PAGE: 8,
 
       LANDLORD_TAGS: [
-
+        'friendly',
+        'mean',
+        'chill',
+        'understanding',
+        'homie',
+        'snoopy',
+        'responsive',
+        'lives nearby',
+        'humorous',
+        'will repair house'
       ],
       PROPERTY_TAGS: [
-
+        'washer / dryer',
+        'leaks',
+        'old',
+        'outdoor space',
+        'spacious',
+        'furnished',
+        'utilities included',
+        'good cell signal',
+        'irritable neighbors',
+        'sufficient parking'
       ],
       landlord_list: [],
       search_results: [],
