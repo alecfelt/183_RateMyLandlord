@@ -222,11 +222,12 @@ Vue.component('WriteReview', {
   `
 });
 Vue.component('FindLandlord', {
-  props: ['nav_to_create_landlord',
+  props: ['on_select',
+          'nav_to_create_landlord',
           'set_search_results',
           'search_results',
           'toggle_selected_landlord',
-          'nav_to_write_review',
+          'nav_to_write_review'
         ],
   methods: {
     handle_search: function(event) {
