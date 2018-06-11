@@ -38,12 +38,19 @@
           nav_to_create_landlord,
           set_search_results,
           search_results,
-          toggle_selected_landlord,
+          toggle_selected_landlord
         }"
       />
     </div>
     <div v-if="page == FIND_PROPERTY">
-      <find-property/>
+      <find-property
+        v-bind="{
+          nav_to_landlord_page,
+          nav_to_find_landlord_page,
+          set_search_results,
+          search_results
+        }"
+      />
     </div>
     <div v-if="page == LANDLORD_PAGE">
       <landlord-page
@@ -65,7 +72,9 @@
       <write-review
         v-bind="{
           landlord: selected_landlord,
-          nav_to_landlord_page
+          nav_to_landlord_page,
+          LANDLORD_TAGS,
+          PROPERTY_TAGS
         }"
       />
     </div>

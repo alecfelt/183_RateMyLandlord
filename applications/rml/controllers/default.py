@@ -159,6 +159,16 @@ def search_landlords():
     #     landlords=landlords
     # ))
 
+
+# Boolean function that determines whether address in search string
+# matches with some address stored in the database
+def match_address(search_address, db_address):
+    search_address = search_address.strip().upper()
+    if search_address in db_address:
+        return True
+    else:
+        return False
+
 # Goes through table properties and returns a list of property objects with address that contains the substring passed in
 # input: search_str
 # output: list of property obj
@@ -168,7 +178,8 @@ def search_properties():
     properties = []
 
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
-        if address in row.address:
+        # if address in row.address:
+        if match_address(search_address, db_address):
             propertie = dict(
                 id=row.id,
                 address=row.address,
