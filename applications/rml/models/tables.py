@@ -24,6 +24,7 @@ db.define_table('landlords',
 db.define_table('properties',
     Field('address', type='string'),
     Field('landlord_ids', type='list:integer'),
+    Field('tag_ids', type='list:integer'),
     Field('updated_on', 'datetime', update=request.now, redefine=True)
 )
 
