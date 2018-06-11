@@ -1855,4 +1855,3 @@ timestamp: 2018-06-11T14:57:51.130810
 ALTER TABLE "landlords" ADD "average_l_rating" DOUBLE;
 timestamp: 2018-06-11T14:57:51.181670
 ALTER TABLE "landlords" ADD "average_p_rating" DOUBLE;
-success!
