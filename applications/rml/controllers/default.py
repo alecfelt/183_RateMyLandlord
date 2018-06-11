@@ -164,9 +164,13 @@ def search_landlords():
 # matches with some address stored in the database
 def match_address(search_address, db_address):
     search_address = search_address.strip().upper()
+    # print 'search_address: ', search_address
+    # print 'db_address: ', db_address
     if search_address in db_address:
+        # print 'search_address in db_address'
         return True
     else:
+        # print 'search_address not in db_address'
         return False
 
 # Goes through table properties and returns a list of property objects with address that contains the substring passed in
@@ -179,13 +183,15 @@ def search_properties():
 
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
         # if address in row.address:
-        if match_address(search_address, db_address):
+        if match_address(address, row.address):
             propertie = dict(
                 id=row.id,
                 address=row.address,
                 landlord_ids=row.landlord_ids
             )
             properties.append(propertie)
+
+    print properties
 
     return response.json(dict(
         properties=properties
@@ -195,11 +201,6 @@ def search_properties():
 # output: list of landlord objs
 #         data = { landlords: [{name: "", }, {}, {}] }
 def get_landlords():
-    # if request.vars.landlord_ids:
-    #     landlord_ids = request.vars.landlord_ids;
-    # else:
-    #     landlord_ids = []
-
     landlords = []
     for row in db().select(orderby=db.landlords.last_name):
         if row.first_name is not None:
@@ -225,7 +226,6 @@ def format_address_elem(address_elem, isState=False):
 
 # Takes an address dictionary and returns a formatted string
 def format_address(address):
-    # city = format_address_elem( address["city"] )
     state = format_address_elem( address["state"] )
     zipcode = format_address_elem( address["zipcode"] )
 
