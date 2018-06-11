@@ -78,11 +78,15 @@ Vue.component('WriteReview', {
       }
       return true;
     },
-    handle_landlord_tag(event) {
-      console.log(event);
+    handle_landlord_tag(index) {
+      if(this.landlord_tag_ids.indexOf(index) == -1) {
+        this.landlord_tag_ids.push(index);
+      }
     },
-    handle_property_tag(event) {
-      console.log(event);
+    handle_property_tag(index) {
+      if(this.property_tag_ids.indexOf(index) == -1) {
+        this.property_tag_ids.push(index);
+      }
     }
   },
   data: function() {
@@ -187,7 +191,7 @@ Vue.component('WriteReview', {
                   <ul>
                       <li
                           v-for="tag in LANDLORD_TAGS"
-                          v-on:click="handle_landlord_tag">
+                          v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
                               {{tag}}
                       </li>
                   </ul>
@@ -197,7 +201,7 @@ Vue.component('WriteReview', {
                   <ul>
                       <li
                           v-for="tag in PROPERTY_TAGS"
-                          v-on:click="handle_property_tag">
+                          v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
                               {{tag}}
                       </li>
                   </ul>
@@ -294,27 +298,38 @@ Vue.component('FindProperty', {
           'nav_to_landlord_page',
           'nav_to_find_landlord_page',
           'set_search_results',
-          'search_results'
+          'search_results',
+          'toggle_selected_property',
+          'toggle_selected_landlord'
         ],
   methods: {
     handle_search: function(event) {
       var search_str = event.target.search_box.value;
       console.log(search_str);
-      $.post(search_landlords_url,
+      var that = this;
+      $.post(search_properties_url,
         {
           search_str: search_str
         },
         function(data) {
           console.log(data.landlords);
-          this.set_search_results(data.landlords);
+          that.set_search_results(data.landlords);
+          $('#search-button').prop('enabled', true);
         }
       );
     },
-    handle_property_select: function(event) {
-      console.log(event);
+    handle_property_select: function(result) {
+      this.toggle_selected_property(result);
+      $.post(get_landlords_url,
+        result.landlord_ids,
+        function(data) {
+          console.log(data);
+        }
+      )
     },
-    handle_landlord_select: function(event) {
-      console.log(event);
+    handle_landlord_select: function(result) {
+      this.toggle_selected_landlord(result);
+      this.nav_to_landlord_page();
     }
   },
   template: `
@@ -327,6 +342,11 @@ Vue.component('FindProperty', {
           </button>
         </form>
       <div>
+      <div v-if="search_results.length != 0" class="search-results">
+        <div @click.prevent="handle_property_select(result)" v-for="result in search_results" class="search-result">
+          <h1>{{result.address}}</h1>
+        </div>
+      </div>
       <div class="search-prompt">
         <p>
           didnt find what you are looking for?
@@ -459,8 +479,13 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord_name) {
-      console.log('youve made it thus far');
+    console.log(landlord_name);
       self.vue.selected_landlord = landlord_name;
+  }
+
+  self.toggle_selected_property = function(property) {
+    console.log(property);
+      self.vue.selected_property = property;
   }
 
   // API METHODS
@@ -544,6 +569,7 @@ var app = function() {
       landlord_list: [],
       search_results: [],
       selected_landlord: 'Tom',
+      selected_property: null,
       form_title: null,
     },
     methods: {
@@ -557,6 +583,7 @@ var app = function() {
       nav_to_landlord_page: self.nav_to_landlord_page,
       nav_to_write_review: self.nav_to_write_review,
       toggle_selected_landlord: self.toggle_selected_landlord,
+      toggle_selected_property: self.toggle_selected_property,
 
       // APP FUNCTIONALITY
       create_landlord: self.create_landlord,
