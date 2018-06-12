@@ -539,7 +539,7 @@ def update_landlord(landlord_id, landlord_obj):
     # Update tag_ids
     if r.tag_ids:
         tag_ids = set(r.tag_ids)
-        tag_ids = tag_ids.union( set(landlord_obj['tag_id']) )
+        tag_ids = tag_ids.union( set(landlord_obj['tag_ids']) )
         tag_ids = list(tag_ids)
     else:
         tag_ids = landlord_obj['tag_ids']
