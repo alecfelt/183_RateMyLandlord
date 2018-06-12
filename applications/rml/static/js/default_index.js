@@ -317,8 +317,8 @@ Vue.component('FindProperty', {
           search_str: search_str
         },
         function(data) {
-          console.log('data.landlords');
-          console.log(data.landlords);
+          console.log('data.properties');
+          console.log(data.properties);
           that.set_search_results(data.landlords);
           $('#search-button').prop('enabled', true);
         }

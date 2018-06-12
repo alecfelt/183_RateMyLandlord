@@ -180,6 +180,8 @@ def match_address(search_address, db_address):
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
+    logger.info('here')
+    logger.info(request.vars)
     address = request.vars.search_str if request.vars.search_str else ''
     properties = []
 
