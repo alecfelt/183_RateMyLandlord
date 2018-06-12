@@ -639,6 +639,7 @@ var app = function() {
       ],
       landlord_list: [],
       address_list: [],
+      review_list: [],
       search_results: [],
       selected_landlord: null,
       selected_property: null,
