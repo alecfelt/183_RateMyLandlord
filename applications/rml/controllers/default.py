@@ -608,7 +608,7 @@ def add_review():
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
     else:
-        print "In add_review(): landlord_id should never be null"
+        # print("In add_review(): landlord_id should never be null")
         return "nok"
 
     address_obj = dict(
