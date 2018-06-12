@@ -50,56 +50,100 @@
 /* STYLES FOR RATINGS */
 
 .rating-card{
+  width: calc(100% - 64pt);
+  border-radius: 4pt;
   padding: 16pt 32pt;
+  background-color: #FFF;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
   -webkit-box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
+  -o-box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
   box-shadow: 0px 4px 16px 0px rgba(0,0,0,0.1);
 }
 
+.rating-card h1{
+  text-transform: capitalize;
+  margin: 0;
+}
+
+.rating-card a {
+  align-self: center;
+  color: #FFF;
+  background-color: #091A22;
+  text-decoration: none;
+  border-radius: 4pt;
+  padding: 8pt 16pt;
+  margin-top: 32pt;
+  font-family: 'Oswald', sans-serif;
+
+  -webkit-transition: background-color 300ms ease-in-out;
+  -moz-transition: background-color 300ms ease-in-out;
+  -o-transition: background-color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out;
+}
+
+.rating-card a:hover {
+  background-color: #F49D37;
+}
+
+.rating-card p{
+  text-transform: uppercase;
+  margin: 0;
+}
+
 .rating-items {
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 }
 
 .rating-items div{
   flex: 1;
-  padding: 8pt 16pt;
-  border-left: 1px solid #F49D37;
-}
-
-.ratings h1, p {
-  line-height: 1;
-  margin: 0;
-}
-
-.ratings p {
-  font-size: 200%;
-  margin-bottom: 16pt;
-}
-
-.ratings-extras p {
-  font-size: 150%;
-}
-
-.ratings-tags {
-  display: inline;
 }
 
 .ratings-tags ul {
+  padding: 0;
   margin: 0;
-  padding: 9;
-  list-style-type: none;
 }
 
 .ratings-tags ul li {
-  display: inline;
-  margin: 4pt;
+  list-style: none;
+  font-size: 75%;
+  padding: 4pt 8pt;
+  margin: 2pt;
+  border-radius: 2pt;
   text-transform: lowercase;
-  font-size: 50%;
-  padding: 4pt;
+
+  display: inline-block;
   background-color: #CED1D3;
+}
+
+.certified-slum {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+
+  margin-top: 16pt;
+
+  color: #EE6055;
+}
+
+.certified-slum i {
+  font-size: 200%;
+  margin-right: 8pt;
+}
+
+.certified-slum p {
+  font-family: 'Oswald', sans-serif;
+  color: #EE6055;
 }
 
 /* STYLES FOR THE FORM */
@@ -150,4 +194,30 @@
 
 .tag-form {
   width: 100%;
+}
+
+@media (max-width: 745px) {
+  .rating-card {
+    align-items: center;
+  }
+
+  .rating-items div{
+    text-align: center;
+  }
+
+  .rating-card h1 {
+    font-size: 150%;
+  }
+
+  .rating-card p {
+    font-size: 100%;
+  }
+
+  .rating-items {
+    display: block;
+  }
+
+  .certified-slum {
+    justify-content: center;
+  }
 }
