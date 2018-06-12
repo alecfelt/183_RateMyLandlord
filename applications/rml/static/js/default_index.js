@@ -467,6 +467,7 @@ var app = function() {
   }
 
   self.nav_to_landlord_page = function() {
+    console.log('nav_to_landlord_page');
     self.get_reviews(self.vue.selected_landlord);
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
@@ -526,12 +527,14 @@ var app = function() {
   }
 
   self.get_reviews = function(landlord_id){
+    console.log('get_reviews');
       $.post(
         get_reviews_url,
         {
           landlord_id: landlord_id
         },
         function(data){
+          console.log(data);
           self.toggle_selected_landlord(data.landlord);
           self.vue.address_list = data.addresses;
           self.vue.review_list = data.reviews;
