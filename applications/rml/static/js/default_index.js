@@ -468,7 +468,7 @@ var app = function() {
 
   self.nav_to_landlord_page = function() {
     console.log('nav_to_landlord_page');
-    self.get_reviews(self.vue.selected_landlord);
+    self.get_reviews(self.vue.selected_landlord.id);
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -528,6 +528,7 @@ var app = function() {
 
   self.get_reviews = function(landlord_id){
     console.log('get_reviews');
+    console.log(landlord_id);
       $.post(
         get_reviews_url,
         {
