@@ -1,10 +1,12 @@
-/* STYLES THE LANDING (HOME) PAGE */
+/* STYLES THE LANDING (HOME) PAGE CARD*/
 .call-to-action {
   width: 100%;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
   padding: 32pt 0;
   margin-bottom: 32pt;
   background-color: #FFF;
@@ -32,12 +34,17 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
+
+  padding: 16pt 16pt 0 16pt;
+  width: calc(100% - 32pt);
 }
 
 .landing-buttons button {
+  flex: 1;
   padding: 16pt 32pt;
-  margin: 8pt;
-  font-size: 120%;
+  margin: 8pt 16pt;
+  width: 100%;
+  font-size: 100%;
   color: #FFF;
   text-transform: lowercase;
   border: none;
@@ -56,6 +63,21 @@
   text-transform: uppercase;
   font-family: 'Oswald', sans-serif;
   color: #FFF;
+}
+
+@media (max-width: 745px) {
+  .call-to-action h1 {
+    font-size: 150%;
+  }
+
+  .landing-buttons {
+    display: block;
+    text-align:center;
+  }
+
+  .landing-buttons button {
+    width: 80%;
+  }
 }
 
 .landlord-card {
