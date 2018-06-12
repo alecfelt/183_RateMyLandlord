@@ -1,15 +1,20 @@
 {{extend 'layout.html'}}
 {{block header}}
 <link href="{{=URL('static','css/contact.css')}}" rel="stylesheet" type="text/css"/>
+<!--<link href="{{=URL('static','css/about.css')}}" rel="stylesheet" type="text/css"/>-->
 {{end}}
 <div class="sub-page">
-  <div class="image-container">
-    <img class="houseimage" src="{{ =URL('static/images', 'house.jpeg') }}" />
-  </div>
-  <div class="contact-card">
-    <h1> CONTACT US </h1><br>
-    <h3> Please feel free to contact us with any questions or concerns! </h3><br>
-    <p>Mobile: 1-877-RATE-L-LORD<p>
-    <p>Email: customer@rmllord.com</p>
+  <div class="contact-layout">
+    <div class="flex-item">
+      <div class="image-container">
+        <img class="houseimage" src="{{ =URL('static/images', 'house.jpeg') }}" />
+      </div>
+    </div>
+    <div class="flex-item" >
+      <h1> CONTACT US </h1><br>
+      <h3> Please feel free to contact us with any questions or concerns! </h3><br>
+      <p>Mobile: 1-877-RATE-L-LORD<p>
+      <p>Email: customer@rmllord.com</p>
+    </div>
   </div>
 </div>

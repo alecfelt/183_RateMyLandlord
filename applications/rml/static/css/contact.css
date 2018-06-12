@@ -1,4 +1,12 @@
 .image-container img{
-  width: 100%;
+  width: 450pt;
   border-radius: 4pt;
+  padding-right: 30pt;
+}
+
+.contact-layout {
+  display: flex;
+  justify-content: left;
+  margin-right: auto;
+  flex-wrap: wrap;
 }
