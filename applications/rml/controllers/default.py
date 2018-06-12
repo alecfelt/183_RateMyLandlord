@@ -502,7 +502,7 @@ def insert_into_reviews(review):
         rent_with_landlord_again = review['rent_with_landlord_again'],
         rent_with_property_again = review['rent_with_property_again'],
         landlord_tag_ids = review['landlord_tag_ids'],
-        property_tag_ids = review['landlord_tag_ids'],
+        property_tag_ids = review['property_tag_ids'],
         comments = review['comments']
     )
 
@@ -633,10 +633,19 @@ def add_review():
     # convert tags to ints
     landlord_tags = request.vars.landlord_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
     property_tags = request.vars.property_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
+    logger.info("landlord_tags")
     logger.info(landlord_tags)
+    logger.info("property_tags")
     logger.info(property_tags)
-    landlord_tag_ids = [int(l) for l in landlord_tags]
-    property_tag_ids = [int(p) for p in property_tags]
+    if '' in landlord_tags:
+        landlord_tag_ids = []
+    else:
+        landlord_tag_ids = [int(l) for l in landlord_tags]
+
+    if '' in property_tags:
+        property_tag_ids = []
+    else:
+        property_tag_ids = [int(p) for p in property_tags]
 
     # convert yes and no to True and False
     rent_with_landlord_again = rent_with_property_again = True
