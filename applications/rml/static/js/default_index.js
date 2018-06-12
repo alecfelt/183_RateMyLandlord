@@ -626,7 +626,7 @@ var app = function() {
       ],
       landlord_list: [],
       search_results: [],
-      selected_landlord: 'Tom',
+      selected_landlord: null,
       selected_property: null,
       form_title: null,
     },
