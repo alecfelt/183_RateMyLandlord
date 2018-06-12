@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6, strong {
   color: #091A22;
 }
 
-p, a, b, li, input, button, select{
+p, a, b, li, input, button, select, label{
   font-family: 'Open Sans', sans-serif;
   color: #091A22;
 }

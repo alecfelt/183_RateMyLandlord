@@ -82,3 +82,22 @@ select[selected="selected"] .custom-select{
   border: 1px solid #F49D37;
   background-color: #F49D37;
 }
+
+input[type="radio"] label{
+  font-family: 'Open Sans', sans-serif;
+}
+
+.rate-radio{
+  margin: 8pt 0;
+}
+
+.form-tags li:hover {
+  background-color: #2E86AB;
+  color: #FFF;
+  cursor: pointer;
+}
+
+.tag-selected {
+  color: #FFF;
+  background-color: #F49D37 !important;
+}
