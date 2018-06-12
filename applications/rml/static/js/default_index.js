@@ -321,7 +321,7 @@ Vue.component('FindProperty', {
         ],
   methods: {
     handle_search: function(event) {
-      var search_str = event.target.search_box.value;
+      var search_str = event.target.value;
       console.log(search_str);
       var that = this;
       $.post(search_properties_url,
@@ -329,18 +329,38 @@ Vue.component('FindProperty', {
           search_str: search_str
         },
         function(data) {
-          console.log(data.landlords);
-          that.set_search_results(data.landlords);
+          console.log('data.properties');
+          console.log(data.properties);
+          that.set_search_results(data.properties);
+          console.log('data');
+          console.log(data);
+
+          $.post(get_landlord_url,
+            {
+              search_str: data.properties.landlord_ids
+            },
+            function(data) {
+              console.log('nesty call back');
+              console.log(data);
+            }
+          );
+
+
           $('#search-button').prop('enabled', true);
         }
       );
     },
     handle_property_select: function(result) {
       this.toggle_selected_property(result);
-      $.post(get_landlords_url,
-        result.landlord_ids,
+      console.log(result);
+        console.log('hi');
+
+      $.post(find_landlord_by_id_url,
+        result,
         function(data) {
           console.log(data);
+          console.log('data');
+
         }
       )
     },
@@ -352,13 +372,18 @@ Vue.component('FindProperty', {
   template: `
     <div class="sub-page">
       <div class="search">
-        <form @submit.prevent="handle_search" class="search-form">
-          <input id="search_box" type="search" placeholder="Search for a Property"/>
+        <form class="search-form">
+          Search for a property:
+          <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
+
+          <button type="submit" id="search-button">
+            <i class="fa fa-search"></i>
+          </button>
         </form>
       <div>
       <div v-if="search_results.length != 0" class="search-results">
         <div @click.prevent="handle_property_select(result)" v-for="result in search_results" class="search-result">
-          <h1>{{result.address}}</h1>
+          <h1>{{result.address}} {{result.landlord_ids}}</h1>
         </div>
       </div>
       <div class="search-prompt">
@@ -536,6 +561,7 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord) {
+      console.log('landlord');
       console.log(landlord);
       self.vue.selected_landlord = landlord;
   }
