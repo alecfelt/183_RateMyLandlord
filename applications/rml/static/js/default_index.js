@@ -266,23 +266,13 @@ Vue.component('FindLandlord', {
           <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
-          <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
+          <div class="landlord-card" @click.prevent="handle_landlord_select(result)" v-for="result in search_results">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
-            <div class="rating-items">
-              <div class="ratings">
-                <h3>Overall Rating</h3>
-                <p v-if="result.avg_l_rating">
-                    {{result.avg_l_rating}} </p>
-                <p v-if="!result.avg_l_rating">
-                    N/A </p>
-              </div>
-              <div class="ratings">
-                <h3>Average Property Rating</h3>
-                <p v-if="result.avg_p_rating">
-                    {{result.avg_p_rating}} </p>
-                <p v-if="!result.avg_p_rating">
-                    N/A </p>
-              </div>
+            <div class="recents-rating">
+              <h3>Overall Rating</h3>
+              <p v-if="result.avg_l_rating">{{result.avg_l_rating}}</p>
+              <p v-if="!result.avg_l_rating">N/A</p>
+            </div>
             </div>
           </div>
         </div>
@@ -365,36 +355,36 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review'],
+  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
   template: `
     <div class="sub-page">
-      <a href="#" @click.prevent="nav_to_write_review(landlord)">
-        write a review for this landlord
-      </a>
       <div class="rating-card">
         <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
         <div class="rating-items">
-          <div class="ratings">
-            <h2>Overall Rating</h2>
-            <p v-if="landlord.avg_l_rating">
-                {{landlord.avg_l_rating}} </p>
-            <p v-if="!landlord.avg_l_rating">
-                N/A </p>
+          <div>
+            <h3>Overall Rating</h3>
+            <p v-if="landlord.avg_l_rating">{{landlord.avg_l_rating}}</p>
+            <p v-if="!landlord.avg_l_rating">N/A</p>
+            <div class="certified-slum" v-if="landlord.avg_l_rating < 2 && landlord.avg_l_rating">
+              <i class="fa fa-trash"></i>
+              <p>Certified Slumlord</p>
+            </div>
           </div>
-          <div class="ratings-extras">
+          <div>
             <h3>Average Property Rating</h3>
-            <p v-if="landlord.avg_p_rating">
-                {{landlord.avg_p_rating}} </p>
-            <p v-if="!landlord.avg_p_rating">
-                N/A </p>
+            <p v-if="landlord.avg_p_rating">{{landlord.avg_p_rating}}</p>
+            <p v-if="!landlord.avg_p_rating">N/A</p>
           </div>
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
             <ul>
               <li>Tag Items would go here</li>
+              <li>Tag Items would go here</li>
+              <li>Tag Items would go here</li>
             </ul>
           </div>
         </div>
+        <a href="#" @click.prevent="nav_to_write_review(landlord)">write a review for this landlord</a>
       </div>
     </div>
   `
@@ -477,6 +467,7 @@ var app = function() {
   }
 
   self.nav_to_landlord_page = function() {
+    self.get_reviews(self.vue.selected_landlord);
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -485,12 +476,12 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord) {
-    console.log(landlord);
+      console.log(landlord);
       self.vue.selected_landlord = landlord;
   }
 
   self.toggle_selected_property = function(property) {
-    console.log(property);
+      console.log(property);
       self.vue.selected_property = property;
   }
 
@@ -536,20 +527,14 @@ var app = function() {
 
   self.get_reviews = function(landlord_id){
       $.post(
-        create_landlord_url,
+        get_reviews_url,
         {
-          first_name: first_name,
-          last_name: last_name,
-          // website: website,
+          landlord_id: landlord_id
         },
         function(data){
-          if(data === "nok") {
-              console.err("Error in adding landlord");
-          }
-          console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
-          self.vue.landlord_list.unshift(data.landlord);
           self.toggle_selected_landlord(data.landlord);
-          self.nav_to_write_review();
+          self.vue.address_list = data.addresses;
+          self.vue.review_list = data.reviews;
         }
       );
   };
@@ -561,7 +546,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 2,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
@@ -649,8 +634,9 @@ var app = function() {
         'WY'
       ],
       landlord_list: [],
+      address_list: [],
       search_results: [],
-      selected_landlord: 'Tom',
+      selected_landlord: null,
       selected_property: null,
       form_title: null,
     },
