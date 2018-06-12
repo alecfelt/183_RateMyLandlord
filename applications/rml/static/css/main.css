@@ -139,7 +139,6 @@ p, a, b, li, input, button, label{
 }
 
 /* NAVIGATION STYLING */
-
 .nav-bar {
   display: flex;
   flex-direction: row;
@@ -178,6 +177,10 @@ p, a, b, li, input, button, label{
 
 .nav-links ul li a:hover {
   color: #F49D37;
+}
+
+@media screen and (max-width: 745px) {
+  .nav-links ul li:not(:first-child) {display: none;}
 }
 
 /* EVERYTHING FOR THE FOOTER */
