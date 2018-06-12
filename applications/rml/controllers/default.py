@@ -372,13 +372,36 @@ def get_landlord(landlord_id):
 
 # private method to get average landlord rating and average property rating
 def get_averages(landlord_id):
-    q = (db.reviews.landlord_id == landlord_id)
-    l_avg = db.reviews.landlord_rating.avg()
-    p_avg = db.reviews.property_rating.avg()
+    l_rating_sum = 0
+    p_rating_sum = 0
+    review_count = 0
 
-    r = db(q).select(l_avg, p_avg).first()
-    avg_l_rating = r[l_avg]
-    avg_p_rating = r[p_avg]
+    q = (db.reviews.landlord_id == landlord_id)
+    for r in db(q).select():
+        # book keeping for averages/ids
+        if r.landlord_rating:
+            l_rating_sum += r.landlord_rating
+        if r.property_rating:
+            p_rating_sum += r.property_rating
+        review_count += 1
+
+    if review_count != 0:
+        avg_l_rating = round((l_rating_sum * 1.0)/review_count, 1)
+        avg_p_rating = round ((p_rating_sum * 1.0)/review_count, 1)
+    else:
+        avg_l_rating = 0
+        avg_p_rating = 0
+
+    # l_avg = db.reviews.landlord_rating.avg()
+    # p_avg = db.reviews.property_rating.avg()
+    #
+    # r = db(q).select(l_avg, p_avg).first()
+    # avg_l_rating = r[l_avg]
+    # avg_p_rating = r[p_avg]
+    #
+    # print r[l_avg]
+    # print("\n\naverage_l_rating: ", avg_l_rating)
+    # print("average_p_rating: ", avg_p_rating)
 
     return (avg_l_rating, avg_p_rating)
 
@@ -557,6 +580,7 @@ def add_review():
     logger.info(request.vars)
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
+        logger.info(landlord_id)
     else:
         print "In add_review(): landlord_id should never be null"
         return "nok"
@@ -567,6 +591,7 @@ def add_review():
         state   = request.vars.state,
         zipcode = request.vars.zip
     )
+    logger.info(address_obj)
     address = format_address(address_obj)
 
     # Check if property already exists
@@ -589,6 +614,8 @@ def add_review():
             address = address,
             landlord_ids = [landlord_id])
 
+    logger.info(request.vars.landlord_tag_ids)
+    logger.info(request.vars.property_tag_ids)
     # Insert review
     review_obj = dict(
         landlord_id = landlord_id,

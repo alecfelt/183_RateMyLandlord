@@ -57,8 +57,11 @@ Vue.component('WriteReview', {
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
+        var data = this._data;
+        data.property_tag_ids = JSON.stringify(data.property_tag_ids);
+        data.landlord_tag_ids = JSON.stringify(data.landlord_tag_ids);
         $.post(add_review_url,
-          this._data,
+          data,
           function(data) {
             if(data == "ok"){
               // this.toggle_selected_landlord(data.landlord);
