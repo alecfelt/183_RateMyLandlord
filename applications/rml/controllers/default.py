@@ -465,6 +465,9 @@ def insert_into_reviews(review):
 def update_landlord(landlord_id, landlord_obj):
     q = (db.landlords.id == landlord_id)
     r = db(q).select().first()
+    first_name = r.first_name
+    last_name = r.last_name
+
     # Update property_ids
     if r.property_ids:
         property_ids = set(r.property_ids)
@@ -501,6 +504,15 @@ def update_landlord(landlord_id, landlord_obj):
     r.average_p_rating = avg_p_rating
 
     r.update_record()
+
+    # return dict(
+    #     id           = landlord_id,
+    #     first_name   = first_name,
+    #     last_name    = last_name,
+    #     property_ids = property_ids,
+    #     review_ids   = review_ids,
+    #     tag_ids      = tag_ids
+    # )
 
 def test_route():
     landlord_id = 2
@@ -581,7 +593,9 @@ def add_review():
         review_id    = review_id,
         tag_ids      = request.vars.landlord_tag_ids
     )
-    update_landlord(landlord_id, landlord_obj)
+    landlord_obj = update_landlord(landlord_id, landlord_obj)
+
+    # return
 
     return "ok"
 
