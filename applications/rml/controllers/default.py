@@ -175,6 +175,7 @@ def match_address(search_address, db_address):
         # print 'search_address not in db_address'
         return False
 
+
 # Goes through table properties and returns a list of property objects with address that contains the substring passed in
 # input: search_str
 # output: list of property obj
@@ -349,14 +350,22 @@ def get_properties(inputIds=None):
         properties=properties
     ))
 
-# private method, not an actual route
+# Private method, not an actual route
 def add_property():
     return response.json(dict(
         msg='add_property'
     ))
 
-def get_landlord(landlord_id):
-    q = (db.landlords.id == landlord_id)
+#
+def get_landlord(landlord_id=None):
+    if request.vars.landlord_id:
+        q = (db.landlords.id == request.vars.landlord_id)
+    elif landlord_id:
+        q = (db.landlords.id == landlord_id)
+    else:
+        print("In get_landlord(): landlord_id cannot be NULL")
+        return "nok"
+
     r = db(q).select().first()
     return dict(
         id           = r.id,
@@ -577,10 +586,17 @@ def test_route():
 # comments: null
 # output: "ok"
 def add_review():
+
+    print json.loads(request.vars.landlord_tag_ids)
+    print json.loads(request.vars.landlord_tag_ids)
+
+    landlord_tag_ids = json.loads(request.vars.landlord_tag_ids)
+    property_tag_ids = json.loads(request.vars.landlord_tag_ids)
+
     logger.info(request.vars)
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
-        logger.info(landlord_id)
+        # logger.info(landlord_id)
     else:
         print "In add_review(): landlord_id should never be null"
         return "nok"
@@ -591,7 +607,7 @@ def add_review():
         state   = request.vars.state,
         zipcode = request.vars.zip
     )
-    logger.info(address_obj)
+    # logger.info(address_obj)
     address = format_address(address_obj)
 
     # Check if property already exists
@@ -614,8 +630,8 @@ def add_review():
             address = address,
             landlord_ids = [landlord_id])
 
-    logger.info(request.vars.landlord_tag_ids)
-    logger.info(request.vars.property_tag_ids)
+    # logger.info(request.vars.landlord_tag_ids)
+    # logger.info(request.vars.property_tag_ids)
     # Insert review
     review_obj = dict(
         landlord_id = landlord_id,
