@@ -405,8 +405,7 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['on_select',
-            'toggle_selected_landlord',
+    props: ['toggle_selected_landlord',
             'create_landlord'],
     methods: {
       CreateLandlord_helper: function(event) {
@@ -414,8 +413,8 @@ Vue.component('CreateLandlord', {
           console.log(event.target.landlord_first_name.value);
           console.log(event.target.landlord_last_name.value);
           this.create_landlord(event);
-          this.toggle_selected_landlord(event.target.landlord_first_name.value);
-          this.on_select();  // this throws an error.
+          // this.toggle_selected_landlord(event.target.landlord_first_name.value);
+          // this.on_select();  // this throws an error.
       }
     },
     template: `
@@ -437,12 +436,12 @@ Vue.component('CreateLandlord', {
               type="text" />
           </div>
 
-          <div class="landlord-form-item">
+          <!-- <div class="landlord-form-item">
             <p>Landlord's Website (Optional)</p>
             <input
               id="landlord_site"
               type="text" />
-          </div>
+          </div> -->
 
           <div class="landlord-form-item">
             <button @v-on:click="CreateLandlord_helper" type="submit">
@@ -516,15 +515,18 @@ var app = function() {
     var form = event.target;
     var first_name = form.landlord_first_name.value;
     var last_name = form.landlord_last_name.value;
-    var website = (form.landlord_site.value === "") ? "" : form.landord_site.value;
+    // var website = (form.landlord_site.value === "") ? "" : form.landord_site.value;
     $.post(
       create_landlord_url,
       {
         first_name: first_name,
         last_name: last_name,
-        website: website,
+        // website: website,
       },
       function(data){
+        if(data === "nok") {
+            console.err("Error in adding landlord")
+        }
         console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
         self.vue.landlord_list.unshift(data.landlord);
         self.toggle_selected_landlord(data.landlord);
