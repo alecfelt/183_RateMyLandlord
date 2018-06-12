@@ -50,13 +50,17 @@
 /* STYLES FOR RATINGS */
 .rating-list {
   width: 80%;
-  margin: 16pt 0;
+}
+
+.rating-list h1{
+  margin-bottom: 0;
 }
 
 .rating-card{
   width: calc(100% - 64pt);
   border-radius: 4pt;
   padding: 16pt 32pt;
+  margin-top: 32pt;
   background-color: #FFF;
 
   display: flex;

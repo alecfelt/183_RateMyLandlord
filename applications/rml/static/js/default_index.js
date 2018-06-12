@@ -96,7 +96,7 @@ Vue.component('WriteReview', {
 
     },
     handle_property_tag(index) {
-      if(this.property_tag_ids.indexOf(index) == -1) {
+      if(this.property_tag_ids[index] === undefined) {
         this.property_tag_ids.push(index);
         $('#property-form-tags li:nth-child(' + (index + 1) + ')').addClass('tag-selected');
       } else {
@@ -322,30 +322,15 @@ Vue.component('FindProperty', {
   methods: {
     handle_search: function(event) {
       var search_str = event.target.value;
-      console.log(search_str);
+      console.log("Searching for: " + search_str);
       var that = this;
       $.post(search_properties_url,
         {
           search_str: search_str
         },
         function(data) {
-          console.log('data.properties');
           console.log(data.properties);
           that.set_search_results(data.properties);
-          console.log('data');
-          console.log(data);
-
-          // $.post(get_landlord_url,
-          //   {
-          //     search_str: data.properties
-          //   },
-          //   function(data) {
-          //     console.log('nesty call back');
-          //     console.log(data);
-          //   }
-          // );
-
-
           $('#search-button').prop('enabled', true);
         }
       );
@@ -375,25 +360,33 @@ Vue.component('FindProperty', {
         <form class="search-form">
           Search for a property:
           <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
-
-          <button type="submit" id="search-button">
-            <i class="fa fa-search"></i>
-          </button>
         </form>
-      <div>
-      <div v-if="search_results.length != 0" class="search-results">
-        <div @click.prevent="handle_property_select(result)" v-for="result in search_results" class="search-result">
-          <h1>{{result.address}} {{result.landlord_ids}}</h1>
+        <div v-if="search_results.length != 0" class="search-results">
+          <div class="landlord-card" v-for="result in search_results">
+            <h2>{{result.address}}</h2>
+            <div class="landlord-items" style="padding: 16pt;">
+              <div class="recents-rating">
+                <h5>Associated Landlords</h5>
+                <div class="landlord-list">
+                  <ul>
+                    <li @click.prevent="handle_landlord_select(result)" v-for="landlord in result.landlords">
+                      {{landlord.first_name}} {{landlord.last_name}}
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="search-prompt">
-        <p>
-          didnt find what you are looking for?
-          <a href="#" @click.prevent="nav_to_add_landlord">
-            Find A Landlord
-          </a>
-        </p>
-      </div>
+        <div class="search-prompt">
+          <p>
+            didn't find what you are looking for?
+            <a href="#" @click.prevent="nav_to_find_landlord_page">
+              Find A Landlord
+            </a>
+          </p>
+        </div>
+      <div>
     </div>
 
   `
@@ -439,7 +432,7 @@ Vue.component('LandlordPage', {
       <h1>Recently Added Reviews</h1>
       <div class="rating-list">
         <div class="rating-card" v-for="review in review_list">
-        <h2>Review</h2>
+          <h2>Review</h2>
           <p style="text-transform:none;">{{review.comments}}</p>
           <div class="rating-items">
             <div>
@@ -531,15 +524,18 @@ var app = function() {
 
   self.nav_to_find_landlord_to_review = function() {
     self.vue.page = self.vue.FIND_LANDLORD_TO_REVIEW;
+    self.vue.search_results = [];
   }
 
   self.nav_to_find_landlord_page = function(landlord) {
     self.vue.selected_landlord = landlord;
     self.vue.page = self.vue.FIND_LANDLORD_PAGE;
+    self.vue.search_results = [];
   }
 
   self.nav_to_find_property = function() {
     self.vue.page = self.vue.FIND_PROPERTY;
+    self.vue.search_results = [];
   }
 
   self.nav_to_create_landlord = function() {

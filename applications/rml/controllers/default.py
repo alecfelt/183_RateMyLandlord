@@ -181,25 +181,44 @@ def match_address(search_address, db_address):
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
-    address = request.vars.search_str if request.vars.search_str else ''
-    properties = []
+    str = request.vars.search_str if request.vars.search_str else ''
+    matched_properties = []
+    all_landlords = []
+
+    # Populate all landlords
+    for row in db().select(orderby=db.landlords.last_name):
+        temp_landlord = dict(
+            id=row.id,
+            first_name=row.first_name,
+            last_name=row.last_name,
+            property_ids=row.property_ids,
+            review_ids=row.review_ids,
+            tag_ids=row.tag_ids,
+            avg_l_rating = row.average_l_rating,
+            avg_p_rating = row.average_p_rating
+        )
+        all_landlords.append(temp_landlord)
 
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
-        # if address in row.address:
-        if match_address(address, row.address):
+        if match_address(str, row.address):
 
-            propertie = dict(
+            ass_landlords = []
+
+            # FIND THE LANDLORD
+            for l_id in row.landlord_ids:
+                for landlord in all_landlords:
+                    if l_id == landlord["id"]:
+                        ass_landlords.append(landlord)
+
+            temp_property = dict(
                 id=row.id,
                 address=row.address,
                 landlord_ids=row.landlord_ids,
-
+                landlords=ass_landlords
             )
-            properties.append(propertie)
-
-    # print properties
-
+            matched_properties.append(temp_property)
     return response.json(dict(
-        properties=properties
+        properties=matched_properties
     ))
 
 
@@ -578,26 +597,7 @@ def test_route():
     r.average_p_rating = avg_p_rating
     r.update_record()
 
-# input:
-# landlord_id
-# street: null, -
-# city: null, -
-# state: null, -
-# zip: null, -
-# landlord_rating: 1,
-# property_rating: 1,
-# rent_with_landlord_again: null,
-# rent_with_property_again: null,
-# landlord_tag_ids: [],
-# property_tag_ids: [],
-# comments: null
-# output: "ok"
 def add_review():
-
-    # print json.loads(request.vars.landlord_tag_ids)
-    # print json.loads(request.vars.landlord_tag_ids)
-
-
     logger.info(request.vars.landlord_tag_ids)
     logger.info(request.vars.property_tag_ids)
     for var in request.vars:
@@ -606,7 +606,7 @@ def add_review():
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
     else:
-        # print "In add_review(): landlord_id should never be null"
+        print "In add_review(): landlord_id should never be null"
         return "nok"
 
     address_obj = dict(
@@ -645,6 +645,19 @@ def add_review():
     # convert tags to ints
     landlord_tags = request.vars.landlord_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
     property_tags = request.vars.property_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
+    logger.info("landlord_tags")
+    logger.info(landlord_tags)
+    logger.info("property_tags")
+    logger.info(property_tags)
+    if '' in landlord_tags:
+        landlord_tag_ids = []
+    else:
+        landlord_tag_ids = [int(l) for l in landlord_tags]
+
+    if '' in property_tags:
+        property_tag_ids = []
+    else:
+        property_tag_ids = [int(p) for p in property_tags]
 
     # convert yes and no to True and False
     rent_with_landlord_again = rent_with_property_again = True

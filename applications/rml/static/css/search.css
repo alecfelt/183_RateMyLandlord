@@ -47,6 +47,7 @@
 }
 
 .search-result{
+  align-self: center;
   width: calc(100% - 64pt);
   margin: 16pt;
   display: flex;
@@ -66,9 +67,37 @@
 .search-result:hover{
   width: calc(101% - 64pt);
   cursor: pointer;
-  -webkit-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
+  -webkit-box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+  -moz-box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+  box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+}
+
+.landlord-list ul {
+  padding: 0;
+  margin: 0;
+}
+
+.landlord-list ul li {
+  list-style: none;
+  font-size: 100%;
+  padding: 4pt 8pt;
+  margin: 2pt;
+  border-radius: 2pt;
+  font-family: 'Oswald', sans-serif;
+  text-transform: capitalize;
+
+  display: inline-block;
+  background-color: #091A22;
+  color: #FFF;
+
+  -webkit-transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  -moz-transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  -o-transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
+}
+
+.landlord-list ul li:hover {
+  background-color: #F49D37;
 }
 
 @media (max-width: 745px) {
@@ -77,6 +106,6 @@
   }
 
   .search-results {
-    width: 80%;
+    width: 100%;
   }
 }
