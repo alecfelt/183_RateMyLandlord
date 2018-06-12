@@ -355,6 +355,21 @@ def add_property():
         msg='add_property'
     ))
 
+def get_landlord(landlord_id):
+    q = (db.landlords.id == landlord_id)
+    r = db(q).select().first()
+    return dict(
+        id           = r.id,
+        first_name   = r.first_name,
+        last_name    = r.last_name,
+        property_ids = r.property_ids,
+        review_ids   = r.review_ids,
+        tag_ids      = r.tag_ids,
+        avg_l_rating = r.average_l_rating,
+        avg_p_rating = r.average_p_rating
+    )
+
+
 # private method to get average landlord rating and average property rating
 def get_averages(landlord_id):
     q = (db.reviews.landlord_id == landlord_id)
@@ -383,18 +398,18 @@ def get_reviews():
         # landlord_id = 10
 
     reviews = []
-    l_rating_sum = 0
-    p_rating_sum = 0
-    review_count = 0
+    # l_rating_sum = 0
+    # p_rating_sum = 0
+    # review_count = 0
 
     q_review = (db.reviews.landlord_id == landlord_id)
     for row in db(q_review).select(orderby=~db.reviews.updated_on):
         # book keeping for averages/ids
-        if landlord_rating:
-            l_rating_sum += row.landlord_rating
-        if row.property_rating:
-            p_rating_sum += row.property_rating
-        review_count += 1
+        # if landlord_rating:
+        #     l_rating_sum += row.landlord_rating
+        # if row.property_rating:
+        #     p_rating_sum += row.property_rating
+        # review_count += 1
 
         review = dict(
             id=row.id,
@@ -410,12 +425,12 @@ def get_reviews():
         )
         reviews.append(review)
 
-    if review_count != 0:
-        ave_l_rating = round((l_rating_sum * 1.0)/review_count, 1)
-        ave_p_rating = round ((p_rating_sum * 1.0)/review_count, 1)
-    else:
-        ave_l_rating = 0
-        ave_p_rating = 0
+    # if review_count != 0:
+    #     ave_l_rating = round((l_rating_sum * 1.0)/review_count, 1)
+    #     ave_p_rating = round ((p_rating_sum * 1.0)/review_count, 1)
+    # else:
+    #     ave_l_rating = 0
+    #     ave_p_rating = 0
 
     # Get a list of property_ids owned by the landlord
     q_landlord = (db.landlords.id == landlord_id)
@@ -427,10 +442,11 @@ def get_reviews():
     addresses = [ p["address"].encode('ascii','ignore') for p in properties ]
     # print addresses
 
+    landlord = get_landlord(landlord_id)
+
     return response.json(dict(
         reviews=reviews,
-        ave_l_rating=ave_l_rating,
-        ave_p_rating=ave_p_rating,
+        landlord=landlord,
         addresses=addresses
     ))
 
@@ -594,8 +610,6 @@ def add_review():
         tag_ids      = request.vars.landlord_tag_ids
     )
     landlord_obj = update_landlord(landlord_id, landlord_obj)
-
-    # return
 
     return "ok"
 
