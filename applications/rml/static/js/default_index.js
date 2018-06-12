@@ -128,7 +128,7 @@ Vue.component('WriteReview', {
             <p>c. State</p>
             <div class="custom-select">
               <select v-model="state">
-                <option v-for="state in STATE_LIST" value="state">{{state}}</option>
+                <option v-for="state in STATE_LIST">{{state}}</option>
               </select>
             </div>
             <p>d. Zip</p>
@@ -359,7 +359,13 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
+  props: ['landlord',
+          'nav_to_write_review',
+          'LANDLORD_TAGS',
+          'PROPERTY_TAGS',
+          'review_list',
+          'address_list'
+        ],
   template: `
     <div class="sub-page">
       <div class="rating-card">
@@ -382,13 +388,20 @@ Vue.component('LandlordPage', {
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
             <ul>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
+              <li v-for="tag_id in landlord.tag_ids">
+                {{tag_id}}
+              </li>
             </ul>
           </div>
         </div>
-        <a href="#" @click.prevent="nav_to_write_review(landlord)">write a review for this landlord</a>
+        <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
+      </div>
+      <div class="review-list">
+        <ul>
+          <li v-for="review in review_list">
+            {{review}}
+          </li>
+        </ul>
       </div>
     </div>
   `
@@ -471,7 +484,8 @@ var app = function() {
   }
 
   self.nav_to_landlord_page = function() {
-    self.get_reviews(self.vue.selected_landlord);
+    console.log('nav_to_landlord_page');
+    self.get_reviews(self.vue.selected_landlord.id);
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -530,12 +544,15 @@ var app = function() {
   }
 
   self.get_reviews = function(landlord_id){
+    console.log('get_reviews');
+    console.log(landlord_id);
       $.post(
         get_reviews_url,
         {
           landlord_id: landlord_id
         },
         function(data){
+          console.log(data);
           self.toggle_selected_landlord(data.landlord);
           self.vue.address_list = data.addresses;
           self.vue.review_list = data.reviews;
@@ -639,6 +656,7 @@ var app = function() {
       ],
       landlord_list: [],
       address_list: [],
+      review_list: [],
       search_results: [],
       selected_landlord: null,
       selected_property: null,
