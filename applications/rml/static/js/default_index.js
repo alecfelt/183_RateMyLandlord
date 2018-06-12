@@ -266,23 +266,13 @@ Vue.component('FindLandlord', {
           <input v-on:input="handle_search" id="search_box" type="search" placeholder="Search happens in real-time so type away!"/>
         </form>
         <div v-if="search_results.length != 0" class="search-results">
-          <div @click.prevent="handle_landlord_select(result)" v-for="result in search_results" class="search-result">
+          <div class="landlord-card" @click.prevent="handle_landlord_select(result)" v-for="result in search_results">
             <h1>{{result.first_name}} {{result.last_name}}</h1>
-            <div class="rating-items">
-              <div class="ratings">
-                <h3>Overall Rating</h3>
-                <p v-if="result.avg_l_rating">
-                    {{result.avg_l_rating}} </p>
-                <p v-if="!result.avg_l_rating">
-                    N/A </p>
-              </div>
-              <div class="ratings">
-                <h3>Average Property Rating</h3>
-                <p v-if="result.avg_p_rating">
-                    {{result.avg_p_rating}} </p>
-                <p v-if="!result.avg_p_rating">
-                    N/A </p>
-              </div>
+            <div class="recents-rating">
+              <h3>Overall Rating</h3>
+              <p v-if="result.avg_l_rating">{{result.avg_l_rating}}</p>
+              <p v-if="!result.avg_l_rating">N/A</p>
+            </div>
             </div>
           </div>
         </div>
@@ -561,7 +551,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 2,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
