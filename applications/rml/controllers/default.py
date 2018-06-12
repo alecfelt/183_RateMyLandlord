@@ -498,7 +498,8 @@ def get_reviews():
     # Get a list of addresses from list of property_ids
     properties = json.loads(get_properties(property_ids))["properties"]
     # addresses = [ p["address"].encode('ascii','ignore') for p in properties ]
-    addresses = [ (str(p["address"])).encode('ascii','ignore') for p in properties ]
+    # addresses = [ (str(p["address"])).encode('ascii','ignore') for p in properties ]
+    addresses = [ p["address"] for p in properties ]
     # logger.info(type(addresses[0]))
     # print addresses
 
