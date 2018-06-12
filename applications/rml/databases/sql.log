@@ -1,4 +1,4 @@
-timestamp: 2018-06-11T20:42:15.596744
+timestamp: 2018-06-11T21:04:24.703371
 CREATE TABLE "auth_user"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "first_name" CHAR(128),
@@ -10,21 +10,21 @@ CREATE TABLE "auth_user"(
     "registration_id" CHAR(512)
 );
 success!
-timestamp: 2018-06-11T20:42:15.602598
+timestamp: 2018-06-11T21:04:24.708732
 CREATE TABLE "auth_group"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "role" CHAR(512),
     "description" TEXT
 );
 success!
-timestamp: 2018-06-11T20:42:15.606904
+timestamp: 2018-06-11T21:04:24.711861
 CREATE TABLE "auth_membership"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  
 );
 success!
-timestamp: 2018-06-11T20:42:15.612681
+timestamp: 2018-06-11T21:04:24.714629
 CREATE TABLE "auth_permission"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "group_id" INTEGER REFERENCES "auth_group" ("id") ON DELETE CASCADE  ,
@@ -33,7 +33,7 @@ CREATE TABLE "auth_permission"(
     "record_id" INTEGER
 );
 success!
-timestamp: 2018-06-11T20:42:15.617320
+timestamp: 2018-06-11T21:04:24.717928
 CREATE TABLE "auth_event"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "time_stamp" TIMESTAMP,
@@ -43,7 +43,7 @@ CREATE TABLE "auth_event"(
     "description" TEXT
 );
 success!
-timestamp: 2018-06-11T20:42:15.622288
+timestamp: 2018-06-11T21:04:24.722653
 CREATE TABLE "auth_cas"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "user_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE  ,
@@ -53,7 +53,7 @@ CREATE TABLE "auth_cas"(
     "renew" CHAR(1)
 );
 success!
-timestamp: 2018-06-11T20:42:15.630297
+timestamp: 2018-06-11T21:04:24.728564
 CREATE TABLE "landlords"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "first_name" CHAR(512),
@@ -66,7 +66,7 @@ CREATE TABLE "landlords"(
     "updated_on" TIMESTAMP
 );
 success!
-timestamp: 2018-06-11T20:42:15.635615
+timestamp: 2018-06-11T21:04:24.733328
 CREATE TABLE "properties"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "address" CHAR(512),
@@ -75,7 +75,7 @@ CREATE TABLE "properties"(
     "updated_on" TIMESTAMP
 );
 success!
-timestamp: 2018-06-11T20:42:15.641323
+timestamp: 2018-06-11T21:04:24.736919
 CREATE TABLE "reviews"(
     "id" INTEGER PRIMARY KEY AUTOINCREMENT,
     "landlord_id" INTEGER,
