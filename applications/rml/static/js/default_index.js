@@ -131,7 +131,7 @@ Vue.component('WriteReview', {
               type="text" />
             <p> State </p>
             <input
-              placeholder="Ex: California"
+              placeholder="Ex: CA"
               v-model="state"
               name="address"
               type="text" />
@@ -419,7 +419,7 @@ Vue.component('CreateLandlord', {
           console.log(event.target.landlord_last_name.value);
           this.create_landlord(event);
           this.toggle_selected_landlord(event.target.landlord_first_name.value);
-          this.on_select();
+          this.on_select();  // this throws an error.
       }
     },
     template: `
