@@ -53,7 +53,7 @@ Vue.component('WriteReview', {
   methods: {
     add_review: function() {
       // console.log(this._data);
-      console.log(this);
+      console.log(this._data);
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
