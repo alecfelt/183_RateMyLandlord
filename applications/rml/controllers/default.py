@@ -546,7 +546,7 @@ def update_landlord(landlord_id, landlord_obj):
     # Update tag_ids
     if r.tag_ids:
         tag_ids = set(r.tag_ids)
-        tag_ids = tag_ids.union( set(landlord_obj['tag_ids']) )
+        tag_ids = tag_ids.union( set(landlord_obj['tag_id']) )
         tag_ids = list(tag_ids)
     else:
         tag_ids = landlord_obj['tag_ids']
@@ -597,14 +597,13 @@ def add_review():
     # print json.loads(request.vars.landlord_tag_ids)
     # print json.loads(request.vars.landlord_tag_ids)
 
+    landlord_tag_ids = json.loads(request.vars.landlord_tag_ids)
+    property_tag_ids = json.loads(request.vars.landlord_tag_ids)
 
-    logger.info(request.vars.landlord_tag_ids)
-    logger.info(request.vars.property_tag_ids)
-    for var in request.vars:
-        logger.info(var)
-        logger.info(type(var))
+    logger.info(request.vars)
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
+        # logger.info(landlord_id)
     else:
         # print "In add_review(): landlord_id should never be null"
         return "nok"
@@ -617,14 +616,11 @@ def add_review():
     )
     # logger.info(address_obj)
     address = format_address(address_obj)
-    logger.info(address)
 
     # Check if property already exists
     # If exists, get property_id and add landlord_id to list landlord_ids
     property_id = address_exists(address)
-    logger.info(property_id)
     if property_id:
-        logger.info('property already exists')
         q = (db.properties.id == property_id)
         r = db(q).select().first()
         if r.landlord_ids: # if landlord_ids is not NULL
@@ -637,50 +633,33 @@ def add_review():
     # If property doesn't exist yet
     # Insert property to db and get property id
     else:
-        property_id = str(db.properties.insert(
+        property_id = db.properties.insert(
             address = address,
-            landlord_ids = [landlord_id]))
+            landlord_ids = [landlord_id])
 
-
-    # convert tags to ints
-    landlord_tags = request.vars.landlord_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
-    property_tags = request.vars.property_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
-    logger.info(landlord_tags)
-    logger.info(property_tags)
-    landlord_tag_ids = [int(l) for l in landlord_tags]
-    property_tag_ids = [int(p) for p in property_tags]
-
-    # convert yes and no to True and False
-    rent_with_landlord_again = rent_with_property_again = True
-    if request.vars.rent_with_landlord_again == 'no':
-        rent_with_landlord_again = False
-    if request.vars.rent_with_property_again == 'no':
-        rent_with_property_again = False
-
+    # logger.info(request.vars.landlord_tag_ids)
+    # logger.info(request.vars.property_tag_ids)
     # Insert review
     review_obj = dict(
         landlord_id = landlord_id,
         property_id = property_id,
         landlord_rating = request.vars.landlord_rating,
         property_rating = request.vars.property_rating,
-        rent_with_landlord_again = rent_with_landlord_again,
-        rent_with_property_again = rent_with_property_again,
-        landlord_tag_ids = landlord_tag_ids,
-        property_tag_ids = property_tag_ids,
+        rent_with_landlord_again = request.vars.rent_with_landlord_again,
+        rent_with_property_again = request.vars.rent_with_property_again,
+        landlord_tag_ids = request.vars.landlord_tag_ids,
+        property_tag_ids = request.vars.landlord_tag_ids,
         comments = request.vars.comments
     )
-    logger.info(review_obj)
 
-    review_id = int(insert_into_reviews(review_obj))
+    review_id = insert_into_reviews(review_obj)
 
     # Insert landlord landlords
     landlord_obj = dict(
         property_id  = property_id,
         review_id    = review_id,
-        tag_ids      = landlord_tag_ids
+        tag_ids      = request.vars.landlord_tag_ids
     )
-    logger.info(landlord_obj)
-    logger.info(landlord_id)
     landlord_obj = update_landlord(landlord_id, landlord_obj)
 
     return "ok"
