@@ -45,7 +45,11 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
+  props: ['landlord',
+          'nav_to_landlord_page',
+          'PROPERTY_TAGS',
+          'LANDLORD_TAGS',
+          'STATE_LIST'],
   methods: {
     add_review: function() {
       console.log(this._data);
@@ -119,10 +123,7 @@ Vue.component('WriteReview', {
               type="text" />
             <p> State </p>
               <select v-model="state">
-                <option value="volvo">Volvo</option>
-                <option value="saab">Saab</option>
-                <option value="mercedes">Mercedes</option>
-                <option value="audi">Audi</option>
+                <option v-for="state in STATE_LIST" value="state">{{state}}</option>
               </select>
             <p> Zip </p>
             <input
@@ -572,7 +573,56 @@ var app = function() {
         'sufficient parking'
       ],
       STATE_LIST: [
-
+        'AL',
+        'AK',
+        'AZ',
+        'AR',
+        'CA',
+        'CO',
+        'CT',
+        'DE',
+        'FL',
+        'GA',
+        'HI',
+        'ID',
+        'IL',
+        'IN',
+        'IA',
+        'KS',
+        'KY',
+        'LA',
+        'ME',
+        'MD',
+        'MA',
+        'MI',
+        'MN',
+        'MS',
+        'MO',
+        'MT',
+        'NE',
+        'NV',
+        'NH',
+        'NJ',
+        'NM',
+        'NY',
+        'NC',
+        'ND',
+        'OH',
+        'OK',
+        'OR',
+        'PA',
+        'RI',
+        'SC',
+        'SD',
+        'TN',
+        'TX',
+        'UT',
+        'VT',
+        'VA',
+        'WA',
+        'WV',
+        'WI',
+        'WY'
       ],
       landlord_list: [],
       search_results: [],
