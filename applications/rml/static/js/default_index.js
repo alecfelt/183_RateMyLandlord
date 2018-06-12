@@ -129,17 +129,17 @@ Vue.component('WriteReview', {
             <input
               placeholder="Ex: 212 Bleecker"
               v-model="street"
-              name="address"
+              name="street"
               type="text" />
             <p>b. City</p>
             <input
               placeholder="Ex: New York"
               v-model="city"
-              name="address"
+              name="city"
               type="text" />
             <p>c. State</p>
             <div class="custom-select">
-              <select v-model="state">
+              <select name="state" v-model="state">
                 <option v-for="state in STATE_LIST">{{state}}</option>
               </select>
             </div>
@@ -147,7 +147,7 @@ Vue.component('WriteReview', {
             <input
               placeholder="Ex: 90210"
               v-model="zip"
-              name="address"
+              name="zip"
               type="text" />
           </div>
           <div class="rate-landlord-form">
