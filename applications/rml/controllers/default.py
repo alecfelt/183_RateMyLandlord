@@ -586,6 +586,8 @@ def test_route():
 # comments: null
 # output: "ok"
 def add_review():
+    logger.info(request.vars.landlord_tag_ids)
+    logger.info(request.vars.property_tag_ids)
     for var in request.vars:
         logger.info(var)
         logger.info(type(var))
@@ -623,15 +625,16 @@ def add_review():
     # If property doesn't exist yet
     # Insert property to db and get property id
     else:
-        property_id = db.properties.insert(
+        property_id = str(db.properties.insert(
             address = address,
-            landlord_ids = [landlord_id])
-        logger.info(property_id)
-        logger.info(type(property_id))
+            landlord_ids = [landlord_id]))
+
 
     # convert tags to ints
-    landlord_tags = request.vars.landlord_tag_ids.replace('[', '').replace(']', '').split(',')
-    property_tags = request.vars.property_tag_ids.replace('[', '').replace(']', '').split(',')
+    landlord_tags = request.vars.landlord_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
+    property_tags = request.vars.property_tag_ids.replace('[', '').replace(']', '').replace('"', '').replace('\\', '').split(',')
+    logger.info(landlord_tags)
+    logger.info(property_tags)
     landlord_tag_ids = [int(l) for l in landlord_tags]
     property_tag_ids = [int(p) for p in property_tags]
 
@@ -658,12 +661,13 @@ def add_review():
 
     review_id = insert_into_reviews(review_obj)
     logger.info(review_id)
+    logger.info(type(review_id))
 
     # Insert landlord landlords
     landlord_obj = dict(
         property_id  = property_id,
         review_id    = review_id,
-        tag_ids      = request.vars.landlord_tag_ids
+        tag_ids      = landlord_tag_ids
     )
     logger.info(landlord_obj)
     landlord_obj = update_landlord(landlord_id, landlord_obj)
