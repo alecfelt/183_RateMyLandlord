@@ -107,7 +107,7 @@ def search_landlords():
 
     search_name = request.vars.search_str if request.vars.search_str else ''
 
-    print("searching for " + search_name)
+    # print("searching for " + search_name)
 
     landlords = []
 
@@ -187,18 +187,16 @@ def search_properties():
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
         # if address in row.address:
         if match_address(address, row.address):
-            firstname = db().select(db.landlords.id.first_name),
 
             propertie = dict(
                 id=row.id,
                 address=row.address,
                 landlord_ids=row.landlord_ids,
 
-                firstname = db().select(db.landlords.id.first_name),
             )
             properties.append(propertie)
 
-    print properties
+    # print properties
 
     return response.json(dict(
         properties=properties
@@ -227,6 +225,9 @@ def get_landlords():
     return response.json(dict(
         landlords=landlords
     ))
+
+
+
 
 # Strip leading and trailing whitespaces and capitalize the address
 def format_address_elem(address_elem, isState=False):
@@ -289,7 +290,7 @@ def add_landlord():
     if request.vars.first_name and request.vars.last_name:
         (first_name, last_name) = format_name(request.vars.first_name, request.vars.last_name)
     else:
-        print ("In add_landlord(): Name can't be null")
+        # print ("In add_landlord(): Name can't be null")
         return("nok")
 
     website = request.vars.website
@@ -362,12 +363,14 @@ def add_property():
 
 #
 def get_landlord(landlord_id=None):
+    logger.info('request.vars')
+    logger.info(request.vars)
     if request.vars.landlord_id:
         q = (db.landlords.id == request.vars.landlord_id)
     elif landlord_id:
         q = (db.landlords.id == landlord_id)
     else:
-        print("In get_landlord(): landlord_id cannot be NULL")
+        # print("In get_landlord(): landlord_id cannot be NULL")
         return "nok"
 
     r = db(q).select().first()
@@ -428,7 +431,7 @@ def get_reviews():
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id;
     else:
-        print "[Error] get_reviews(): landlord_id cannot be Null"
+        # print "[Error] get_reviews(): landlord_id cannot be Null"
         # raise HTTP(500)
         return "nok"
         # landlord_id = 10
@@ -591,8 +594,8 @@ def test_route():
 # output: "ok"
 def add_review():
 
-    print json.loads(request.vars.landlord_tag_ids)
-    print json.loads(request.vars.landlord_tag_ids)
+    # print json.loads(request.vars.landlord_tag_ids)
+    # print json.loads(request.vars.landlord_tag_ids)
 
     landlord_tag_ids = json.loads(request.vars.landlord_tag_ids)
     property_tag_ids = json.loads(request.vars.landlord_tag_ids)
@@ -602,7 +605,7 @@ def add_review():
         landlord_id = request.vars.landlord_id
         # logger.info(landlord_id)
     else:
-        print "In add_review(): landlord_id should never be null"
+        # print "In add_review(): landlord_id should never be null"
         return "nok"
 
     address_obj = dict(

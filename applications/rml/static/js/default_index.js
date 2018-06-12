@@ -328,12 +328,16 @@ Vue.component('FindProperty', {
           that.set_search_results(data.properties);
           console.log('data');
           console.log(data);
-          // $.post(search_landlords_url,
+
+          // $.post(get_landlord_url,
           //   {
           //     search_str: data.properties
           //   },
           //   function(data) {
           //     console.log('nesty call back');
+          //     console.log(data);
+          //   }
+          // );
 
 
           $('#search-button').prop('enabled', true);
@@ -342,11 +346,15 @@ Vue.component('FindProperty', {
     },
     handle_property_select: function(result) {
       this.toggle_selected_property(result);
-      $.post(get_landlords_url,
-        result.landlord_ids,
+      console.log(result);
+        console.log('hi');
+
+      $.post(find_landlord_by_id_url,
+        result,
         function(data) {
           console.log(data);
           console.log('data');
+
         }
       )
     },
@@ -530,6 +538,7 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord) {
+      console.log('landlord');
       console.log(landlord);
       self.vue.selected_landlord = landlord;
   }
