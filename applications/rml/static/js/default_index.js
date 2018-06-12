@@ -48,6 +48,7 @@ Vue.component('WriteReview', {
   props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
   methods: {
     add_review: function() {
+      console.log(this._data);
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
@@ -59,6 +60,8 @@ Vue.component('WriteReview', {
             }
           }
         );
+      }else{
+        alert('failed submission');
       }
     },
     validate_review() {
@@ -66,10 +69,6 @@ Vue.component('WriteReview', {
         if(this._data[key] == null) {
           return false;
         }
-      }
-      var regex = /^[A-Za-z][A-Za-z]$/;
-      if(regex.exec(this._data.state) == null) {
-        return false;
       }
       return true;
     },
@@ -119,11 +118,12 @@ Vue.component('WriteReview', {
               name="address"
               type="text" />
             <p> State </p>
-            <input
-              placeholder="Ex: CA"
-              v-model="state"
-              name="address"
-              type="text" />
+              <select v-model="state">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
             <p> Zip </p>
             <input
               placeholder="Ex: 90210"
@@ -172,8 +172,8 @@ Vue.component('WriteReview', {
 
             <p>Would you rent this propery again?</p>
             <div class="rate-radio-answer">
-              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
-              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
+              <div class="radio-item"><input type="radio" name="prop" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="prop" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
             </div>
 
             <div class="tag-form">
@@ -227,6 +227,7 @@ Vue.component('FindLandlord', {
         ],
   methods: {
     handle_search: function(event) {
+      console.log('handle_search');
       var search_str = event.target.value;
       console.log("Searching for " + search_str);
       var that = this;
@@ -243,7 +244,7 @@ Vue.component('FindLandlord', {
       );
     },
     handle_landlord_select: function(result) {
-      // console.log("selcted landlord")
+      console.log("selcted landlord")
       // console.log(result);
       // console.log(result.first_name)
       this.toggle_selected_landlord(result);
@@ -381,10 +382,6 @@ Vue.component('LandlordPage', {
                 {{landlord.avg_p_rating}} </p>
             <p v-if="!landlord.avg_p_rating">
                 N/A </p>
-            <h3>Responsiveness</h3>
-            <p>5.0</p>
-            <h3>Certified Slumlord?</h3>
-            <p>No</p>
           </div>
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
@@ -570,6 +567,9 @@ var app = function() {
         'good cell signal',
         'irritable neighbors',
         'sufficient parking'
+      ],
+      STATE_LIST: [
+
       ],
       landlord_list: [],
       search_results: [],
