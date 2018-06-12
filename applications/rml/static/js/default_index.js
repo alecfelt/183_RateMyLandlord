@@ -319,7 +319,7 @@ Vue.component('FindProperty', {
         function(data) {
           console.log('data.properties');
           console.log(data.properties);
-          that.set_search_results(data.landlords);
+          that.set_search_results(data.properties);
           $('#search-button').prop('enabled', true);
         }
       );
