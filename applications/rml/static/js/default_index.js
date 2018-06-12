@@ -30,25 +30,14 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
-      <div class="search-results">
-        <div @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+      <div v-if="(landlord_list.length!=0)" class="recents">
+        <h1>Recently Added Landlords</h1>
+        <div class="landlord-card" @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)">
           <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
-          <div class="rating-items">
-            <div class="ratings">
-              <h3>Overall Rating</h3>
-              <p v-if="landlord.avg_l_rating">
-                  {{landlord.avg_l_rating}} </p>
-              <p v-if="!landlord.avg_l_rating">
-                  N/A </p>
-            </div>
-            <div class="ratings">
-              <h3>Average Property Rating</h3>
-              <p v-if="landlord.avg_p_rating">
-                  {{landlord.avg_p_rating}} </p>
-              <p v-if="!landlord.avg_p_rating">
-                  N/A </p>
-            </div>
+          <div class="recents-rating">
+            <h3>Overall Rating</h3>
+            <p v-if="landlord.avg_l_rating">{{landlord.avg_l_rating}}</p>
+            <p v-if="!landlord.avg_l_rating">N/A</p>
           </div>
         </div>
       </div>
