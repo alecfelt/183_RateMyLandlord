@@ -1,0 +1,244 @@
+(dp1
+S'output'
+p2
+S"<type 'exceptions.SyntaxError'> invalid syntax (<string>, line 1)"
+p3
+sS'layer'
+p4
+S'Unknown'
+p5
+sS'code'
+p6
+S'<<<<<<< HEAD\n<<<<<<< HEAD\npassword="pbkdf2(1000,20,sha512)$aaa3ebe7e8249ae8$04a180c201a7a34b68ca01099c0bcacff0dd531a"\n=======\npassword="pbkdf2(1000,20,sha512)$844dd6645381bf8d$c8f44aa8d5242e4332906f888c636a401985980c"\n>>>>>>> f2d84d386ff2f64720d255a28df94a432011b92d\n=======\npassword="pbkdf2(1000,20,sha512)$9db8e76ab6d7f310$d89ee144546a949db0e3fe01ab65438cdffb9e25"\n>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\n'
+p7
+sS'snapshot'
+p8
+(dp9
+S'exception'
+p10
+(dp11
+S'__getslice__'
+p12
+S"<method-wrapper '__getslice__' of exceptions.SyntaxError object>"
+p13
+sS'text'
+p14
+S"'<<<<<<< HEAD\\n'"
+p15
+sS'__str__'
+p16
+S"<method-wrapper '__str__' of exceptions.SyntaxError object>"
+p17
+sS'__reduce__'
+p18
+S'<built-in method __reduce__ of exceptions.SyntaxError object>'
+p19
+sS'__dict__'
+p20
+S'{}'
+p21
+sS'__sizeof__'
+p22
+S'<built-in method __sizeof__ of exceptions.SyntaxError object>'
+p23
+sS'message'
+p24
+S"''"
+p25
+sS'__init__'
+p26
+S"<method-wrapper '__init__' of exceptions.SyntaxError object>"
+p27
+sS'__setattr__'
+p28
+S"<method-wrapper '__setattr__' of exceptions.SyntaxError object>"
+p29
+sS'__reduce_ex__'
+p30
+S'<built-in method __reduce_ex__ of exceptions.SyntaxError object>'
+p31
+sS'__new__'
+p32
+S'<built-in method __new__ of type object>'
+p33
+sS'__format__'
+p34
+S'<built-in method __format__ of exceptions.SyntaxError object>'
+p35
+sS'__class__'
+p36
+S"<type 'exceptions.SyntaxError'>"
+p37
+sS'filename'
+p38
+S"'<string>'"
+p39
+sS'lineno'
+p40
+S'1'
+sS'msg'
+p41
+S"'invalid syntax'"
+p42
+sS'__doc__'
+p43
+S"'Invalid syntax.'"
+p44
+sS'__getitem__'
+p45
+S"<method-wrapper '__getitem__' of exceptions.SyntaxError object>"
+p46
+sS'__setstate__'
+p47
+S'<built-in method __setstate__ of exceptions.SyntaxError object>'
+p48
+sS'__getattribute__'
+p49
+S"<method-wrapper '__getattribute__' of exceptions.SyntaxError object>"
+p50
+sS'print_file_and_line'
+p51
+S'None'
+p52
+sS'args'
+p53
+S"('invalid syntax', ('<string>', 1, 2, '<<<<<<< HEAD\\n'))"
+p54
+sS'__subclasshook__'
+p55
+S'<built-in method __subclasshook__ of type object>'
+p56
+sS'offset'
+p57
+S'2'
+sS'__unicode__'
+p58
+S'<built-in method __unicode__ of exceptions.SyntaxError object>'
+p59
+sS'__delattr__'
+p60
+S"<method-wrapper '__delattr__' of exceptions.SyntaxError object>"
+p61
+sS'__repr__'
+p62
+S"<method-wrapper '__repr__' of exceptions.SyntaxError object>"
+p63
+sS'__hash__'
+p64
+S"<method-wrapper '__hash__' of exceptions.SyntaxError object>"
+p65
+ssS'evalue'
+p66
+S'invalid syntax (<string>, line 1)'
+p67
+sS'frames'
+p68
+(lp69
+(dp70
+S'file'
+p71
+S'/Users/alecfelt/183_RateMyLandlord/gluon/restricted.py'
+p72
+sS'dump'
+p73
+(dp74
+S'environment'
+p75
+S"{'__builtins__': {'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'BufferError': <type 'exceptions.BufferError'>, 'BytesWarning': <type 'exceptions.BytesWarning'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, ...}, '__file__': 'Unknown', '__name__': '__restricted__'}"
+p76
+sS'ccode'
+p77
+S'\'<<<<<<< HEAD\\n<<<<<<< HEAD\\npassword="pbkdf2(1000,...>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\\n\''
+p78
+ssS'lnum'
+p79
+I219
+sS'lines'
+p80
+(dp81
+I214
+S'    if environment is None:'
+p82
+sI215
+S'        environment = {}'
+p83
+sI216
+S"    environment['__file__'] = layer"
+p84
+sI217
+S"    environment['__name__'] = '__restricted__'"
+p85
+sI218
+S'    try:'
+p86
+sI219
+S'        exec(ccode, environment)'
+p87
+sI220
+S'    except HTTP:'
+p88
+sI221
+S'        raise'
+p89
+sI222
+S'    except RestrictedError:'
+p90
+sI223
+S'        # do not encapsulate (obfuscate) the original RestrictedError'
+p91
+ssS'call'
+p92
+S'(ccode=\'<<<<<<< HEAD\\n<<<<<<< HEAD\\npassword="pbkdf2(1000,...>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\\n\', environment={\'__builtins__\': {\'ArithmeticError\': <type \'exceptions.ArithmeticError\'>, \'AssertionError\': <type \'exceptions.AssertionError\'>, \'AttributeError\': <type \'exceptions.AttributeError\'>, \'BaseException\': <type \'exceptions.BaseException\'>, \'BufferError\': <type \'exceptions.BufferError\'>, \'BytesWarning\': <type \'exceptions.BytesWarning\'>, \'DeprecationWarning\': <type \'exceptions.DeprecationWarning\'>, \'EOFError\': <type \'exceptions.EOFError\'>, \'Ellipsis\': Ellipsis, \'EnvironmentError\': <type \'exceptions.EnvironmentError\'>, ...}, \'__file__\': \'Unknown\', \'__name__\': \'__restricted__\'}, layer=\'Unknown\', scode=\'<<<<<<< HEAD\\n<<<<<<< HEAD\\npassword="pbkdf2(1000,...>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\\n\')'
+p93
+sS'func'
+p94
+S'restricted'
+p95
+sasS'pyver'
+p96
+S'Python 2.7.15: /Library/Frameworks/Python.framework/Versions/2.7/Resources/Python.app/Contents/MacOS/Python (prefix: /Library/Frameworks/Python.framework/Versions/2.7)'
+p97
+sS'etype'
+p98
+S"<type 'exceptions.SyntaxError'>"
+p99
+sS'date'
+p100
+S'Mon Jun 11 22:02:12 2018'
+p101
+sS'locals'
+p102
+(dp103
+g4
+S"'Unknown'"
+p104
+sS'ccode'
+p105
+S'\'<<<<<<< HEAD\\n<<<<<<< HEAD\\npassword="pbkdf2(1000,...>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\\n\''
+p106
+sg66
+S"SyntaxError('invalid syntax', ('<string>', 1, 2, '<<<<<<< HEAD\\n'))"
+p107
+sS'environment'
+p108
+S"{'__builtins__': {'ArithmeticError': <type 'exceptions.ArithmeticError'>, 'AssertionError': <type 'exceptions.AssertionError'>, 'AttributeError': <type 'exceptions.AttributeError'>, 'BaseException': <type 'exceptions.BaseException'>, 'BufferError': <type 'exceptions.BufferError'>, 'BytesWarning': <type 'exceptions.BytesWarning'>, 'DeprecationWarning': <type 'exceptions.DeprecationWarning'>, 'EOFError': <type 'exceptions.EOFError'>, 'Ellipsis': Ellipsis, 'EnvironmentError': <type 'exceptions.EnvironmentError'>, ...}, '__file__': 'Unknown', '__name__': '__restricted__'}"
+p109
+sS'scode'
+p110
+S'\'<<<<<<< HEAD\\n<<<<<<< HEAD\\npassword="pbkdf2(1000,...>>>>>>> cc6354927855e4ad2343ad20baa6d86b06e67998\\n\''
+p111
+sS'error'
+p112
+S"SyntaxError('invalid syntax', ('<string>', 1, 2, '<<<<<<< HEAD\\n'))"
+p113
+sg98
+S"<type 'exceptions.SyntaxError'>"
+p114
+sg2
+S'"<type \'exceptions.SyntaxError\'> invalid syntax (<string>, line 1)"'
+p115
+sssS'traceback'
+p116
+S'Traceback (most recent call last):\n  File "/Users/alecfelt/183_RateMyLandlord/gluon/restricted.py", line 219, in restricted\n    exec(ccode, environment)\n  File "<string>", line 1\n    <<<<<<< HEAD\n     ^\nSyntaxError: invalid syntax\n'
+p117
+s.
