@@ -145,6 +145,7 @@ p, a, b, li, input, button, label{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 16pt;
 }
 
 .logo a {
@@ -192,6 +193,8 @@ p, a, b, li, input, button, label{
   align-items: center;
   background-color: #091A22;
   width: 100%;
+
+  margin-top: 64pt;
 }
 
 .footer-content {

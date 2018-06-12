@@ -30,25 +30,14 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
-      <div class="search-results">
-        <div @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+      <div v-if="(landlord_list.length!=0)" class="recents">
+        <h1>Recently Added Landlords</h1>
+        <div class="landlord-card" @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)">
           <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
-          <div class="rating-items">
-            <div class="ratings">
-              <h3>Overall Rating</h3>
-              <p v-if="landlord.avg_l_rating">
-                  {{landlord.avg_l_rating}} </p>
-              <p v-if="!landlord.avg_l_rating">
-                  N/A </p>
-            </div>
-            <div class="ratings">
-              <h3>Average Property Rating</h3>
-              <p v-if="landlord.avg_p_rating">
-                  {{landlord.avg_p_rating}} </p>
-              <p v-if="!landlord.avg_p_rating">
-                  N/A </p>
-            </div>
+          <div class="recents-rating">
+            <h3>Overall Rating</h3>
+            <p v-if="landlord.avg_l_rating">{{landlord.avg_l_rating}}</p>
+            <p v-if="!landlord.avg_l_rating">N/A</p>
           </div>
         </div>
       </div>
@@ -59,6 +48,7 @@ Vue.component('WriteReview', {
   props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
   methods: {
     add_review: function() {
+      console.log(this._data);
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
@@ -70,6 +60,8 @@ Vue.component('WriteReview', {
             }
           }
         );
+      }else{
+        alert('failed submission');
       }
     },
     validate_review() {
@@ -77,10 +69,6 @@ Vue.component('WriteReview', {
         if(this._data[key] == null) {
           return false;
         }
-      }
-      var regex = /^[A-Za-z][A-Za-z]$/;
-      if(regex.exec(this._data.state) == null) {
-        return false;
       }
       return true;
     },
@@ -130,11 +118,12 @@ Vue.component('WriteReview', {
               name="address"
               type="text" />
             <p> State </p>
-            <input
-              placeholder="Ex: CA"
-              v-model="state"
-              name="address"
-              type="text" />
+              <select v-model="state">
+                <option value="volvo">Volvo</option>
+                <option value="saab">Saab</option>
+                <option value="mercedes">Mercedes</option>
+                <option value="audi">Audi</option>
+              </select>
             <p> Zip </p>
             <input
               placeholder="Ex: 90210"
@@ -183,8 +172,8 @@ Vue.component('WriteReview', {
 
             <p>Would you rent this propery again?</p>
             <div class="rate-radio-answer">
-              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
-              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
+              <div class="radio-item"><input type="radio" name="prop" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="prop" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
             </div>
 
             <div class="tag-form">
@@ -238,6 +227,7 @@ Vue.component('FindLandlord', {
         ],
   methods: {
     handle_search: function(event) {
+      console.log('handle_search');
       var search_str = event.target.value;
       console.log("Searching for " + search_str);
       var that = this;
@@ -254,7 +244,7 @@ Vue.component('FindLandlord', {
       );
     },
     handle_landlord_select: function(result) {
-      // console.log("selcted landlord")
+      console.log("selcted landlord")
       // console.log(result);
       // console.log(result.first_name)
       this.toggle_selected_landlord(result);
@@ -579,6 +569,9 @@ var app = function() {
         'good cell signal',
         'irritable neighbors',
         'sufficient parking'
+      ],
+      STATE_LIST: [
+
       ],
       landlord_list: [],
       search_results: [],
