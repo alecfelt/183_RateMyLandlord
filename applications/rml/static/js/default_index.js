@@ -30,25 +30,14 @@ Vue.component('HomePage', {
           <button @click.prevent="nav_to_find_landlord_to_review">Write a<br/><b>Review</b></button>
         </div>
       </div>
-      <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
-      <div class="search-results">
-        <div @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+      <div v-if="(landlord_list.length!=0)" class="recents">
+        <h1>Recently Added Landlords</h1>
+        <div class="landlord-card" @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)">
           <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
-          <div class="rating-items">
-            <div class="ratings">
-              <h3>Overall Rating</h3>
-              <p v-if="landlord.avg_l_rating">
-                  {{landlord.avg_l_rating}} </p>
-              <p v-if="!landlord.avg_l_rating">
-                  N/A </p>
-            </div>
-            <div class="ratings">
-              <h3>Average Property Rating</h3>
-              <p v-if="landlord.avg_p_rating">
-                  {{landlord.avg_p_rating}} </p>
-              <p v-if="!landlord.avg_p_rating">
-                  N/A </p>
-            </div>
+          <div class="recents-rating">
+            <h3>Overall Rating</h3>
+            <p v-if="landlord.avg_l_rating">{{landlord.avg_l_rating}}</p>
+            <p v-if="!landlord.avg_l_rating">N/A</p>
           </div>
         </div>
       </div>
@@ -406,8 +395,7 @@ Vue.component('LandlordPage', {
   `
 });
 Vue.component('CreateLandlord', {
-    props: ['on_select',
-            'toggle_selected_landlord',
+    props: ['toggle_selected_landlord',
             'create_landlord'],
     methods: {
       CreateLandlord_helper: function(event) {
@@ -415,8 +403,8 @@ Vue.component('CreateLandlord', {
           console.log(event.target.landlord_first_name.value);
           console.log(event.target.landlord_last_name.value);
           this.create_landlord(event);
-          this.toggle_selected_landlord(event.target.landlord_first_name.value);
-          this.on_select();  // this throws an error.
+          // this.toggle_selected_landlord(event.target.landlord_first_name.value);
+          // this.on_select();  // this throws an error.
       }
     },
     template: `
@@ -438,12 +426,12 @@ Vue.component('CreateLandlord', {
               type="text" />
           </div>
 
-          <div class="landlord-form-item">
+          <!-- <div class="landlord-form-item">
             <p>Landlord's Website (Optional)</p>
             <input
               id="landlord_site"
               type="text" />
-          </div>
+          </div> -->
 
           <div class="landlord-form-item">
             <button @v-on:click="CreateLandlord_helper" type="submit">
@@ -517,18 +505,22 @@ var app = function() {
     var form = event.target;
     var first_name = form.landlord_first_name.value;
     var last_name = form.landlord_last_name.value;
-    var website = (form.landlord_site.value === "") ? "" : form.landord_site.value;
+    // var website = (form.landlord_site.value === "") ? "" : form.landord_site.value;
     $.post(
       create_landlord_url,
       {
         first_name: first_name,
         last_name: last_name,
-        website: website,
+        // website: website,
       },
       function(data){
+        if(data === "nok") {
+            console.err("Error in adding landlord");
+        }
         console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
         self.vue.landlord_list.unshift(data.landlord);
         self.toggle_selected_landlord(data.landlord);
+        self.nav_to_write_review();
       }
     );
   }

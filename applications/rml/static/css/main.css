@@ -145,6 +145,7 @@ p, a, b, li, input, button, label{
   justify-content: space-between;
   align-items: center;
   width: 100%;
+  margin-bottom: 16pt;
 }
 
 .logo a {
@@ -179,10 +180,6 @@ p, a, b, li, input, button, label{
   color: #F49D37;
 }
 
-@media screen and (max-width: 745px) {
-  .nav-links ul li:not(:first-child) {display: none;}
-}
-
 /* EVERYTHING FOR THE FOOTER */
 .footer{
   display: flex;
@@ -192,10 +189,16 @@ p, a, b, li, input, button, label{
   align-items: center;
   background-color: #091A22;
   width: 100%;
+
+  margin-top: 64pt;
 }
 
 .footer-content {
   width: 90%;
+}
+
+.footer-conter ul {
+  padding: 0;
 }
 
 .footer-content ul li {
@@ -234,4 +237,20 @@ p, a, b, li, input, button, label{
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
+}
+
+/* RESPONSIVENESS */
+@media screen and (max-width: 745px) {
+  .nav-links ul li:not(:first-child) {
+    display: none;
+  }
+
+  .footer {
+    justify-content: center;
+  }
+
+  .footer-content ul{
+    padding: 0;
+    text-align: center;
+  }
 }
