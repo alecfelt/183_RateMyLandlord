@@ -86,7 +86,7 @@ Vue.component('WriteReview', {
       return true;
     },
     handle_landlord_tag(index) {
-      if(this.landlord_tag_ids.indexOf(index) == -1) {
+      if(this.landlord_tag_ids[index] === undefined) {
         this.landlord_tag_ids.push(index);
         $('#landlord-form-tags li:nth-child(' + (index + 1) + ')').addClass('tag-selected');
       } else {
