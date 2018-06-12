@@ -361,7 +361,7 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review'],
+  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
   template: `
     <div class="sub-page">
       <a href="#" @click.prevent="nav_to_write_review(landlord)">
@@ -473,6 +473,7 @@ var app = function() {
   }
 
   self.nav_to_landlord_page = function() {
+    self
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -481,12 +482,12 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord) {
-    console.log(landlord);
+      console.log(landlord);
       self.vue.selected_landlord = landlord;
   }
 
   self.toggle_selected_property = function(property) {
-    console.log(property);
+      console.log(property);
       self.vue.selected_property = property;
   }
 
