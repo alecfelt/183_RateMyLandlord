@@ -348,9 +348,6 @@ Vue.component('FindProperty', {
       <div class="search">
         <form @submit.prevent="handle_search" class="search-form">
           <input id="search_box" type="search" placeholder="Search for a Property"/>
-          <button type="submit" id="search-button">
-            <i class="fa fa-search"></i>
-          </button>
         </form>
       <div>
       <div v-if="search_results.length != 0" class="search-results">
@@ -589,7 +586,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 1,
+      page: 0,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,

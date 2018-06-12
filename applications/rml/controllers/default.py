@@ -175,6 +175,7 @@ def match_address(search_address, db_address):
         # print 'search_address not in db_address'
         return False
 
+
 # Goes through table properties and returns a list of property objects with address that contains the substring passed in
 # input: search_str
 # output: list of property obj
@@ -349,14 +350,22 @@ def get_properties(inputIds=None):
         properties=properties
     ))
 
-# private method, not an actual route
+# Private method, not an actual route
 def add_property():
     return response.json(dict(
         msg='add_property'
     ))
 
-def get_landlord(landlord_id):
-    q = (db.landlords.id == landlord_id)
+#
+def get_landlord(landlord_id=None):
+    if request.vars.landlord_id:
+        q = (db.landlords.id == request.vars.landlord_id)
+    elif landlord_id:
+        q = (db.landlords.id == landlord_id)
+    else:
+        print("In get_landlord(): landlord_id cannot be NULL")
+        return "nok"
+
     r = db(q).select().first()
     return dict(
         id           = r.id,
@@ -592,7 +601,7 @@ def add_review():
         state   = request.vars.state,
         zipcode = request.vars.zip
     )
-    logger.info(address_obj)
+    # logger.info(address_obj)
     address = format_address(address_obj)
     logger.info(address)
 
