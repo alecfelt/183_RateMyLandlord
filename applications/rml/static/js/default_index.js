@@ -392,10 +392,6 @@ Vue.component('LandlordPage', {
                 {{landlord.avg_p_rating}} </p>
             <p v-if="!landlord.avg_p_rating">
                 N/A </p>
-            <h3>Responsiveness</h3>
-            <p>5.0</p>
-            <h3>Certified Slumlord?</h3>
-            <p>No</p>
           </div>
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
