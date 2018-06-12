@@ -48,6 +48,10 @@
 }
 
 /* STYLES FOR RATINGS */
+.rating-list {
+  width: 80%;
+  margin: 16pt 0;
+}
 
 .rating-card{
   width: calc(100% - 64pt);
@@ -154,6 +158,10 @@
 /* STYLES THE RESPONSIVENESS */
 
 @media (max-width: 745px) {
+  .rating-list {
+    width: 100%;
+  }
+
   .rating-card {
     align-items: center;
   }
