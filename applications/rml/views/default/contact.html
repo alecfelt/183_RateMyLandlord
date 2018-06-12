@@ -49,7 +49,7 @@
           <!-- Navbar ======================================= -->
           <div class="nav-bar">
             <div class="logo">
-              <a href="" @click.prevent="nav_to_home_page"><h1>RateMyLandlord</h1></a>
+              <a href="{{=URL('default', 'index')}}"><h1>RateMyLandlord</h1></a>
             </div>
             <div class="nav-links">
               <ul>
@@ -59,8 +59,8 @@
                 {{else:}}
                   <li><a href="{{=URL('default', 'user/login')}}">login</a></li>
                 {{pass}}
-                <li><a href="" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
-                <li><a href="" @click.prevent="nav_to_find_property">Find a Property</a></li>
+                <!-- <li><a href="" @click.prevent="nav_to_find_landlord_page">Find a Landlord</a></li>
+                <li><a href="" @click.prevent="nav_to_find_property">Find a Property</a></li> -->
               </ul>
             </div>
           </div>

@@ -15,6 +15,8 @@ import datetime
 db.define_table('landlords',
     Field('first_name', type='string'),
     Field('last_name', type='string'),
+    Field('average_l_rating', type='double'),
+    Field('average_p_rating', type='double'),
     Field('property_ids', type='list:integer'),
     Field('review_ids', type='list:integer'),
     Field('tag_ids', type='list:integer'),

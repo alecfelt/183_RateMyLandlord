@@ -4,7 +4,7 @@
 .center>div {text-align:center}
 .container img {max-width:90%; margin:auto}
 
-/*** cards from http://codepen.io/edeesims/pen/iGDzk ***/
+/*** cards referenced from http://codepen.io/edeesims/pen/iGDzk ***/
 .card {perspective: 500px; max-width:100%}
 .card>div {
   position: absolute;

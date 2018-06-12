@@ -121,9 +121,8 @@
 .rate-landlord-form select{
   outline: none;
   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   background-image:
+  -moz-appearance: none;
+  appearance: none;
   font-family: 'Open Sans', sans-serif;
   padding: 8pt;
 }
@@ -131,9 +130,24 @@
 .rate-property-form select{
   outline: none;
   -webkit-appearance: none;
-   -moz-appearance: none;
-   appearance: none;
-   background-image:
+  -moz-appearance: none;
+  appearance: none;
   font-family: 'Open Sans', sans-serif;
   padding: 8pt;
+}
+
+.radio-item {
+  padding: 8pt 0;
+  padding-right: 16pt;
+}
+
+.rate-radio-answer {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.tag-form {
+  width: 100%;
 }

@@ -37,11 +37,17 @@ Vue.component('HomePage', {
           <div class="rating-items">
             <div class="ratings">
               <h3>Overall Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_l_rating">
+                  {{landlord.avg_l_rating}} </p>
+              <p v-if="!landlord.avg_l_rating">
+                  N/A </p>
             </div>
             <div class="ratings">
               <h3>Average Property Rating</h3>
-              <p>5.0</p>
+              <p v-if="landlord.avg_p_rating">
+                  {{landlord.avg_p_rating}} </p>
+              <p v-if="!landlord.avg_p_rating">
+                  N/A </p>
             </div>
           </div>
         </div>
@@ -153,7 +159,7 @@ Vue.component('WriteReview', {
           </div>
 
           <div class="rate-property-form">
-              <h3>Step4: Rate your property </h3>
+              <h3>Step 4: Rate your property</h3>
               <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select
@@ -166,53 +172,48 @@ Vue.component('WriteReview', {
               </select>
           </div>
 
-          <div>
-              <p> Would you rent with this landlord again?<p>
-              <div>
-                  <input type="radio" name="land" value="yes" v-model="rent_with_landlord_again">yes!<br>
-                  <input type="radio" name="land" value="no" v-model="rent_with_landlord_again">no!<br>
-              </div>
+          <div class="rate-extras-form">
+            <h3>Step 5: Tell us a bit more</h3>
+
+            <p>Would you rent with this landlord again?</p>
+            <div class="rate-radio-answer">
+              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_landlord_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_landlord_again"/><label> No</label></input></div>
+            </div>
+
+            <p>Would you rent this propery again?</p>
+            <div class="rate-radio-answer">
+              <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
+              <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
+            </div>
+
+            <div class="tag-form">
+            <div class="tag-form-question">
+              <p>Please select tags to describe your landlord.</p>
+              <ul>
+                <li
+                  v-for="tag in LANDLORD_TAGS"
+                  v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
+                  {{tag}}
+                </li>
+              </ul>
+            </div>
+            <div class="tag-form-question">
+              <p>Please select tags to describe the property.</p>
+              <ul>
+                <li
+                  v-for="tag in PROPERTY_TAGS"
+                  v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
+                      {{tag}}
+                </li>
+              </ul>
+            </div>
+            </div>
           </div>
 
-          <div>
-              <p> Would you rent this propery again? </p>
-              <div>
-                  <input type="radio" name="rent" value="yes" v-model="rent_with_property_again">yes!<br>
-                  <input type="radio" name="rent" value="no" v-model="rent_with_property_again">no!<br>
-              </div>
-          </div>
-
-          <div>
-              <p>
-                  please select from a list of tags that you think you'd find helpful.
-              </p>
-              <div id="landlord-tags-container">
-                  <p> Landlord Tags </p>
-                  <ul>
-                      <li
-                          v-for="tag in LANDLORD_TAGS"
-                          v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
-                              {{tag}}
-                      </li>
-                  </ul>
-              </div>
-              <div id="landlord-tags-container">
-                  <p> Property Tags </p>
-                  <ul>
-                      <li
-                          v-for="tag in PROPERTY_TAGS"
-                          v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
-                              {{tag}}
-                      </li>
-                  </ul>
-              </div>
-          </div>
-
-          <div>
-              <p> Your unique experience </p>
-              <textarea v-model="comments">
-
-              </textarea>
+          <div class="review-comment">
+              <p>Please describe your experience with this landlord</p>
+              <textarea v-model="comments"/>
           </div>
 
           <div class="new_review_buttons">
@@ -253,6 +254,9 @@ Vue.component('FindLandlord', {
       );
     },
     handle_landlord_select: function(result) {
+      // console.log("selcted landlord")
+      // console.log(result);
+      // console.log(result.first_name)
       this.toggle_selected_landlord(result);
       this.on_select();
     }
@@ -272,11 +276,17 @@ Vue.component('FindLandlord', {
             <div class="rating-items">
               <div class="ratings">
                 <h3>Overall Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_l_rating">
+                    {{result.avg_l_rating}} </p>
+                <p v-if="!result.avg_l_rating">
+                    N/A </p>
               </div>
               <div class="ratings">
                 <h3>Average Property Rating</h3>
-                <p>5.0</p>
+                <p v-if="result.avg_p_rating">
+                    {{result.avg_p_rating}} </p>
+                <p v-if="!result.avg_p_rating">
+                    N/A </p>
               </div>
             </div>
           </div>
@@ -367,15 +377,21 @@ Vue.component('LandlordPage', {
         write a review for this landlord
       </a>
       <div class="rating-card">
-        <h1>Landlord Name McNamey</h1>
+        <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
         <div class="rating-items">
           <div class="ratings">
             <h2>Overall Rating</h2>
-            <p>5.0</p>
+            <p v-if="landlord.avg_l_rating">
+                {{landlord.avg_l_rating}} </p>
+            <p v-if="!landlord.avg_l_rating">
+                N/A </p>
           </div>
           <div class="ratings-extras">
             <h3>Average Property Rating</h3>
-            <p>5.0</p>
+            <p v-if="landlord.avg_p_rating">
+                {{landlord.avg_p_rating}} </p>
+            <p v-if="!landlord.avg_p_rating">
+                N/A </p>
             <h3>Responsiveness</h3>
             <p>5.0</p>
             <h3>Certified Slumlord?</h3>
@@ -478,9 +494,9 @@ var app = function() {
     self.vue.page = self.vue.WRITE_REVIEW;
   }
 
-  self.toggle_selected_landlord = function(landlord_name) {
-    console.log(landlord_name);
-      self.vue.selected_landlord = landlord_name;
+  self.toggle_selected_landlord = function(landlord) {
+    console.log(landlord);
+      self.vue.selected_landlord = landlord;
   }
 
   self.toggle_selected_property = function(property) {
