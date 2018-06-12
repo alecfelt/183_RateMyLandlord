@@ -45,10 +45,11 @@ Vue.component('HomePage', {
   `
 });
 Vue.component('WriteReview', {
-  props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS'],
+  props: ['landlord', 'nav_to_landlord_page', 'PROPERTY_TAGS', 'LANDLORD_TAGS', 'toggle_selected_landlord'],
   methods: {
     add_review: function() {
-      console.log(this._data);
+      // console.log(this._data);
+      console.log(this);
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
@@ -56,7 +57,9 @@ Vue.component('WriteReview', {
           this._data,
           function(data) {
             if(data == "ok"){
-              that.nav_to_landlord_page(that.landlord.id);
+              // this.toggle_selected_landlord(data.landlord);
+              // that.nav_to_landlord_page(that.landlord.id);
+              that.nav_to_landlord_page();
             }
           }
         );
@@ -85,6 +88,7 @@ Vue.component('WriteReview', {
   },
   data: function() {
     return {
+      landlord_id: this.landlord.id,
       street: null,
       city: null,
       state: null,
@@ -528,6 +532,26 @@ var app = function() {
   self.set_search_results = function(results){
     self.vue.search_results = results;
   }
+
+  self.get_reviews = function(landlord_id){
+      $.post(
+        create_landlord_url,
+        {
+          first_name: first_name,
+          last_name: last_name,
+          // website: website,
+        },
+        function(data){
+          if(data === "nok") {
+              console.err("Error in adding landlord");
+          }
+          console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
+          self.vue.landlord_list.unshift(data.landlord);
+          self.toggle_selected_landlord(data.landlord);
+          self.nav_to_write_review();
+        }
+      );
+  };
 
 
   // Complete as needed.
