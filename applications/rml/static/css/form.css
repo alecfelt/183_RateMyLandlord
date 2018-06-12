@@ -101,3 +101,68 @@ input[type="radio"] label{
   color: #FFF;
   background-color: #F49D37 !important;
 }
+
+.review-comment textarea{
+  outline: none;
+  resize: none;
+  margin: 8pt 0;
+  width: 100%;
+  height: 128pt;
+  border: 1px solid #091A22;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 80%;
+
+  -webkit-transition: border 300ms ease-in-out;
+  -moz-transition: border 300ms ease-in-out;
+  -o-transition: border 300ms ease-in-out;
+  transition: border 300ms ease-in-out;
+}
+
+.review-comment textarea:focus{
+  border: 1px solid #F49D37;
+}
+
+.new_review_buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.new_review_buttons input[type="submit"]{
+  flex: 1;
+  padding: 16pt 32pt;
+  border-radius: 4pt;
+  margin: 8pt 16pt;
+  width: calc(100% - 32pt);
+  font-size: 100%;
+  color: #FFF;
+  text-transform: lowercase;
+  border: none;
+  background-color: #091A22;
+  line-height: 1;
+
+  -webkit-transition: background-color 300ms ease-in-out;
+  -moz-transition: background-color 300ms ease-in-out;
+  -o-transition: background-color 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out;
+}
+
+.new_review_buttons input[type="submit"]:hover {
+  cursor: pointer;
+  background-color: #F49D37;
+}
+
+/* ANY RESPONSIVENESS */
+@media (max-width: 745px) {
+  .new-review-buttons {
+    display: block;
+    text-align:center;
+  }
+
+  .landing-buttons input[type="submit"] {
+    width: 80%;
+  }
+}
