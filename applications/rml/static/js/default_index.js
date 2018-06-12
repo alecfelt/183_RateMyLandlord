@@ -53,7 +53,7 @@ Vue.component('WriteReview', {
   methods: {
     add_review: function() {
       // console.log(this._data);
-      console.log(this);
+      console.log(this._data);
       if(this.validate_review()) {
         this._data.landlord_id = this.landlord.id;
         var that = this;
@@ -423,29 +423,46 @@ Vue.component('LandlordPage', {
             <h3>Tags for this Landlord</h3>
             <ul>
               <li v-for="tag_id in landlord.tag_ids">
-                {{tag_id}}
+                {{LANDLORD_TAGS[tag_id]}}
               </li>
             </ul>
           </div>
         </div>
         <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
       </div>
-      <div class="review-list">
-        <ul>
-          <li v-for="review in review_list">
-            {{review}}
-            <ul>
-              <li v-for="tag_id in review.landlord_tag_ids">
-                {{ LANDLORD_TAGS[tag_id] }}
-              </li>
-            </ul>
-            <ul>
-              <li v-for="tag_id in review.property_tag_ids">
-                {{ PROPERTY_TAGS[tag_id] }}
-              </li>
-            </ul>
-          </li>
-        </ul>
+      <h1>Recently Added Reviews</h1>
+      <div class="rating-list">
+        <div class="rating-card" v-for="review in review_list">
+        <h2>Review</h2>
+          <p style="text-transform:none;">{{review.comments}}</p>
+          <div class="rating-items">
+            <div>
+              <h3>Landlord Rating</h3>
+              <p>{{review.landlord_rating}}</p>
+            </div>
+            <div>
+              <h3>Property Rating</h3>
+              <p>{{review.property_rating}}</p>
+              <p v-if="!landlord.avg_p_rating">N/A</p>
+            </div>
+            <div class="ratings-tags">
+              <h3>Tags for this landlord</h3>
+              <ul>
+                <li v-for="tag_id in review.landlord_tag_ids">
+                  {{ LANDLORD_TAGS[tag_id] }}
+                </li>
+              </ul>
+            </div>
+            <div class="ratings-tags">
+              <h3>Tags for the rated property</h3>
+              <ul>
+                <li v-for="tag_id in review.property_tag_ids">
+                  {{ PROPERTY_TAGS[tag_id] }}
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   `

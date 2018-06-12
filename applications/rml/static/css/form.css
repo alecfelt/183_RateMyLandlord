@@ -58,6 +58,7 @@
 }
 
 .custom-select:hover {
+  cursor: pointer;
   border: 1px solid #F49D37;
   background-color: #F49D37;
 }
@@ -65,22 +66,22 @@
 .custom-select select {
   color: #FFF;
   font-family: 'Oswald', sans-serif;
-    outline:none;
-    padding: 4px 16px;
-    font-size: 100%;
-    width: 100%;
-    border: none;
-    border-radius: 4pt;
-    box-shadow: none;
+  outline:none;
+  padding: 4px 16px;
+  font-size: 100%;
+  width: 100%;
+  border: none;
+  border-radius: 4pt;
+  box-shadow: none;
 
-    background: transparent;
-    background-image: none;
-    -webkit-appearance: none;
+  background: transparent;
+  background-image: none;
+  -webkit-appearance: none;
 }
 
-select[selected="selected"] .custom-select{
-  border: 1px solid #F49D37;
-  background-color: #F49D37;
+.custom-select select:hover {
+
+    cursor: pointer;
 }
 
 input[type="radio"] label{
