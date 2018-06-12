@@ -355,7 +355,7 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review'],
+  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
   template: `
     <div class="sub-page">
       <div class="rating-card">
@@ -467,6 +467,7 @@ var app = function() {
   }
 
   self.nav_to_landlord_page = function() {
+    self.get_reviews(self.vue.selected_landlord);
     self.vue.page = self.vue.LANDLORD_PAGE;
   }
 
@@ -475,12 +476,12 @@ var app = function() {
   }
 
   self.toggle_selected_landlord = function(landlord) {
-    console.log(landlord);
+      console.log(landlord);
       self.vue.selected_landlord = landlord;
   }
 
   self.toggle_selected_property = function(property) {
-    console.log(property);
+      console.log(property);
       self.vue.selected_property = property;
   }
 
@@ -526,20 +527,14 @@ var app = function() {
 
   self.get_reviews = function(landlord_id){
       $.post(
-        create_landlord_url,
+        get_reviews_url,
         {
-          first_name: first_name,
-          last_name: last_name,
-          // website: website,
+          landlord_id: landlord_id
         },
         function(data){
-          if(data === "nok") {
-              console.err("Error in adding landlord");
-          }
-          console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
-          self.vue.landlord_list.unshift(data.landlord);
           self.toggle_selected_landlord(data.landlord);
-          self.nav_to_write_review();
+          self.vue.address_list = data.addresses;
+          self.vue.review_list = data.reviews;
         }
       );
   };
@@ -639,8 +634,9 @@ var app = function() {
         'WY'
       ],
       landlord_list: [],
+      address_list: [],
       search_results: [],
-      selected_landlord: 'Tom',
+      selected_landlord: null,
       selected_property: null,
       form_title: null,
     },
