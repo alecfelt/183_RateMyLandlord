@@ -238,6 +238,7 @@ Vue.component('FindLandlord', {
         ],
   methods: {
     handle_search: function(event) {
+      console.log('handle_search');
       var search_str = event.target.value;
       console.log("Searching for " + search_str);
       var that = this;
@@ -254,7 +255,7 @@ Vue.component('FindLandlord', {
       );
     },
     handle_landlord_select: function(result) {
-      // console.log("selcted landlord")
+      console.log("selcted landlord")
       // console.log(result);
       // console.log(result.first_name)
       this.toggle_selected_landlord(result);

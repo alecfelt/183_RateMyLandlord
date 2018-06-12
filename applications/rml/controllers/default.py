@@ -280,6 +280,7 @@ def landlord_exists(first_name, last_name):
 # output: data = {name: "name", website: "website url", property_ids: [4, 5]}
 def add_landlord():
     # Return an error if landlord name is null
+    logger.info(request.vars)
     if request.vars.first_name and request.vars.last_name:
         (first_name, last_name) = format_name(request.vars.first_name, request.vars.last_name)
     else:
