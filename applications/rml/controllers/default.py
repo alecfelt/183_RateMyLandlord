@@ -659,9 +659,7 @@ def add_review():
     )
     logger.info(review_obj)
 
-    review_id = insert_into_reviews(review_obj)
-    logger.info(review_id)
-    logger.info(type(review_id))
+    review_id = int(insert_into_reviews(review_obj))
 
     # Insert landlord landlords
     landlord_obj = dict(
@@ -670,6 +668,7 @@ def add_review():
         tag_ids      = landlord_tag_ids
     )
     logger.info(landlord_obj)
+    logger.info(landlord_id)
     landlord_obj = update_landlord(landlord_id, landlord_obj)
 
     return "ok"
