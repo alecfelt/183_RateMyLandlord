@@ -127,7 +127,7 @@ Vue.component('WriteReview', {
               type="text" />
             <p> State </p>
               <select v-model="state">
-                <option v-for="state in STATE_LIST" >{{state}}</option>
+                <option v-for="state in STATE_LIST">{{state}}</option>
               </select>
             <p> Zip </p>
             <input
@@ -391,6 +391,13 @@ Vue.component('LandlordPage', {
           </div>
         </div>
         <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
+      </div>
+      <div class="review-list">
+        <ul>
+          <li v-for="review in review_list">
+            {{review}}
+          </li>
+        </ul>
       </div>
     </div>
   `
