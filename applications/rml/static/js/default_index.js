@@ -113,23 +113,25 @@ Vue.component('WriteReview', {
         <form action="#" v-on:submit.prevent="add_review" class="review-items">
           <div class="address-form">
             <h3>Step 2: Identify the Property</h3>
-            <p>Street</p>
+            <p>a. Street</p>
             <input
               placeholder="Ex: 212 Bleecker"
               v-model="street"
               name="address"
               type="text" />
-            <p> City </p>
+            <p>b. City</p>
             <input
               placeholder="Ex: New York"
               v-model="city"
               name="address"
               type="text" />
-            <p> State </p>
+            <p>c. State</p>
+            <div class="custom-select">
               <select v-model="state">
-                <option v-for="state in STATE_LIST" value="state">{{state}}</option>
+                <option v-for="state in STATE_LIST">{{state}}</option>
               </select>
-            <p> Zip </p>
+            </div>
+            <p>d. Zip</p>
             <input
               placeholder="Ex: 90210"
               v-model="zip"
@@ -138,7 +140,7 @@ Vue.component('WriteReview', {
           </div>
           <div class="rate-landlord-form">
               <h3>Step 3: Rate Your Landlord</h3>
-              <label class="select">
+              <div class="custom-select">
                 <select v-model="landlord_rating">
                     <option selected="true" disabled="true">
                         please select
@@ -149,11 +151,12 @@ Vue.component('WriteReview', {
                     <option value="4"> 4 </option>
                     <option value="5"> 5 </option>
                 </select>
-              </label>
+              </div<
           </div>
 
           <div class="rate-property-form">
               <h3>Step 4: Rate your property</h3>
+            <div class="custom-select">
               <select v-model="property_rating">
                   <option selected="true" disabled="true">
                       please select
@@ -164,6 +167,7 @@ Vue.component('WriteReview', {
                   <option value="4"> 4 </option>
                   <option value="5"> 5 </option>
               </select>
+            </div>
           </div>
 
           <div class="rate-extras-form">
@@ -355,7 +359,13 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
+  props: ['landlord',
+          'nav_to_write_review',
+          'LANDLORD_TAGS',
+          'PROPERTY_TAGS',
+          'review_list',
+          'address_list'
+        ],
   template: `
     <div class="sub-page">
       <div class="rating-card">
@@ -378,13 +388,20 @@ Vue.component('LandlordPage', {
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
             <ul>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
+              <li v-for="tag_id in landlord.tag_ids">
+                {{tag_id}}
+              </li>
             </ul>
           </div>
         </div>
-        <a href="#" @click.prevent="nav_to_write_review(landlord)">write a review for this landlord</a>
+        <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
+      </div>
+      <div class="review-list">
+        <ul>
+          <li v-for="review in review_list">
+            {{review}}
+          </li>
+        </ul>
       </div>
     </div>
   `
@@ -550,7 +567,7 @@ var app = function() {
     delimiters: ['${', '}'],
     unsafeDelimiters: ['!{', '}'],
     data: {
-      page: 0,
+      page: 1,
       HOME_PAGE: 0,
       FIND_LANDLORD_TO_REVIEW: 1,
       FIND_LANDLORD_PAGE: 2,
