@@ -32,7 +32,7 @@ Vue.component('HomePage', {
       </div>
       <h1 v-if="(landlord_list.length!=0)" style="margin:0; margin-bottom: -16pt;">Recently Added Landlords</h1>
       <div class="search-results">
-        <div @click.prevent="handle_landlord_select(landlord.first_name)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
+        <div @click.prevent="handle_landlord_select(landlord)" v-for="landlord in landlord_list.slice(0, 5)" class="search-result">
           <h1>{{landlord.first_name}} {{landlord.last_name}}</h1>
           <div class="rating-items">
             <div class="ratings">
