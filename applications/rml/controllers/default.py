@@ -557,6 +557,7 @@ def add_review():
     logger.info(request.vars)
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
+        logger.info(landlord_id)
     else:
         print "In add_review(): landlord_id should never be null"
         return "nok"
@@ -567,6 +568,7 @@ def add_review():
         state   = request.vars.state,
         zipcode = request.vars.zip
     )
+    logger.info(address_obj)
     address = format_address(address_obj)
 
     # Check if property already exists
