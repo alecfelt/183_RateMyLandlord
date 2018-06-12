@@ -430,8 +430,8 @@ Vue.component('LandlordPage', {
         </div>
         <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
       </div>
-      <div v-if="review_list.length > 0" class="rating-list">
-        <h1>Recently Added Reviews</h1>
+      <h1 v-if="review_list.length> 0">Recently Added Reviews</h1>
+      <div v-if="review_list.length> 0" class="rating-list">
         <div class="rating-card" v-for="review in review_list">
           <h2>{{address_list[review_list.indexOf(review)]}}</h2>
           <h3>Comments on this property</h3>
