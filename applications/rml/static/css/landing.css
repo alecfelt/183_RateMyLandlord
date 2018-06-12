@@ -13,16 +13,8 @@
   border-radius: 4pt;
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  -o-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
-
-  transition: box-shadow 150ms ease-in-out, width 150ms ease-in-out;
-}
-
-.call-to-action:hover{
-  width: 101%;
-  -webkit-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
 }
 
 .call-to-action h1 {
@@ -51,6 +43,9 @@
   background-color: #091A22;
   line-height: 1;
 
+  -webkit-transition: background-color 300ms ease-in-out;
+  -moz-transition: background-color 300ms ease-in-out;
+  -o-transition: background-color 300ms ease-in-out;
   transition: background-color 300ms ease-in-out;
 }
 
@@ -81,6 +76,7 @@
 .landlord-card {
   width: calc(80% - 64pt);
   padding: 16pt 32pt;
+  margin-bottom: 16pt;
 
   display: flex;
   flex-direction: row;
@@ -91,8 +87,12 @@
   border-radius: 4pt;
   -webkit-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   -moz-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  -o-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
 
+  -webkit-transition: box-shadow 150ms ease-in-out, width 150ms ease-in-out;
+  -moz-transition: box-shadow 150ms ease-in-out, width 150ms ease-in-out;
+  -o-transition: box-shadow 150ms ease-in-out, width 150ms ease-in-out;
   transition: box-shadow 150ms ease-in-out, width 150ms ease-in-out;
 }
 
@@ -101,10 +101,13 @@
 }
 
 .landlord-card:hover{
-  width: 101%;
-  -webkit-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
-  box-shadow: 0px 16px 32px 0px rgba(0,0,0,0.1);
+  z-index: 1;
+  cursor: pointer;
+  width: calc(81% - 64pt);
+  -webkit-box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+  -moz-box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+  -o-box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
+  box-shadow: 0px 16px 32px 0px rgba(244, 157, 55, .5);
 }
 
 .recents-rating {
