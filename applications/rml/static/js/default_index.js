@@ -335,15 +335,15 @@ Vue.component('FindProperty', {
           console.log('data');
           console.log(data);
 
-          $.post(get_landlord_url,
-            {
-              search_str: data.properties.landlord_ids
-            },
-            function(data) {
-              console.log('nesty call back');
-              console.log(data);
-            }
-          );
+          // $.post(get_landlord_url,
+          //   {
+          //     search_str: data.properties
+          //   },
+          //   function(data) {
+          //     console.log('nesty call back');
+          //     console.log(data);
+          //   }
+          // );
 
 
           $('#search-button').prop('enabled', true);
