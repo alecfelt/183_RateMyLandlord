@@ -233,6 +233,7 @@ Vue.component('WriteReview', {
 
           <div class="new_review_buttons">
             <p v-if="!err_no" style="color: #EE6055">Please go back and verify that you have filled out the entire form!</p>
+            <p v-if="err_no">In the pursuit of integrity, all reviews are final. Please double-check your review before posting.</p>
             <div class="form-group" id="submit_review">
               <div>
                 <input class="btn btn-primary " id="add_review_btn" type="submit" value="Post This Review" />
