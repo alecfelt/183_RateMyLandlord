@@ -2,6 +2,9 @@
 
 ###
 https://kev.iex.ist/
+https://crumkev.in/
+
+Both route to same url https://crumkev.in/
 
 web2py is a free open source full-stack framework for rapid development of fast, scalable, secure and portable database-driven web-based applications.
 
