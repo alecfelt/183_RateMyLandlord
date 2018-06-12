@@ -432,7 +432,8 @@ Vue.component('LandlordPage', {
       <div v-if="review_list.length > 0" class="rating-list">
         <h1>Recently Added Reviews</h1>
         <div class="rating-card" v-for="review in review_list">
-          <h2>Review</h2>
+          <h2>{{address_list[review_list.indexOf(review)]}}</h2>
+          <h3>Comments on this property</h3>
           <p style="text-transform:none;">{{review.comments}}</p>
           <div class="rating-items">
             <div>
