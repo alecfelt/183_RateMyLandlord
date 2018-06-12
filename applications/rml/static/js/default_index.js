@@ -49,7 +49,8 @@ Vue.component('WriteReview', {
           'nav_to_landlord_page',
           'PROPERTY_TAGS',
           'LANDLORD_TAGS',
-          'STATE_LIST'],
+          'STATE_LIST',
+          'err_no'],
   methods: {
     add_review: function() {
       // console.log(this._data);
@@ -70,16 +71,18 @@ Vue.component('WriteReview', {
             }
           }
         );
-      }else{
-        alert('failed submission');
+      } else {
+        // alert("what")
       }
     },
     validate_review() {
       for(var key in this._data) {
         if(this._data[key] == null) {
+          this.err_no = false;
           return false;
         }
       }
+      this.err_no = true;
       return true;
     },
     handle_landlord_tag(index) {
@@ -226,7 +229,10 @@ Vue.component('WriteReview', {
               <textarea v-model="comments"/>
           </div>
 
+
+
           <div class="new_review_buttons">
+            <p v-if="!err_no" style="color: #EE6055">Please go back and verify that you have filled out the entire form!</p>
             <div class="form-group" id="submit_review">
               <div>
                 <input class="btn btn-primary " id="add_review_btn" type="submit" value="Post This Review" />
@@ -697,6 +703,7 @@ var app = function() {
       selected_landlord: null,
       selected_property: null,
       form_title: null,
+      err_no: true,
     },
     methods: {
       nav_to_find_landlord_to_review: self.nav_to_find_landlord_to_review,
