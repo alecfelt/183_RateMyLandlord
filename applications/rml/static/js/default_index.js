@@ -515,11 +515,12 @@ var app = function() {
       },
       function(data){
         if(data === "nok") {
-            console.err("Error in adding landlord")
+            console.err("Error in adding landlord");
         }
         console.log(data.landlord.first_name + " " + data.landlord.last_name + " was inserted into the database");
         self.vue.landlord_list.unshift(data.landlord);
         self.toggle_selected_landlord(data.landlord);
+        self.nav_to_write_review();
       }
     );
   }
