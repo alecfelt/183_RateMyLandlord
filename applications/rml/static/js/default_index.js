@@ -412,6 +412,16 @@ Vue.component('LandlordPage', {
         <ul>
           <li v-for="review in review_list">
             {{review}}
+            <ul>
+              <li v-for="tag_id in review.landlord_tag_ids">
+                {{ LANDLORD_TAGS[tag_id] }}
+              </li>
+            </ul>
+            <ul>
+              <li v-for="tag_id in review.property_tag_ids">
+                {{ PROPERTY_TAGS[tag_id] }}
+              </li>
+            </ul>
           </li>
         </ul>
       </div>
