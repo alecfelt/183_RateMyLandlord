@@ -127,7 +127,7 @@ Vue.component('WriteReview', {
               type="text" />
             <p> State </p>
               <select v-model="state">
-                <option v-for="state in STATE_LIST" value="state">{{state}}</option>
+                <option v-for="state in STATE_LIST" >{{state}}</option>
               </select>
             <p> Zip </p>
             <input
@@ -355,7 +355,13 @@ Vue.component('FindProperty', {
   `
 });
 Vue.component('LandlordPage', {
-  props: ['landlord', 'nav_to_write_review', 'LANDLORD_TAGS', 'PROPERTY_TAGS'],
+  props: ['landlord',
+          'nav_to_write_review',
+          'LANDLORD_TAGS',
+          'PROPERTY_TAGS',
+          'review_list',
+          'address_list'
+        ],
   template: `
     <div class="sub-page">
       <div class="rating-card">
@@ -378,13 +384,13 @@ Vue.component('LandlordPage', {
           <div class="ratings-tags">
             <h3>Tags for this Landlord</h3>
             <ul>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
-              <li>Tag Items would go here</li>
+              <li v-for="tag_id in landlord.tag_ids">
+                {{tag_id}}
+              </li>
             </ul>
           </div>
         </div>
-        <a href="#" @click.prevent="nav_to_write_review(landlord)">write a review for this landlord</a>
+        <a href="#" @click.prevent="nav_to_write_review()">write a review for this landlord</a>
       </div>
     </div>
   `

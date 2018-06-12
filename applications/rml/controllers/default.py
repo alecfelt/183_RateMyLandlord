@@ -554,6 +554,7 @@ def test_route():
 # comments: null
 # output: "ok"
 def add_review():
+    logger.info(request.vars)
     if request.vars.landlord_id:
         landlord_id = request.vars.landlord_id
     else:
