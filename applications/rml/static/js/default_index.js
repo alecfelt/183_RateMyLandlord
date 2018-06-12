@@ -82,11 +82,20 @@ Vue.component('WriteReview', {
     handle_landlord_tag(index) {
       if(this.landlord_tag_ids.indexOf(index) == -1) {
         this.landlord_tag_ids.push(index);
+        $('#landlord-form-tags li:nth-child(' + (index + 1) + ')').addClass('tag-selected');
+      } else {
+        this.landlord_tag_ids.splice(index, 1);
+        $('#landlord-form-tags li:nth-child(' + (index + 1) + ')').removeClass('tag-selected');
       }
+
     },
     handle_property_tag(index) {
       if(this.property_tag_ids.indexOf(index) == -1) {
         this.property_tag_ids.push(index);
+        $('#property-form-tags li:nth-child(' + (index + 1) + ')').addClass('tag-selected');
+      } else {
+        this.property_tag_ids.splice(index, 1);
+        $('#property-form-tags li:nth-child(' + (index + 1) + ')').removeClass('tag-selected');
       }
     }
   },
@@ -174,21 +183,21 @@ Vue.component('WriteReview', {
             <h3>Step 5: Tell us a bit more</h3>
 
             <p>Would you rent with this landlord again?</p>
-            <div class="rate-radio-answer">
+            <div class="rate-radio">
               <div class="radio-item"><input type="radio" name="land" value="yes" v-model="rent_with_landlord_again"/><label> Yes</label></input></div>
               <div class="radio-item"><input type="radio" name="land" value="no" v-model="rent_with_landlord_again"/><label> No</label></input></div>
             </div>
 
             <p>Would you rent this propery again?</p>
-            <div class="rate-radio-answer">
+            <div class="rate-radio">
               <div class="radio-item"><input type="radio" name="prop" value="yes" v-model="rent_with_property_again"/><label> Yes</label></input></div>
               <div class="radio-item"><input type="radio" name="prop" value="no" v-model="rent_with_property_again"/><label> No</label></input></div>
             </div>
 
             <div class="tag-form">
-            <div class="tag-form-question">
+            <div class="ratings-tags">
               <p>Please select tags to describe your landlord.</p>
-              <ul>
+              <ul id="landlord-form-tags" class="form-tags">
                 <li
                   v-for="tag in LANDLORD_TAGS"
                   v-on:click="handle_landlord_tag(LANDLORD_TAGS.indexOf(tag))">
@@ -196,9 +205,9 @@ Vue.component('WriteReview', {
                 </li>
               </ul>
             </div>
-            <div class="tag-form-question">
+            <div class="ratings-tags">
               <p>Please select tags to describe the property.</p>
-              <ul>
+              <ul id="property-form-tags" class="form-tags">
                 <li
                   v-for="tag in PROPERTY_TAGS"
                   v-on:click="handle_property_tag(PROPERTY_TAGS.indexOf(tag))">
