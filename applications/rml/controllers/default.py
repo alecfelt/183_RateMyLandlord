@@ -614,6 +614,8 @@ def add_review():
             address = address,
             landlord_ids = [landlord_id])
 
+    logger.info(request.vars.landlord_tag_ids)
+    logger.info(request.vars.property_tag_ids)
     # Insert review
     review_obj = dict(
         landlord_id = landlord_id,
