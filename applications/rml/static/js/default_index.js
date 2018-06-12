@@ -309,7 +309,7 @@ Vue.component('FindProperty', {
         ],
   methods: {
     handle_search: function(event) {
-      var search_str = event.target.search_box.value;
+      var search_str = event.target.value;
       console.log(search_str);
       var that = this;
       $.post(search_properties_url,
