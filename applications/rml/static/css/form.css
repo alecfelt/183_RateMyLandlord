@@ -1,0 +1,84 @@
+/* STYLES THE FORM */
+.write-review-card {
+  /* width: calc(80% - 64pt); */
+  padding: 16pt 32pt;
+  margin-bottom: 16pt;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+
+  background: #FFF;
+  border-radius: 4pt;
+  -webkit-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  -moz-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  -o-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.1);
+}
+
+.write-review-card p {
+  margin: 0;
+  margin-top: 16pt;
+  margin-bottom: 2pt;
+}
+
+.write-review-card input {
+  outline: none;
+}
+
+.write-review-card input[type="text"] {
+  width: calc(100% - 16pt);
+  border-radius: 4pt;
+  border: 1px solid #091A22;
+  padding: 8pt;
+
+  -webkit-transition: border 300ms ease-in-out;
+  -moz-transition: border 300ms ease-in-out;
+  -o-transition: border 300ms ease-in-out;
+  transition: border 300ms ease-in-out;
+}
+
+.write-review-card input[type="text"]:focus {
+  border: 1px solid #F49D37;
+}
+
+
+.custom-select {
+  border: 1px solid #091A22;
+  background-color: #091A22;
+  width: 120px;
+  border-radius: 3px;
+  overflow: hidden;
+
+  -webkit-transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+  -moz-transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+  -o-transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+  transition: background-color 300ms ease-in-out, border 300ms ease-in-out;
+}
+
+.custom-select:hover {
+  border: 1px solid #F49D37;
+  background-color: #F49D37;
+}
+
+.custom-select select {
+  color: #FFF;
+  font-family: 'Oswald', sans-serif;
+    outline:none;
+    padding: 4px 16px;
+    font-size: 100%;
+    width: 100%;
+    border: none;
+    border-radius: 4pt;
+    box-shadow: none;
+
+    background: transparent;
+    background-image: none;
+    -webkit-appearance: none;
+}
+
+select[selected="selected"] .custom-select{
+  border: 1px solid #F49D37;
+  background-color: #F49D37;
+}

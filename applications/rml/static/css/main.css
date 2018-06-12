@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6, strong {
   color: #091A22;
 }
 
-p, a, b, li, input, button, label{
+p, a, b, li, input, button, select{
   font-family: 'Open Sans', sans-serif;
   color: #091A22;
 }
@@ -241,6 +241,10 @@ p, a, b, li, input, button, label{
 
 /* RESPONSIVENESS */
 @media screen and (max-width: 745px) {
+  h1 {
+    font-size: 150%;
+  }
+
   .nav-links ul li:not(:first-child) {
     display: none;
   }

@@ -146,55 +146,7 @@
   color: #EE6055;
 }
 
-/* STYLES FOR THE FORM */
-.address-form input[type="text"]{
-  outline: none;
-  border: 1pt solid #091A22;
-  margin: 4pt 0;
-  width: 100%;
-  padding: 8pt;
-  border-radius: 4pt;
-
-  transition: border 300ms ease-in-out;
-}
-
-.address-form input[type="text"]:focus {
-  border: 1pt solid #F49D37;
-}
-
-.rate-landlord-form select{
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-family: 'Open Sans', sans-serif;
-  padding: 8pt;
-}
-
-.rate-property-form select{
-  outline: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  font-family: 'Open Sans', sans-serif;
-  padding: 8pt;
-}
-
-.radio-item {
-  padding: 8pt 0;
-  padding-right: 16pt;
-}
-
-.rate-radio-answer {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
-
-.tag-form {
-  width: 100%;
-}
+/* STYLES THE RESPONSIVENESS */
 
 @media (max-width: 745px) {
   .rating-card {
