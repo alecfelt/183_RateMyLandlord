@@ -320,6 +320,16 @@ Vue.component('FindProperty', {
           console.log('data.properties');
           console.log(data.properties);
           that.set_search_results(data.properties);
+          console.log('data');
+          console.log(data);
+          // $.post(search_landlords_url,
+          //   {
+          //     search_str: data.properties
+          //   },
+          //   function(data) {
+          //     console.log('nesty call back');
+
+
           $('#search-button').prop('enabled', true);
         }
       );
@@ -330,6 +340,7 @@ Vue.component('FindProperty', {
         result.landlord_ids,
         function(data) {
           console.log(data);
+          console.log('data');
         }
       )
     },
@@ -352,7 +363,7 @@ Vue.component('FindProperty', {
       <div>
       <div v-if="search_results.length != 0" class="search-results">
         <div @click.prevent="handle_property_select(result)" v-for="result in search_results" class="search-result">
-          <h1>{{result.address}}</h1>
+          <h1>{{result.address}} {{result.landlord_ids}}</h1>
         </div>
       </div>
       <div class="search-prompt">

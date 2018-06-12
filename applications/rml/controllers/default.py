@@ -180,18 +180,20 @@ def match_address(search_address, db_address):
 # output: list of property obj
 #         data = { properties: [{id: 1, address: "", landlord_ids: []}, {}, {}] }
 def search_properties():
-    logger.info('here')
-    logger.info(request.vars)
     address = request.vars.search_str if request.vars.search_str else ''
     properties = []
 
     for row in db().select(db.properties.id, db.properties.address, db.properties.landlord_ids, db.properties.tag_ids, orderby=db.properties.address):
         # if address in row.address:
         if match_address(address, row.address):
+            firstname = db().select(db.landlords.id.first_name),
+
             propertie = dict(
                 id=row.id,
                 address=row.address,
-                landlord_ids=row.landlord_ids
+                landlord_ids=row.landlord_ids,
+
+                firstname = db().select(db.landlords.id.first_name),
             )
             properties.append(propertie)
 
